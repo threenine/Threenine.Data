@@ -20,10 +20,22 @@ namespace Threenine.Data
         }
  
         public void Dispose()
-        {
-           Context.Dispose();
-            
-        }
+       {
+           Dispose(true);
+           GC.SuppressFinalize(this);
+       }
+
+         private void Dispose(bool disposing)
+       {
+           if (disposing)
+           {
+               if (Context != null)
+               {
+                   Context.Dispose();
+                   
+               }
+           }
+       }
     }
 
 }
