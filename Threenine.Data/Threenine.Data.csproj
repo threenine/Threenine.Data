@@ -2,6 +2,20 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.0.2</Version>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Company>Three Nine Consulting Limited</Company>
+    <Authors>threenine</Authors>
+    <PackageProjectUrl>https://garywoodfine.com/generic-repository-pattern-net-core/</PackageProjectUrl>
+    <PackageIconUrl>https://github.com/threenine/GenericRepository/threeninedata_icon.png</PackageIconUrl>
+    <PackageTags>generic repository</PackageTags>
+    <Copyright>Copyright ©2018 Three Nine Consulting Limited</Copyright>
+    <Description>A generic respository wrapper library for entity framework core</Description>
+    <PackageLicenseUrl>http://opensource.org/licenses/MS-PL</PackageLicenseUrl>
+    <NeutralLanguage>en</NeutralLanguage>
+    <RepositoryUrl>https://github.com/threenine/GenericRepository</RepositoryUrl>
+    <RepositoryType>github</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>
