@@ -14,4 +14,4 @@ namespace Threenine.Data
         void Delete(T entity);
         void Update(T entity);
       }
-    }
+ }

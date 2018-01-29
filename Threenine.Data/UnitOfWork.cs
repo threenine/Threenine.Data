@@ -29,11 +29,7 @@ namespace Threenine.Data
        {
            if (disposing)
            {
-               if (Context != null)
-               {
-                   Context.Dispose();
-                   
-               }
+               Context?.Dispose();
            }
        }
     }
