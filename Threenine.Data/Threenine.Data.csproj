@@ -11,7 +11,7 @@
     <PackageIconUrl>http://static.threenine.co.uk/threeninedata_icon.png</PackageIconUrl>
     <PackageTags>generic repository</PackageTags>
     <Copyright>Copyright ©2018 Three Nine Consulting Limited</Copyright>
-    <Description>A generic repository wrapper library for entity framework core</Description>
+    <Description>A simple generic repository wrapper library for entity framework core</Description>
     <PackageLicenseUrl>http://opensource.org/licenses/MS-PL</PackageLicenseUrl>
     <NeutralLanguage>en</NeutralLanguage>
     <RepositoryUrl>https://github.com/threenine/GenericRepository</RepositoryUrl>
