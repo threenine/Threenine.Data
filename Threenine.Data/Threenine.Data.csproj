@@ -15,7 +15,7 @@
     <PackageLicenseUrl>http://opensource.org/licenses/MS-PL</PackageLicenseUrl>
     <NeutralLanguage>en</NeutralLanguage>
     <RepositoryUrl>https://github.com/threenine/GenericRepository</RepositoryUrl>
-    <RepositoryType>github</RepositoryType>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>
