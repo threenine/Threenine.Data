@@ -8,7 +8,7 @@ A simple lean and clean generic repository pattern for .net core, providing a si
 
 For a detailed discussion check out my blog post  [Generic Repository Pattern .net core](https://garywoodfine.com/generic-repository-pattern-net-core/)
 
-This package is available to be installed as a nuget package [Threenne.Data](https://www.nuget.org/packages/Threenine.Data/)
+
 
 
 [![threenine logo](https://threenine.co.uk/wp-content/uploads/2016/12/threenine_footer.png)](https://threenine.co.uk/)
