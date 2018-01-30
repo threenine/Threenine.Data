@@ -1,10 +1,10 @@
 # Generic Repository Pattern for C#  .net Core
 
-A Simple lean and clean generic repository pattern for .net core.  
+[![Build status](https://ci.appveyor.com/api/projects/status/6ob8lbutfecvi5n3/branch/master?svg=true)](https://ci.appveyor.com/project/garywoodfine/genericrepository/branch/master)
 
-Simple CRUD (Create , Read, Update and Delete ) routines
+A simple lean and clean generic repository pattern for .net core, providing a simple CRUD (Create , Read, Update and Delete ) abstraction layer for data access routines.
 
-In this example the Delete Functionality has not been implemented. In many cases you may choose to implement "Soft" deletes within your code.
+
 
 For a detailed discussion check out my blog post  [Generic Repository Pattern .net core](https://garywoodfine.com/generic-repository-pattern-net-core/)
 
