@@ -15,8 +15,9 @@ before_build:
   - cmd: dotnet restore ./Threenine.Data/Threenine.Data.csproj --verbosity m
 build_script:
     - cmd: dotnet build ./Threenine.Data/Threenine.Data.csproj
+    - cmd: dotnet pack  -c Release /p:PackageVersion=1.0.3 
 artifacts:
-- path: ./Threenine.Data/bin/release/*.nupkg
+- path: ./Threenine.Data/bin/Release/*.nupkg
   name: NuGet
 
 deploy:
