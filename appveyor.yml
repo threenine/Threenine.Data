@@ -1,4 +1,4 @@
-version: '1.0.{build}'
+version: '1.0.3'
 image: Visual Studio 2017
 branches:
   only:
@@ -7,18 +7,25 @@ init:
   # Best practice (Windows line endings different to Unix/Linux)
   - cmd: git config --global core.autocrlf true
 install:
- 
+  - appveyor DownloadFile https://dist.nuget.org/win-x86-commandline/v4.0.0/nuget.exe
 before_build:
   # Display .NET Core version
   - cmd: dotnet --version
   # Display minimal restore text
   - cmd: dotnet restore ./Threenine.Data/Threenine.Data.csproj --verbosity m
 build_script:
-  
-  - cmd: dotnet build ./Threenine.Data/Threenine.Data.csproj
-after_build:
-  # For once the build has completed
-
+    - cmd: dotnet build ./Threenine.Data/Threenine.Data.csproj
+artifacts:
+- path: ./Threenine.Data/bin/release/*.nupkg
+name: NuGet
 on_finish :
   # any cleanup in here
-deploy: off
+deploy:
+- provider: NuGet
+  server: https://www.myget.org/F/threenine/api/v2/package
+  api_key:
+    secure: 4da8b7a9-9b60-479a-8194-3cc7822a748a
+  skip_symbols: true
+   on:
+    branch: master
+appveyor_repo_tag: true 
