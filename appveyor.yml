@@ -17,9 +17,8 @@ build_script:
     - cmd: dotnet build ./Threenine.Data/Threenine.Data.csproj
 artifacts:
 - path: ./Threenine.Data/bin/release/*.nupkg
-name: NuGet
-on_finish :
-  # any cleanup in here
+  name: NuGet
+
 deploy:
 - provider: NuGet
   server: https://www.myget.org/F/threenine/api/v2/package
