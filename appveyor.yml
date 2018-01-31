@@ -14,7 +14,7 @@ before_build:
   # Display minimal restore text
   - cmd: dotnet restore ./Threenine.Data/Threenine.Data.csproj --verbosity m
 build_script:
-    - cmd: dotnet build ./Threenine.Data/Threenine.Data.csproj
+    - cmd: dotnet build ./Threenine.Data/Threenine.Data.csproj -c Release
     - cmd: dotnet pack  -c Release /p:PackageVersion=1.0.3 
 artifacts:
 - path: ./Threenine.Data/bin/Release/*.nupkg
