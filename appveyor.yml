@@ -24,5 +24,5 @@ deploy:
 - provider: NuGet
   server: https://www.myget.org/F/threenine/api/v2/package
   api_key:
-    secure: 4da8b7a9-9b60-479a-8194-3cc7822a748a
+    secure: FU841XC5Cujzqo+j12T4vI0bngL5ScxwCK8VT5OuuYi7aWw+0utt+Bpv3/5tr82Q
   skip_symbols: true
