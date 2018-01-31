@@ -25,4 +25,3 @@ deploy:
   api_key:
     secure: 4da8b7a9-9b60-479a-8194-3cc7822a748a
   skip_symbols: true
- 
