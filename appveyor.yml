@@ -15,14 +15,14 @@ before_build:
   - cmd: dotnet restore ./Threenine.Data/Threenine.Data.csproj --verbosity m
 build_script:
     - cmd: dotnet build ./Threenine.Data/Threenine.Data.csproj -c Release
-    - cmd: dotnet pack  -c Release /p:PackageVersion=1.0.3 
+    - cmd: dotnet pack  -c Release /p:PackageVersion=1.0.4 
 artifacts:
 - path: ./Threenine.Data/bin/Release/*.nupkg
   name: NuGet
 
 deploy:
 - provider: NuGet
-  server: https://www.myget.org/F/threenine/api/v2/package
+  server:  https://www.nuget.org/
   api_key:
-    secure: FU841XC5Cujzqo+j12T4vI0bngL5ScxwCK8VT5OuuYi7aWw+0utt+Bpv3/5tr82Q
-  skip_symbols: true
+    secure: mf21OOa1QnyeVLSIaFDmmEj63k0aZ8NkhKIa7YspDZtCMRWfcHYpF/GXnJn3lDv4
+ 
