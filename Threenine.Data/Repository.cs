@@ -17,8 +17,7 @@ namespace Threenine.Data
         }
         public void Add(T entity)
         {
-            _unitOfWork.Context.Entry(entity).State = EntityState.Added;
-            _unitOfWork.Context.Set<T>().Add(entity);
+           _unitOfWork.Context.Set<T>().Add(entity);
             
         }
  
