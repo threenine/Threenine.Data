@@ -10,7 +10,7 @@ namespace TestDatabase
     {
           
             [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-           [Column(Order = 1, TypeName = "serial")]
+       [Key]
         public int Id { get; set; }
 
             [Required]
