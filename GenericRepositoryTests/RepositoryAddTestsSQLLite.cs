@@ -7,42 +7,32 @@ using Xunit;
 
 namespace Threenine.Data.Tests
 {
-  public  class RepositoryAddTestsSQLLite
-    {
+  public  class RepositoryAddTestsSqlLite : IClassFixture<SqlLiteTestFixture>
+  {
+      private readonly SqlLiteTestFixture _fixture;
+      public RepositoryAddTestsSqlLite(SqlLiteTestFixture fixture)
+      {
+          _fixture = fixture;
+      }
+     
         [Fact]
         public void ShouldAddNewProduct()
         {
            
-            var uow = new UnitOfWork<TestDbContext>(GetSqlLiteInMemoryContext());
-           var repo = uow.GetRepository<TestProduct>();
+            //Arrange
+            var uow = new UnitOfWork<TestDbContext>(_fixture.SqlLiteInMemoryContext());
+            var repo = uow.GetRepository<TestProduct>();
+            var newProduct = new TestProduct() { Name = GlobalTestStrings.TestProductName , Category = new TestCategory() { Id = 1, Name = GlobalTestStrings.TestProductCategoryName } };
 
-            var newProduct = new TestProduct() { Name = "Test Product", Category = new TestCategory() { Id = 1, Name = "UNi TEtS" } };
-
+            //Act 
             repo.Add(newProduct);
             uow.SaveChanges();
 
+            //Assert
             Assert.Equal(1, newProduct.Id);
 
         }
 
 
-        private TestDbContext GetSqlLiteInMemoryContext()
-        {
-          
-            var options = new DbContextOptionsBuilder<TestDbContext>()
-                .UseSqlite("DataSource=:memory:")
-                
-                .Options;
-
-       
-            var context = new TestDbContext(options);
-            context.Database.OpenConnection();
-            context.Database.EnsureCreated();
-            var testCat = new TestCategory(){ Id = 1, Name = "UNi TEtS"};
-
-            context.TestCategories.Add(testCat);
-            context.SaveChanges();
-            return context;
-        }
     }
 }
