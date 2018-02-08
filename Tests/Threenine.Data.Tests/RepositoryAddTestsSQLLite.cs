@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using TestDatabase;
@@ -13,6 +14,22 @@ namespace Threenine.Data.Tests
         public RepositoryAddTestsSqlLite(SqlLiteTestFixture fixture)
         {
             _fixture = fixture;
+        }
+
+        [Fact]
+        public void ShouldAddNewCategory()
+        {
+            //arange 
+            var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
+            var repo = uow.GetRepository<TestCategory>();
+            var newCategory = new TestCategory() { Name = GlobalTestStrings.TestProductCategoryName };
+            
+            //Act 
+            repo.Add(newCategory);
+            uow.SaveChanges();
+
+            //Assert
+            Assert.Equal(1, newCategory.Id);
         }
 
         [Fact]
@@ -32,7 +49,5 @@ namespace Threenine.Data.Tests
             Assert.Equal(1, newProduct.Id);
 
         }
-
-
-    }
+   }
 }
