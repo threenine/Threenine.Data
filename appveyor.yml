@@ -16,6 +16,8 @@ before_build:
 build_script:
     - cmd: dotnet build ./Threenine.Data/Threenine.Data.csproj -c Release
     - cmd: dotnet pack  -c Release /p:PackageVersion=1.0.4 
+test_script:
+    - cmd: dotnet test "./Tests/Threenine.Data.Tests/Threenine.Data.Tests.csproj" -c Release
 artifacts:
 - path: ./Threenine.Data/bin/Release/*.nupkg
   name: NuGet
