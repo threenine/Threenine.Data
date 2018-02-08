@@ -8,33 +8,28 @@ using Xunit;
 
 namespace Threenine.Data.Tests
 {
-    public class RepositoryAddTests
-    {
-        [Fact]
-        public void ShouldAddNewProduct()
+   public class RepositoryAddTest : IClassFixture<InMemoryTestFixture>
         {
-            var uow = new UnitOfWork(GetInMemoryContext());
-            var repo = new Repository<TestProduct>(uow);
-          
-            var newProduct  = new TestProduct(){Name = "Test Product"};
+            private readonly InMemoryTestFixture _fixture;
+            public RepositoryAddTest(InMemoryTestFixture fixture)
+            {
+                _fixture = fixture;
+            }
+            [Fact]
+            public void ShouldAddNewProduct()
+            {
+                // Arrange 
+                var uow = new UnitOfWork<TestDbContext>(_fixture.InMemoryContext());
+                var repo = uow.GetRepository<TestProduct>();
+                var newProduct = new TestProduct() { Name = "Test Product" };
 
-            repo.Add(newProduct);
-            uow.Commit();
+                // Act
+                repo.Add(newProduct);
+                uow.SaveChanges();
 
-            Assert.Equal(1,newProduct.Id);
+                //Assert
+                Assert.Equal(1, newProduct.Id);
 
-        }
-
-
-        private TestDbContext GetInMemoryContext()
-        {
-            var options = new DbContextOptionsBuilder<TestDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .EnableSensitiveDataLogging()
-                .Options;
-            var context = new TestDbContext(options);
-            
-            return context;
+            }
         }
     }
-}
