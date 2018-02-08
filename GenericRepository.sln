@@ -6,9 +6,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Threenine.Data", "Threenine
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E4564824-A42B-4C0A-BDE0-BA923F25E70D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericRepositoryTests", "GenericRepositoryTests\GenericRepositoryTests.csproj", "{F4087A37-A61C-4DCF-AC42-E9BAED33D659}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Threenine.Data.Tests", "GenericRepositoryTests\Threenine.Data.Tests.csproj", "{F4087A37-A61C-4DCF-AC42-E9BAED33D659}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDatabase", "TestDatabase\TestDatabase.csproj", "{A4271311-B342-4ED0-A4A1-45BD903AF3EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestDatabase", "TestDatabase\TestDatabase.csproj", "{A4271311-B342-4ED0-A4A1-45BD903AF3EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

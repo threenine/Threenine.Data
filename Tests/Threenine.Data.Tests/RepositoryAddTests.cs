@@ -13,13 +13,13 @@ namespace Threenine.Data.Tests
         [Fact]
         public void ShouldAddNewProduct()
         {
-            var uow = new UnitOfWork<TestDbContext>(GetInMemoryContext());
-            var repo = uow.GetRepository<TestProduct>();
-
+            var uow = new UnitOfWork(GetInMemoryContext());
+            var repo = new Repository<TestProduct>(uow);
+          
             var newProduct  = new TestProduct(){Name = "Test Product"};
 
             repo.Add(newProduct);
-            uow.SaveChanges();
+            uow.Commit();
 
             Assert.Equal(1,newProduct.Id);
 

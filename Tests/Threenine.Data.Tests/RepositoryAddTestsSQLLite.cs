@@ -12,26 +12,25 @@ namespace Threenine.Data.Tests
         [Fact]
         public void ShouldAddNewProduct()
         {
-           
-            var uow = new UnitOfWork<TestDbContext>(GetSqlLiteInMemoryContext());
-           var repo = uow.GetRepository<TestProduct>();
+            var uow = new UnitOfWork(GetInMemoryContext());
+            var repo = new Repository<TestProduct>(uow);
 
             var newProduct = new TestProduct() { Name = "Test Product", Category = new TestCategory() { Id = 1, Name = "UNi TEtS" } };
 
             repo.Add(newProduct);
-            uow.SaveChanges();
+            uow.Commit();
 
             Assert.Equal(1, newProduct.Id);
 
         }
 
 
-        private TestDbContext GetSqlLiteInMemoryContext()
+        private TestDbContext GetInMemoryContext()
         {
           
             var options = new DbContextOptionsBuilder<TestDbContext>()
                 .UseSqlite("DataSource=:memory:")
-                
+                .EnableSensitiveDataLogging()
                 .Options;
 
        

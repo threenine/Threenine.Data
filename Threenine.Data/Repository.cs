@@ -10,37 +10,39 @@ namespace Threenine.Data
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-       private readonly IUnitOfWork _unitOfWork;
-        public Repository(IUnitOfWork unitOfWork)
+        protected readonly DbContext _dbContext;
+        protected readonly DbSet<T> _dbSet;
+
+        public Repository(DbContext context)
         {
-            _unitOfWork = unitOfWork;
+            _dbContext = context;
+            _dbSet = _dbContext.Set<T>();
         }
         public void Add(T entity)
         {
-           _unitOfWork.Context.Set<T>().Add(entity);
+         var entry = _dbSet.Add(entity);
             
         }
  
         public void Delete(T entity)
         {
-            T existing = _unitOfWork.Context.Set<T>().Find(entity);
-            if (existing != null) _unitOfWork.Context.Set<T>().Remove(existing);
+            T existing = _dbSet.Find(entity);
+            if (existing != null) _dbSet.Remove(existing);
         }
  
         public IEnumerable<T> Get()
         {
-            return _unitOfWork.Context.Set<T>().AsEnumerable<T>();
+            return _dbSet.AsEnumerable<T>();
         }
  
         public IEnumerable<T> Get(System.Linq.Expressions.Expression<Func<T, bool>> predicate)
         {
-            return _unitOfWork.Context.Set<T>().Where(predicate).AsEnumerable<T>();
+            return _dbSet.Where(predicate).AsEnumerable<T>();
         }
  
         public void Update(T entity)
         {
-            _unitOfWork.Context.Entry(entity).State = EntityState.Modified;
-            _unitOfWork.Context.Set<T>().Attach(entity);
+            _dbSet.Update(entity);
         }
     }
 }
