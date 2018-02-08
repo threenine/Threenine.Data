@@ -19,9 +19,9 @@ namespace Threenine.Data.Tests
             public void ShouldAddNewProduct()
             {
                 // Arrange 
-                var uow = new UnitOfWork<TestDbContext>(_fixture.InMemoryContext());
+                var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
                 var repo = uow.GetRepository<TestProduct>();
-                var newProduct = new TestProduct() { Name = "Test Product" };
+                var newProduct = new TestProduct() { Name = GlobalTestStrings.TestProductName };
 
                 // Act
                 repo.Add(newProduct);

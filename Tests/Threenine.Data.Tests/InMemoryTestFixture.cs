@@ -7,8 +7,9 @@ using TestDatabase;
 namespace Threenine.Data.Tests
 {
    public class InMemoryTestFixture :  IDisposable
-    {
-        public TestDbContext InMemoryContext()
+   {
+       public TestDbContext Context => InMemoryContext();
+        private TestDbContext InMemoryContext()
         {
             var options = new DbContextOptionsBuilder<TestDbContext>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())
@@ -21,6 +22,7 @@ namespace Threenine.Data.Tests
 
         public void Dispose()
         {
+            Context?.Dispose();
         }
     }
 }

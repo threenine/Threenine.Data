@@ -17,6 +17,8 @@ namespace Threenine.Data
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
+        public TContext Context => _context;
+
         public IRepository<T> GetRepository<T>() where T : class 
         {
             if (_repositories == null)
@@ -39,7 +41,7 @@ namespace Threenine.Data
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+           Context?.Dispose();
         }
 
         IRepository<TEntity> IUnitOfWork.Repository<TEntity>()
@@ -47,7 +49,6 @@ namespace Threenine.Data
             throw new NotImplementedException();
         }
 
-        public TContext Context => _context;
     }
 
 }

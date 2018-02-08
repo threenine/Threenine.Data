@@ -20,7 +20,7 @@ namespace Threenine.Data.Tests
         {
 
             //Arrange
-            var uow = new UnitOfWork<TestDbContext>(_fixture.SqlLiteInMemoryContext());
+            var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
             var repo = uow.GetRepository<TestProduct>();
             var newProduct = new TestProduct() { Name = GlobalTestStrings.TestProductName, Category = new TestCategory() { Id = 1, Name = GlobalTestStrings.TestProductCategoryName } };
 

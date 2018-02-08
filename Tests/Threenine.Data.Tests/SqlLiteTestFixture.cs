@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using TestDatabase;
@@ -10,8 +11,9 @@ namespace Threenine.Data.Tests
     public class SqlLiteTestFixture : IDisposable
     {
 
+        public TestDbContext Context => SqlLiteInMemoryContext();
 
-        public TestDbContext SqlLiteInMemoryContext()
+       private  TestDbContext SqlLiteInMemoryContext()
         {
 
             var options = new DbContextOptionsBuilder<TestDbContext>()
@@ -31,6 +33,7 @@ namespace Threenine.Data.Tests
         }
         public void Dispose()
         {
+            Context?.Dispose();
         }
     }
 }
