@@ -8,7 +8,7 @@ namespace Threenine.Data
 {
     public interface IUnitOfWork : IDisposable
     {
-        IRepository<TEntity> Repository<TEntity>() where TEntity : class;
+        IRepository<TEntity> GetRepository<TEntity>() where TEntity : class;
         int SaveChanges();
    }
 
