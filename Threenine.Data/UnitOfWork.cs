@@ -19,7 +19,7 @@ namespace Threenine.Data
 
         public TContext Context => _context;
 
-        public IRepository<T> GetRepository<T>() where T : class 
+        public IRepository<TEntity> GetRepository<TEntity>() where TEntity : class 
         {
             if (_repositories == null)
             {
