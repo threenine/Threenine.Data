@@ -44,5 +44,11 @@ namespace Threenine.Data
         {
             _dbSet.Update(entity);
         }
+
+        public void Update(params T[] entities) => _dbSet.UpdateRange(entities);
+
+
+        public void Update(IEnumerable<T> entities) => _dbSet.UpdateRange(entities);
+
     }
 }
