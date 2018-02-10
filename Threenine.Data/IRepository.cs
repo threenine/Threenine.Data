@@ -13,5 +13,7 @@ namespace Threenine.Data
         void Add(T entity);
         void Delete(T entity);
         void Update(T entity);
-      }
+        void Update(params T[] entities);
+        void Update(IEnumerable<T> entities);
+    }
  }
