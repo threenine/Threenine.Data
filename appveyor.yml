@@ -15,7 +15,7 @@ before_build:
   - cmd: dotnet restore ./Threenine.Data/Threenine.Data.csproj --verbosity m
 build_script:
     - cmd: dotnet build ./Threenine.Data/Threenine.Data.csproj -c Release
-    - cmd: dotnet pack  -c Release /p:PackageVersion=1.1.1 
+    - cmd: dotnet pack  -c Release /p:PackageVersion=1.1.2 
 test_script:
     - cmd: dotnet test "./Tests/Threenine.Data.Tests/Threenine.Data.Tests.csproj" -c Release
 artifacts:
