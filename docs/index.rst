@@ -3,8 +3,9 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Threenine.Data's documentation!
-==========================================
+Threenine.Data documentation
+============================
+A generic Unit of Work and Repository pattern implementation for Entity Framework Core.
 
 .. toctree::
    :maxdepth: 2
