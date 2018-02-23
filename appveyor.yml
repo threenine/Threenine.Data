@@ -22,7 +22,7 @@ artifacts:
 - path: ./src/bin/Release/*.nupkg
   name: NuGet
 
-de
+deploy:
 - provider: NuGet
   server:  https://www.nuget.org/
   api_key:
