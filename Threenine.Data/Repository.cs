@@ -29,7 +29,32 @@ namespace Threenine.Data
             T existing = _dbSet.Find(entity);
             if (existing != null) _dbSet.Remove(existing);
         }
- 
+
+       
+        public void Delete(object id)
+        {
+            var typeInfo = typeof(T).GetTypeInfo();
+            var key = _dbContext.Model.FindEntityType(typeInfo).FindPrimaryKey().Properties.FirstOrDefault();
+            var property = typeInfo.GetProperty(key?.Name);
+            if (property != null)
+            {
+                var entity = Activator.CreateInstance<T>();
+                property.SetValue(entity, id);
+                _dbContext.Entry(entity).State = EntityState.Deleted;
+            }
+            else
+            {
+                var entity = _dbSet.Find(id);
+                if (entity != null)
+                {
+                    Delete(entity);
+                }
+            }
+        }
+
+        public void Delete(params T[] entities) => _dbSet.RemoveRange(entities);
+        public void Delete(IEnumerable<T> entities) => _dbSet.RemoveRange(entities);
+
         public IEnumerable<T> Get()
         {
             return _dbSet.AsEnumerable<T>();
