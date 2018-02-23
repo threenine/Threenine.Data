@@ -26,7 +26,7 @@
    
     
    
-    <ProjectReference Include="..\..\Threenine.Data\Threenine.Data.csproj" />
+    <ProjectReference Include="..\..\src\Threenine.Data.csproj" />
    
     <ProjectReference Include="..\Database\TestDatabase.csproj" />
    

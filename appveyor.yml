@@ -12,14 +12,14 @@ before_build:
   # Display .NET Core version
   - cmd: dotnet --version
   # Display minimal restore text
-  - cmd: dotnet restore ./Threenine.Data/Threenine.Data.csproj --verbosity m
+  - cmd: dotnet restore ./src/Threenine.Data.csproj --verbosity m
 build_script:
-    - cmd: dotnet build ./Threenine.Data/Threenine.Data.csproj -c Release
+    - cmd: dotnet build ./src/Threenine.Data.csproj -c Release
     - cmd: dotnet pack  -c Release /p:PackageVersion=1.1.2 
 test_script:
     - cmd: dotnet test "./Tests/Threenine.Data.Tests/Threenine.Data.Tests.csproj" -c Release
 artifacts:
-- path: ./Threenine.Data/bin/Release/*.nupkg
+- path: ./src/bin/Release/*.nupkg
   name: NuGet
 
 deploy:
