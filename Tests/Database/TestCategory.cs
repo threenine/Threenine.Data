@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace TestDatabase
 {
-  public  class TestCategory
+    public class TestCategory
     {
-        [Key]
-        public int Id { get; set; }
+        [Key] public int Id { get; set; }
 
-        [Required]
-        public string Name { get; set; }
+        [Required] public string Name { get; set; }
     }
 }

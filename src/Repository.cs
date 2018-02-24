@@ -1,12 +1,10 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
-using Microsoft.EntityFrameworkCore.Metadata;
-
 
 namespace Threenine.Data
 {
@@ -20,19 +18,19 @@ namespace Threenine.Data
             _dbContext = context;
             _dbSet = _dbContext.Set<T>();
         }
+
         public void Add(T entity)
         {
-         var entry = _dbSet.Add(entity);
-            
+            var entry = _dbSet.Add(entity);
         }
- 
+
         public void Delete(T entity)
         {
-            T existing = _dbSet.Find(entity);
+            var existing = _dbSet.Find(entity);
             if (existing != null) _dbSet.Remove(existing);
         }
 
-       
+
         public void Delete(object id)
         {
             var typeInfo = typeof(T).GetTypeInfo();
@@ -47,69 +45,63 @@ namespace Threenine.Data
             else
             {
                 var entity = _dbSet.Find(id);
-                if (entity != null)
-                {
-                    Delete(entity);
-                }
+                if (entity != null) Delete(entity);
             }
         }
 
-        public void Delete(params T[] entities) => _dbSet.RemoveRange(entities);
-        public void Delete(IEnumerable<T> entities) => _dbSet.RemoveRange(entities);
+        public void Delete(params T[] entities)
+        {
+            _dbSet.RemoveRange(entities);
+        }
+
+        public void Delete(IEnumerable<T> entities)
+        {
+            _dbSet.RemoveRange(entities);
+        }
 
 
         public T Single(Expression<Func<T, bool>> predicate = null,
-                                         Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
-                                         Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
-                                         bool disableTracking = true)
+            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
+            Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
+            bool disableTracking = true)
         {
             IQueryable<T> query = _dbSet;
-            if (disableTracking)
-            {
-                query = query.AsNoTracking();
-            }
+            if (disableTracking) query = query.AsNoTracking();
 
-            if (include != null)
-            {
-                query = include(query);
-            }
+            if (include != null) query = include(query);
 
-            if (predicate != null)
-            {
-                query = query.Where(predicate);
-            }
+            if (predicate != null) query = query.Where(predicate);
 
             if (orderBy != null)
-            {
                 return orderBy(query).FirstOrDefault();
-            }
-            else
-            {
-                return query.FirstOrDefault();
-            }
+            return query.FirstOrDefault();
         }
-
 
 
         public IEnumerable<T> Get()
         {
-            return _dbSet.AsEnumerable<T>();
+            return _dbSet.AsEnumerable();
         }
- 
-        public IEnumerable<T> Get(System.Linq.Expressions.Expression<Func<T, bool>> predicate)
+
+        public IEnumerable<T> Get(Expression<Func<T, bool>> predicate)
         {
-            return _dbSet.Where(predicate).AsEnumerable<T>();
+            return _dbSet.Where(predicate).AsEnumerable();
         }
- 
+
         public void Update(T entity)
         {
             _dbSet.Update(entity);
         }
 
-        public void Update(params T[] entities) => _dbSet.UpdateRange(entities);
+        public void Update(params T[] entities)
+        {
+            _dbSet.UpdateRange(entities);
+        }
 
 
-        public void Update(IEnumerable<T> entities) => _dbSet.UpdateRange(entities);
-
+        public void Update(IEnumerable<T> entities)
+        {
+            _dbSet.UpdateRange(entities);
+        }
     }
 }

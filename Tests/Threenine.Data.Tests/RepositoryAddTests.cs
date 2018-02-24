@@ -1,35 +1,31 @@
-using System;
-using System.Collections.Generic;
-using FizzWare.NBuilder;
-using Microsoft.EntityFrameworkCore;
 using TestDatabase;
-using Threenine.Data;
 using Xunit;
 
 namespace Threenine.Data.Tests
 {
-   public class RepositoryAddTest : IClassFixture<InMemoryTestFixture>
+    public class RepositoryAddTest : IClassFixture<InMemoryTestFixture>
+    {
+        public RepositoryAddTest(InMemoryTestFixture fixture)
         {
-            private readonly InMemoryTestFixture _fixture;
-            public RepositoryAddTest(InMemoryTestFixture fixture)
-            {
-                _fixture = fixture;
-            }
-            [Fact]
-            public void ShouldAddNewProduct()
-            {
-                // Arrange 
-                var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
-                var repo = uow.GetRepository<TestProduct>();
-                var newProduct = new TestProduct() { Name = GlobalTestStrings.TestProductName };
+            _fixture = fixture;
+        }
 
-                // Act
-                repo.Add(newProduct);
-                uow.SaveChanges();
+        private readonly InMemoryTestFixture _fixture;
 
-                //Assert
-                Assert.Equal(1, newProduct.Id);
+        [Fact]
+        public void ShouldAddNewProduct()
+        {
+            // Arrange 
+            var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
+            var repo = uow.GetRepository<TestProduct>();
+            var newProduct = new TestProduct {Name = GlobalTestStrings.TestProductName};
 
-            }
+            // Act
+            repo.Add(newProduct);
+            uow.SaveChanges();
+
+            //Assert
+            Assert.Equal(1, newProduct.Id);
         }
     }
+}
