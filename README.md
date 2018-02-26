@@ -39,6 +39,9 @@ If you want to raise bugs or Request a feature please do so via a [Github issue]
 
 [![Throughput Graph](https://graphs.waffle.io/threenine/Threenine.Data/throughput.svg)](https://waffle.io/threenine/Threenine.Data/metrics)
 
+## Documentation 
+
+All the documentation of how to use and implement the Threenine.Data : Generic Unit of Work and Repository is available on  [Read the Docs](http://genericrepository.readthedocs.io/en/latest/?badge=latest)
 
 ## Donate
 
