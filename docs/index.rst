@@ -31,7 +31,7 @@ Or via the DotNet Cli
 
 
 
-Check out the `Nuget package details https://www.nuget.org/packages/Threenine.Data/>`_ for more details.
+Check out the `Nuget package details <https://www.nuget.org/packages/Threenine.Data/>`_ for more details.
 
 Source Code
 -----------
