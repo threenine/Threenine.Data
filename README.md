@@ -45,6 +45,7 @@ If you want to raise bugs or Request a feature please do so via a [Github issue]
  Threenine.Data is developed and supported for free.
 
 If you would like to make a donation to keep the developers stocked with coffee and pizza's would be greatly appreciated.
+
 [![Donate via PayPal](https://garywoodfine.com/wp-content/plugins/stop-web-crawlers/images/donate.en.png)](https://www.paypal.me/geekiam/)
 
 [![threenine logo](http://static.threenine.co.uk/img/github_footer.png)](https://threenine.co.uk/)
