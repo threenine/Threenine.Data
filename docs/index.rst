@@ -36,20 +36,18 @@ Check out the `Nuget package details <https://www.nuget.org/packages/Threenine.D
 Source Code
 -----------
 
-If you want to check out the source code for the library you can visit the _GitHub repository:https://threenine.github.io/Threenine.Data/  
+If you want to check out the source code for the library you can visit the `GitHub repository <https://threenine.github.io/Threenine.Data/>`_
 
 Bugs & Feature requests
 -----------------------
 
-If you want to raise bugs or Request a feature please do so via a _Github issue:https://github.com/threenine/Threenine.Data/issues and we will attempt to address it as soon as
+If you want to raise bugs or Request a feature please do so via a `Github issue <https://github.com/threenine/Threenine.Data/issues/>`_  and we will attempt to address it as soon as
 resource is available to do so.
 
 Project Progress
 ----------------
 If you would like to keep tabs on the progress of the project you view the kanban board
-.. image:: https://badge.waffle.io/threenine/Threenine.Data.svg?columns=all 
- :target: https://waffle.io/threenine/Threenine.Data 
- :alt: 'Waffle.io - Columns and their card count'
+.. image::https://badge.waffle.io/threenine/Threenine.Data.svg?columns=all:target: https://waffle.io/threenine/Threenine.Data :alt: 'Waffle.io - Columns and their card count'
 
 .. toctree::
    :maxdepth: 2
