@@ -6,6 +6,21 @@ A simple lean and clean generic repository pattern for .net core, providing a si
 
 The code is accompanied by  [Generic Repository Pattern .net core](https://garywoodfine.com/generic-repository-pattern-net-core/)
 
+## Installation
+
+The simplest method to install Threenine.Data into your solution/project is to use NuGet.:
+
+```
+    nuget Install-Package Threenine.Data
+
+
+Or via the DotNet Cli
+
+```
+    dotnet add package Threenine.Data
+
+ 
+
 ## Project Status
 
 [![Throughput Graph](https://graphs.waffle.io/threenine/Threenine.Data/throughput.svg)](https://waffle.io/threenine/Threenine.Data/metrics)
