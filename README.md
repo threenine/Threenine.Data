@@ -13,15 +13,15 @@ Originally isnpired by writing my blog post  [Generic Repository Pattern .net co
 
 The simplest method to install Threenine.Data into your solution/project is to use NuGet.:
 
-```
+```bash
     nuget Install-Package Threenine.Data
-
+```
 
 Or via the DotNet Cli
 
-```
+```bash
     dotnet add package Threenine.Data
-
+```
  
 
 ## Project Status
