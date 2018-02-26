@@ -17,11 +17,13 @@ namespace Threenine.Data
         {
             _dbContext = context;
             _dbSet = _dbContext.Set<T>();
+            
+            
         }
 
         public void Add(T entity)
         {
-            var entry = _dbSet.Add(entity);
+           _dbSet.Add(entity);
         }
 
         public void Delete(T entity)
