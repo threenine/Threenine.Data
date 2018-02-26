@@ -23,6 +23,9 @@ Or via the DotNet Cli
     dotnet add package Threenine.Data
 ```
 
+Check out [Nuget package page](https://www.nuget.org/packages/Threenine.Data/) for more details.
+
+
 ## Bugs & Feature requests
 
 
@@ -30,10 +33,14 @@ If you want to raise bugs or Request a feature please do so via a [Github issue]
 
 ## Project Status
 
-[![Throughput Graph](https://graphs.waffle.io/threenine/Threenine.Data/throughput.svg)](https://waffle.io/threenine/Threenine.Data/metrics)
-
 [![Waffle.io - Columns and their card count](https://badge.waffle.io/threenine/Threenine.Data.svg?columns=all)](https://waffle.io/threenine/Threenine.Data)
  
+ 
+
+[![Throughput Graph](https://graphs.waffle.io/threenine/Threenine.Data/throughput.svg)](https://waffle.io/threenine/Threenine.Data/metrics)
+
+
+## Donate
 
 
 [![threenine logo](http://static.threenine.co.uk/img/github_footer.png)](https://threenine.co.uk/)
