@@ -28,13 +28,27 @@ namespace SampleCoreMVCWebsite.Controllers
         {
             var repo = _unitOfWork.GetRepository<Person>();
 
-           repo.Add(Mapper.Map<Person>(model));
+            var person = Mapper.Map<Person>(model);
+           repo.Add(person);
             _unitOfWork.SaveChanges();
 
-            return View();
+            var detail = Mapper.Map<UserDetailModel>(person);
+
+          return  RedirectToAction("UserDetail", "Home", new {id = person.Id});
 
 
 
+        }
+
+        public IActionResult UserDetail(int id)
+        {
+            var repo = _unitOfWork.GetRepository<Person>();
+
+            var user = repo.Single(x => x.Id == id);
+
+            var details = Mapper.Map<UserDetailModel>(user);
+
+            return View("UserDetail", details);
         }
 
         public IActionResult About()
