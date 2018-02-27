@@ -4,12 +4,13 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Sample.Entity;
 using Threenine.Map;
 
 namespace SampleCoreMVCWebsite.Models
 {
-    public class UserInputModel : IMapTo<Person>
+    public class UserInputModel :   IMapTo<Person>
     {
         public int Id { get; set; }
         public string Salutation { get; set; }

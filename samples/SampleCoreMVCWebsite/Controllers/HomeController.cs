@@ -51,19 +51,22 @@ namespace SampleCoreMVCWebsite.Controllers
             return View("UserDetail", details);
         }
 
-        public IActionResult About()
+        [HttpGet]
+        public IActionResult Edit(int id)
         {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
+            var profile = Mapper.Map<EditProfileDetail>(_unitOfWork.GetRepository<Person>().Single(p => p.Id == id));
+            return View("Edit", profile);
         }
 
-        public IActionResult Contact()
+        [HttpPost]
+        public IActionResult Edit(EditProfileDetail profile)
         {
-            ViewData["Message"] = "Your contact page.";
+            _unitOfWork.GetRepository<Person>().Update(Mapper.Map<Person>(profile));
 
-            return View();
+            return RedirectToAction("UserDetail", "Home", new { id = profile.UserId });
+
         }
+       
 
         public IActionResult Error()
         {
