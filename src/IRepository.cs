@@ -13,7 +13,10 @@ namespace Threenine.Data
             Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
             bool disableTracking = true);
 
+        [Obsolete("Will be deprecated version 2.0, Please use GetList")]
         IEnumerable<T> Get();
+
+        [Obsolete("Will be deprecated version 2.0, Please use GetList")]
         IEnumerable<T> Get(Expression<Func<T, bool>> predicate);
         void Add(T entity);
         void Delete(T entity);

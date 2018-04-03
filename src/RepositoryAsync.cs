@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Extensions.Internal;
 using Microsoft.EntityFrameworkCore.Query;
+
 
 namespace Threenine.Data
 {
@@ -50,9 +53,39 @@ namespace Threenine.Data
             }
         }
 
-        public IEnumerable<T> GetAsync()
+        public Task<IPaginate<T>> GetListAsync(Expression<Func<T, bool>> predicate = null,
+            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
+            Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
+            int index = 0,
+            int size = 20,
+            bool disableTracking = true,
+            CancellationToken cancellationToken = default(CancellationToken))
         {
-            throw new NotImplementedException();
+            IQueryable<T> query = _dbSet;
+            if (disableTracking)
+            {
+                query = query.AsNoTracking();
+            }
+
+            if (include != null)
+            {
+                query = include(query);
+            }
+
+            if (predicate != null)
+            {
+                query = query.Where(predicate);
+            }
+
+            if (orderBy != null)
+            {
+                return orderBy(query).ToPaginateAsync(index, size, 0, cancellationToken);
+            }
+            else
+            {
+                return query.ToPaginateAsync( index, size, 0, cancellationToken);
+            }
+
         }
 
         public IEnumerable<T> GetAsync(Expression<Func<T, bool>> predicate)
