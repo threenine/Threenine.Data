@@ -21,6 +21,12 @@ namespace Threenine.Data
             
         }
 
+        public IPaginate<TResult> GetList<TResult>(Expression<Func<T, TResult>> selector, Expression<Func<T, bool>> predicate = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
+            int pageIndex = 0, int pageSize = 20, bool disableTracking = true) where TResult : class
+        {
+            throw new NotImplementedException();
+        }
+
         public void Add(T entity)
         {
            _dbSet.Add(entity);
@@ -79,16 +85,47 @@ namespace Threenine.Data
             return query.FirstOrDefault();
         }
 
-
+        [Obsolete("Method is replaced by GetList")]
         public IEnumerable<T> Get()
         {
             return _dbSet.AsEnumerable();
         }
-
+        
+        [Obsolete("Method is replaced by GetList")]
         public IEnumerable<T> Get(Expression<Func<T, bool>> predicate)
         {
             return _dbSet.Where(predicate).AsEnumerable();
         }
+
+        public IPaginate<T> GetList(Expression<Func<T, bool>> predicate = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null, int pageIndex = 0,
+            int pageSize = 20, bool disableTracking = true)
+        {
+            IQueryable<T> query = _dbSet;
+            if (disableTracking)
+            {
+                query = query.AsNoTracking();
+            }
+
+            if (include != null)
+            {
+                query = include(query);
+            }
+
+            if (predicate != null)
+            {
+                query = query.Where(predicate);
+            }
+
+            if (orderBy != null)
+            {
+                return orderBy(query).ToPaginate(pageIndex, pageSize);
+            }
+            else
+            {
+                return query.ToPaginate(pageIndex, pageSize);
+            }
+        }
+
 
         public void Update(T entity)
         {

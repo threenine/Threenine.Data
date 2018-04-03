@@ -25,8 +25,7 @@ namespace Sample.Entity
         public string EmailAddress { get; set; }
 
         public string Profile { get; set; }
-
-
+        
         public string TagLine { get; set; }
     }
 }

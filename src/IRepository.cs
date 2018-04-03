@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 
 namespace Threenine.Data
@@ -18,6 +19,22 @@ namespace Threenine.Data
 
         [Obsolete("Will be deprecated version 2.0, Please use GetList")]
         IEnumerable<T> Get(Expression<Func<T, bool>> predicate);
+
+        IPaginate<T> GetList(Expression<Func<T, bool>> predicate = null,
+            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
+            Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
+            int pageIndex = 0,
+            int pageSize = 20,
+            bool disableTracking = true);
+
+        IPaginate<TResult> GetList<TResult>(Expression<Func<T, TResult>> selector,
+            Expression<Func<T, bool>> predicate = null,
+            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
+            Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
+            int pageIndex = 0,
+            int pageSize = 20,
+            bool disableTracking = true) where TResult : class;
+
         void Add(T entity);
         void Delete(T entity);
         void Delete(object id);

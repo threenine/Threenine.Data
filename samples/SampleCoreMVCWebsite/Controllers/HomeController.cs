@@ -4,7 +4,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Sample.Entity;
 using SampleCoreMVCWebsite.Models;
 using Threenine.Data;
@@ -20,24 +22,26 @@ namespace SampleCoreMVCWebsite.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            var list = _unitOfWork.GetRepository<Person>().GetList();
+
+            var model = Mapper.Map<IEnumerable<UserDetailModel>>(list);
+
+            return View("index", model);
         }
+        
 
         [HttpPost]
-        public IActionResult Index(UserInputModel model)
+        public IActionResult Add(UserInputModel model)
         {
             var repo = _unitOfWork.GetRepository<Person>();
 
             var person = Mapper.Map<Person>(model);
-           repo.Add(person);
+            repo.Add(person);
             _unitOfWork.SaveChanges();
 
             var detail = Mapper.Map<UserDetailModel>(person);
 
-          return  RedirectToAction("UserDetail", "Home", new {id = person.Id});
-
-
-
+            return RedirectToAction("Index", "Home", new { id = person.Id });
         }
 
         public IActionResult UserDetail(int id)
@@ -51,19 +55,30 @@ namespace SampleCoreMVCWebsite.Controllers
             return View("UserDetail", details);
         }
 
-        public IActionResult About()
+        [HttpGet]
+        public ActionResult Edit(int id)
         {
-            ViewData["Message"] = "Your application description page.";
+            var repo = _unitOfWork.GetRepository<Person>();
 
-            return View();
+            var user = repo.Single(x => x.Id == id);
+
+            var details = Mapper.Map<UserInputModel>(user);
+
+            return View("Edit", details);
         }
 
-        public IActionResult Contact()
+        [HttpPost]
+        public ActionResult Edit(UserInputModel model)
         {
-            ViewData["Message"] = "Your contact page.";
+            var repo = _unitOfWork.GetRepository<Person>();
 
-            return View();
+            var person = Mapper.Map<Person>(model);
+             repo.Update(person);
+            _unitOfWork.SaveChanges();
+
+            return RedirectToAction("UserDetail", "Home", new { id = person.Id });
         }
+
 
         public IActionResult Error()
         {
