@@ -5,7 +5,25 @@
 @model IEnumerable<UserDetailModel>
 <div class="container">
     <div class="row">
-      
-      
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <tr>
+                    <th>Name</th>
+                    <th>Tag</th>
+                    <th>Bio</th>
+                    <th></th>
+                </tr>
+                @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.FullName</td>
+                <td>@item.Headline</td>
+                <td>@item.Bio</td>
+                <td> @Html.ActionLink("Edit", "Edit", new { id = item.Id })</td>
+            </tr>
+}
+            </table>
+            @Html.ActionLink("Add New", "Add")
+        </div>
     </div>
 </div>

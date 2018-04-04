@@ -22,13 +22,17 @@ namespace SampleCoreMVCWebsite.Controllers
         }
         public IActionResult Index()
         {
-            var list = _unitOfWork.GetRepository<Person>().GetList();
+            var list = _unitOfWork.GetRepository<Person>().GetList().Items;
 
             var model = Mapper.Map<IEnumerable<UserDetailModel>>(list);
 
             return View("index", model);
         }
-        
+
+        public IActionResult Add()
+        {
+            return View();
+        }
 
         [HttpPost]
         public IActionResult Add(UserInputModel model)
