@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.InteropServices;
 using Microsoft.EntityFrameworkCore;
 
 namespace Threenine.Data
@@ -6,6 +7,8 @@ namespace Threenine.Data
     public interface IUnitOfWork : IDisposable
     {
         IRepository<TEntity> GetRepository<TEntity>() where TEntity : class;
+        IRepositoryAsync<TEntity> GetRepositoryAsync<TEntity>() where TEntity : class; 
+        
         int SaveChanges();
     }
 
