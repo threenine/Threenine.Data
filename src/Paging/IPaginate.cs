@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Microsoft.EntityFrameworkCore
+namespace Threenine.Data.Paging
 {
     public interface IPaginate<T>
     {

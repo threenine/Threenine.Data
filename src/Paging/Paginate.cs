@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Microsoft.EntityFrameworkCore
+namespace Threenine.Data.Paging
 {
     public class Paginate<T> : IPaginate<T>
     {

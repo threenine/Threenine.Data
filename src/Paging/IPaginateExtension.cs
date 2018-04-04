@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 
 
-namespace Microsoft.EntityFrameworkCore
+namespace Threenine.Data.Paging
 {
     public static class PaginateExtensions
     {

@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
-namespace Microsoft.EntityFrameworkCore
+namespace Threenine.Data.Paging
 {
   public static class IQueryablePaginateExtensions
     {

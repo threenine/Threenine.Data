@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
+using Threenine.Data.Paging;
 
 namespace Threenine.Data
 {
@@ -28,13 +29,14 @@ namespace Threenine.Data
             bool disableTracking = true,
             CancellationToken cancellationToken = default(CancellationToken));
 
-        void AddAsync(T entity);
-        void DeleteAsync(T entity);
-        void DeleteAsync(object id);
-        void DeleteAsync(params T[] entities);
-        void DeleteAsync(IEnumerable<T> entities);
+        Task AddAsync(T entity, CancellationToken cancellationToken = default(CancellationToken));
+
+        Task AddAsync(params T[] entities);
+
+        Task AddAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default(CancellationToken));
+
+
         void UpdateAsync(T entity);
-        void UpdateAsync(params T[] entities);
-        void UpdateAsync(IEnumerable<T> entities);
+       
     }
 }

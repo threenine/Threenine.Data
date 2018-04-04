@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Extensions.Internal;
 using Microsoft.EntityFrameworkCore.Query;
+using Threenine.Data.Paging;
 
 
 namespace Threenine.Data
@@ -88,49 +89,33 @@ namespace Threenine.Data
 
         }
 
+        public Task AddAsync(T entity)
+        {
+           
+            return AddAsync(entity, new CancellationToken());
+        }
+
+        public Task AddAsync(T entity, CancellationToken cancellationToken = default(CancellationToken)) => _dbSet.AddAsync(entity, cancellationToken);
+
+        public Task AddAsync(params T[] entities) => _dbSet.AddRangeAsync(entities);
+
+
+        public Task AddAsync(IEnumerable<T> entities,
+            CancellationToken cancellationToken = default(CancellationToken)) =>
+            _dbSet.AddRangeAsync(entities, cancellationToken);
+
+
+        [Obsolete("Use get list ")]
         public IEnumerable<T> GetAsync(Expression<Func<T, bool>> predicate)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AddAsync(T entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteAsync(T entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteAsync(object id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteAsync(params T[] entities)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteAsync(IEnumerable<T> entities)
         {
             throw new NotImplementedException();
         }
 
         public void UpdateAsync(T entity)
         {
-            throw new NotImplementedException();
+            _dbSet.Update(entity);
         }
 
-        public void UpdateAsync(params T[] entities)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateAsync(IEnumerable<T> entities)
-        {
-            throw new NotImplementedException();
-        }
+      
     }
 }
