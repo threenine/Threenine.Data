@@ -16,22 +16,23 @@ namespace Threenine.Data
 
         public Repository(DbContext context)
         {
-            _dbContext = context;
+            _dbContext = context ?? throw new ArgumentException(nameof(context));
             _dbSet = _dbContext.Set<T>();
             
             
         }
 
-        public IPaginate<TResult> GetList<TResult>(Expression<Func<T, TResult>> selector, Expression<Func<T, bool>> predicate = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
-            int pageIndex = 0, int pageSize = 20, bool disableTracking = true) where TResult : class
-        {
-            throw new NotImplementedException();
-        }
 
         public void Add(T entity)
         {
            _dbSet.Add(entity);
         }
+
+        public void Add(params T[] entities) => _dbSet.AddRange(entities);
+
+
+        public void Add(IEnumerable<T> entities) => _dbSet.AddRange(entities);
+       
 
         public void Delete(T entity)
         {
@@ -98,8 +99,8 @@ namespace Threenine.Data
             return _dbSet.Where(predicate).AsEnumerable();
         }
 
-        public IPaginate<T> GetList(Expression<Func<T, bool>> predicate = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null, int pageIndex = 0,
-            int pageSize = 20, bool disableTracking = true)
+        public IPaginate<T> GetList(Expression<Func<T, bool>> predicate = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null, int index = 0,
+            int size = 20, bool disableTracking = true)
         {
             IQueryable<T> query = _dbSet;
             if (disableTracking)
@@ -117,16 +118,31 @@ namespace Threenine.Data
                 query = query.Where(predicate);
             }
 
-            if (orderBy != null)
-            {
-                return orderBy(query).ToPaginate(pageIndex, pageSize);
-            }
-            else
-            {
-                return query.ToPaginate(pageIndex, pageSize);
-            }
+            return orderBy != null ? orderBy(query).ToPaginate(index, size) : query.ToPaginate(index, size);
         }
 
+
+        public IPaginate<TResult> GetList<TResult>(Expression<Func<T, TResult>> selector, Expression<Func<T, bool>> predicate = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
+            int index = 0, int size = 20, bool disableTracking = true) where TResult : class
+        {
+            IQueryable<T> query = _dbSet;
+            if (disableTracking)
+            {
+                query = query.AsNoTracking();
+            }
+
+            if (include != null)
+            {
+                query = include(query);
+            }
+
+            if (predicate != null)
+            {
+                query = query.Where(predicate);
+            }
+
+            return orderBy != null ? orderBy(query).Select(selector).ToPaginate(index, size) : query.Select(selector).ToPaginate(index, size);
+        }
 
         public void Update(T entity)
         {
