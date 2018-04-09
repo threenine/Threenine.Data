@@ -65,5 +65,7 @@ If you would like to keep tabs on the progress of the project you view the kanba
    :maxdepth: 2
    :caption: Feature Documentation
 
+    dependency-injection
+
   
 

@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Sample;
-using Threenine.Data.DependencyInjection;
 using Threenine.Map;
+using Threenine.Data.DependencyInjection;
 
 namespace SampleCoreMVCWebsite
 {
@@ -25,7 +25,6 @@ namespace SampleCoreMVCWebsite
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             // Use the Threenine.Data Dependency Injection to set up the Unit of Work
             services.AddDbContext<SampleContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("SampleDB"))).AddUnitOfWork<SampleContext>();
