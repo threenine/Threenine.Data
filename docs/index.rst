@@ -47,11 +47,15 @@ resource is available to do so.
 Project Progress
 ----------------
 If you would like to keep tabs on the progress of the project you view the kanban board
-.. image::https://badge.waffle.io/threenine/Threenine.Data.svg?columns=all:target: https://waffle.io/threenine/Threenine.Data :alt: 'Waffle.io - Columns and their card count'
+.. image:: https://badge.waffle.io/threenine/Threenine.Data.svg?columns=all
+ :target: https://waffle.io/threenine/Threenine.Data
+ :alt: 'Waffle.io - Columns and their card count' 
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: User Documentation 
+
+   getting-started
 
 
 
