@@ -32,7 +32,7 @@ Once you have added the Nuget Package to your project, you can edit your `Startu
             services.AddMvc();
         }
 
-Check out an example using Threenine.Data `Sample MVC Application<https://github.com/threenine/Threenine.Data/blob/master/samples/SampleCoreMVCWebsite/Startup.cs>`
+Check out an example using Threenine.Data `Sample MVC Application<https://github.com/threenine/Threenine.Data/blob/master/samples/SampleCoreMVCWebsite/Startup.cs>`_ .
 
 
 
