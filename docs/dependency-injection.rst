@@ -14,6 +14,12 @@ How to use Threenine.Data.DependencyInjection
 
 Once you have added the Nuget Package to your project, you can edit your `Startup.cs`  and import `using Threenine.Data.DependencyInjection;`
 
+In the example we are just going to use a Connection String that we have declared in our `appsettings.json` file which we have simply called `SampleDB`. 
+
+We have also made use of Microsoft SQL Server (MS SQL) for the example, but this can be any Relational Database Management System (RDBMS) of your choice i.e. mySQL, Postgres SQL, oracle etc.
+
+We have simply used MS SQL for ease of illustration.
+
 ::
 
      public class Startup
