@@ -9,6 +9,9 @@ Dependencies can be injected into objects by many means (such as constructor inj
 
 The .net core framework comes with a built in DI container. We will use this DI container to illustrate how to configure and inject Threenine.Data.
 
+How to use Threenine.Data.DependencyInjection
+*********************************************
+
 Once you have added the Nuget Package to your project, you can edit your `Startup.cs`  and import `using Threenine.Data.DependencyInjection;`
 
 ::
