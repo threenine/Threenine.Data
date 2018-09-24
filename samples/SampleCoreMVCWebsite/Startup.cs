@@ -26,8 +26,9 @@ namespace SampleCoreMVCWebsite
         public void ConfigureServices(IServiceCollection services)
         {
             // Use the Threenine.Data Dependency Injection to set up the Unit of Work
+            var connString = Configuration.GetConnectionString("SampleDB");
             services.AddDbContext<SampleContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("SampleDB"))).AddUnitOfWork<SampleContext>();
+                options.UseSqlServer(connString)).AddUnitOfWork<SampleContext>();
 
             services.AddMvc();
         }
