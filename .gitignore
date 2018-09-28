@@ -3,6 +3,7 @@
 .DS_Store
 #ignore thumbnails created by windows
 Thumbs.db
+.idea
 
 .vscode
 # User-specific files
