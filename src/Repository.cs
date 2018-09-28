@@ -11,19 +11,9 @@ namespace Threenine.Data
 {
     public class Repository<T> : BaseRepository<T>, IRepository<T> where T : class
     {
-        /*
-        protected readonly DbContext _dbContext;
-        protected readonly DbSet<T> _dbSet;
-        */
-
-        public Repository(DbContext context):base(context)
+      public Repository(DbContext context):base(context)
         {
-            /*
-            _dbContext = context ?? throw new ArgumentException(nameof(context));
-            _dbSet = _dbContext.Set<T>();
-            */
         }
-
 
         public void Add(T entity)
         {
@@ -76,9 +66,7 @@ namespace Threenine.Data
         {
             _dbSet.RemoveRange(entities);
         }
-
-
-       
+      
 
         [Obsolete("Method is replaced by GetList")]
         public IEnumerable<T> Get()
