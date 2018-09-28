@@ -3,7 +3,8 @@ using Xunit;
 
 namespace Threenine.Data.Tests
 {
-    public class RepositoryAddTestsSqlLite : IClassFixture<SqlLiteTestFixture>
+    [Collection("RepositoryAdd")]
+    public class RepositoryAddTestsSqlLite 
     {
         public RepositoryAddTestsSqlLite(SqlLiteTestFixture fixture)
         {
@@ -25,7 +26,7 @@ namespace Threenine.Data.Tests
             uow.SaveChanges();
 
             //Assert
-            Assert.Equal(1, newCategory.Id);
+            Assert.Equal(21, newCategory.Id);
         }
 
         [Fact]
@@ -45,7 +46,7 @@ namespace Threenine.Data.Tests
             uow.SaveChanges();
 
             //Assert
-            Assert.Equal(1, newProduct.Id);
+            Assert.Equal(21, newProduct.Id);
         }
     }
 }
