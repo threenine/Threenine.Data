@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.1.3</Version>
+    <Version>1.1.4</Version>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Company>Three Nine Consulting Limited</Company>
     <Authors>Gary Woodfine</Authors>
@@ -16,7 +16,7 @@
     <NeutralLanguage>en</NeutralLanguage>
     <RepositoryUrl>https://github.com/threenine/GenericRepository</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-     <PackageReleaseNotes>Implemented Async Repository functionality and refined, enhanced existing repository functions</PackageReleaseNotes>
+     <PackageReleaseNotes>Added Readonly Repository Interface and Upgraded to .net core 2.1</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
