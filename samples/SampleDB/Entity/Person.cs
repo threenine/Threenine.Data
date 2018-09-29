@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace Sample.Entity
 {
     public class Person
     {
-
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [StringLength(10)]
-        public string Salutation { get; set; }
+        [StringLength(10)] public string Salutation { get; set; }
 
         [DataType(DataType.Text)]
         [StringLength(100)]
@@ -25,7 +20,7 @@ namespace Sample.Entity
         public string EmailAddress { get; set; }
 
         public string Profile { get; set; }
-        
+
         public string TagLine { get; set; }
     }
 }

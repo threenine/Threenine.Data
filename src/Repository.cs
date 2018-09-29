@@ -4,14 +4,12 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
-using Threenine.Data.Paging;
 
 namespace Threenine.Data
 {
     public class Repository<T> : BaseRepository<T>, IRepository<T> where T : class
     {
-      public Repository(DbContext context):base(context)
+        public Repository(DbContext context) : base(context)
         {
         }
 
@@ -67,8 +65,6 @@ namespace Threenine.Data
             _dbSet.RemoveRange(entities);
         }
 
-
-       
 
         [Obsolete("Method is replaced by GetList")]
         public IEnumerable<T> Get()

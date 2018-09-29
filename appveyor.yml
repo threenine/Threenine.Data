@@ -13,8 +13,10 @@ before_build:
   - cmd: dotnet --version
   # Display minimal restore text
   - cmd: dotnet restore ./src/Threenine.Data.csproj --verbosity m
+  - cmd: dotnet restore ./Tests/Threenine.Data.Tests/Threenine.Data.Tests.csproj --verbosity m
 build_script:
     - cmd: dotnet build ./src/Threenine.Data.csproj -c Release
+    - cmd: dotnet build ./Tests/Threenine.Data.Tests/Threenine.Data.Tests.csproj -c Release
     - cmd: dotnet pack  -c Release /p:PackageVersion=1.1.4 
 test_script:
     - cmd: dotnet test "./Tests/Threenine.Data.Tests/Threenine.Data.Tests.csproj" -c Release

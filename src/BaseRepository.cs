@@ -3,7 +3,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
-using Remotion.Linq.Clauses.ResultOperators;
 using Threenine.Data.Paging;
 
 namespace Threenine.Data
@@ -12,14 +11,14 @@ namespace Threenine.Data
     {
         protected readonly DbContext _dbContext;
         protected readonly DbSet<T> _dbSet;
-        
+
         public BaseRepository(DbContext context)
         {
             _dbContext = context ?? throw new ArgumentException(nameof(context));
             _dbSet = _dbContext.Set<T>();
         }
-        
-        
+
+
         public T Single(Expression<Func<T, bool>> predicate = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
@@ -36,7 +35,7 @@ namespace Threenine.Data
                 return orderBy(query).FirstOrDefault();
             return query.FirstOrDefault();
         }
-        
+
         public IPaginate<T> GetList(Expression<Func<T, bool>> predicate = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null, int index = 0,
@@ -69,6 +68,5 @@ namespace Threenine.Data
                 ? orderBy(query).Select(selector).ToPaginate(index, size)
                 : query.Select(selector).ToPaginate(index, size);
         }
-
     }
 }

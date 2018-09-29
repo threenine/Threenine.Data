@@ -8,12 +8,18 @@ namespace Threenine.Data.Tests
     [Collection("RepositoryAdd")]
     public class RepositoryAddTestsSqlLite : IDisposable
     {
-        public RepositoryAddTestsSqlLite(SqlLiteWithEmptyDataTestFixture  fixture)
+        public RepositoryAddTestsSqlLite(SqlLiteWithEmptyDataTestFixture fixture)
         {
             _fixture = fixture;
         }
 
-        private readonly SqlLiteWithEmptyDataTestFixture  _fixture;
+
+        public void Dispose()
+        {
+            _fixture?.Dispose();
+        }
+
+        private readonly SqlLiteWithEmptyDataTestFixture _fixture;
 
         [Fact]
         public void ShouldAddNewCategory()
@@ -53,12 +59,6 @@ namespace Threenine.Data.Tests
                 //Assert
                 Assert.Equal(1, newProduct.Id);
             }
-        }
-      
-
-        public void Dispose()
-        {
-            _fixture?.Dispose();
         }
     }
 }

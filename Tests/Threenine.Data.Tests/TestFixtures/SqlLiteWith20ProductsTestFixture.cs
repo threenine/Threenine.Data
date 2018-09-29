@@ -28,19 +28,19 @@ namespace Threenine.Data.Tests.TestFixtures
             context.TestCategories.AddRange(TestCategories());
             context.TestProducts.AddRange(TestProducts());
             context.SaveChanges();
-             return context;
+            return context;
         }
-        
+
         private List<TestCategory> TestCategories()
         {
             return Builder<TestCategory>.CreateListOfSize(20).Build().ToList();
         }
+
         private List<TestProduct> TestProducts()
         {
             var productList = Builder<TestProduct>.CreateListOfSize(20).TheFirst(5).With(x => x.CategoryId = 1)
                 .Build().ToList();
             return productList;
-
         }
     }
 }

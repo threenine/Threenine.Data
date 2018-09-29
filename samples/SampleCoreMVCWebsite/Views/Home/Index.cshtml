@@ -1,7 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-@using System.Security.Cryptography.X509Certificates
 @model IEnumerable<UserDetailModel>
 <div class="container">
     <div class="row">
@@ -14,14 +13,14 @@
                     <th></th>
                 </tr>
                 @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.FullName</td>
-                <td>@item.Headline</td>
-                <td>@item.Bio</td>
-                <td> @Html.ActionLink("Edit", "Edit", new { id = item.Id })</td>
-            </tr>
-}
+                {
+                    <tr>
+                        <td>@item.FullName</td>
+                        <td>@item.Headline</td>
+                        <td>@item.Bio</td>
+                        <td> @Html.ActionLink("Edit", "Edit", new {id = item.Id})</td>
+                    </tr>
+                }
             </table>
             @Html.ActionLink("Add New", "Add")
         </div>

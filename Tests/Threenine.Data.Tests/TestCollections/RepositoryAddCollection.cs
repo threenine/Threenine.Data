@@ -3,9 +3,8 @@ using Xunit;
 
 namespace Threenine.Data.Tests.TestCollections
 {
-  [CollectionDefinition("RepositoryAdd")]
-    public class RepositoryAddCollection :ICollectionFixture<SqlLiteWithEmptyDataTestFixture >
+    [CollectionDefinition("RepositoryAdd")]
+    public class RepositoryAddCollection : ICollectionFixture<SqlLiteWithEmptyDataTestFixture>
     {
-        
     }
 }

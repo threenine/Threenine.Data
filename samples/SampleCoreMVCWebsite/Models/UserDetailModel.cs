@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Sample.Entity;
 using Threenine.Map;
 
@@ -23,8 +19,7 @@ namespace SampleCoreMVCWebsite.Models
                     opt => opt.MapFrom(src => string.Concat(src.FirstName, " ", src.LastName)))
                 .ForMember(dest => dest.Headline, opt => opt.MapFrom(src => src.TagLine))
                 .ForMember(dest => dest.Bio, opt => opt.MapFrom(src => src.Profile))
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id) );
-                
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
         }
     }
 }

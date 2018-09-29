@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace TestDatabase
 {
@@ -7,7 +6,6 @@ namespace TestDatabase
     {
         public TestDbContext(DbContextOptions<TestDbContext> options) : base(options)
         {
-           
         }
 
         public virtual DbSet<TestCategory> TestCategories { get; set; }
@@ -16,17 +14,17 @@ namespace TestDatabase
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
         }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<TestCategory>(entity =>
             {
                 entity.ToTable("TestCategory");
                 entity.Property(e => e.Id).HasColumnName("id");
-                
+
                 entity.Property(e => e.Name)
                     .HasColumnName("Name")
                     .HasColumnType("varchar(50)");
-                
             });
 
             modelBuilder.Entity<TestProduct>(entity =>
@@ -37,12 +35,11 @@ namespace TestDatabase
                 entity.Property(e => e.Name)
                     .HasColumnName("Name")
                     .HasColumnType("varchar(50)");
-                
+
                 entity.HasOne(d => d.Category)
                     .WithMany(p => p.Products)
                     .HasForeignKey(d => d.CategoryId)
                     .HasConstraintName("testCategory_testCategory_id_foreign");
-                
             });
         }
     }

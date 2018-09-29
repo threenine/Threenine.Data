@@ -6,6 +6,5 @@ namespace Threenine.Data.Tests.TestCollections
     [CollectionDefinition("PagedList")]
     public class PagedListCollection : ICollectionFixture<SqlLiteWith20ProductsTestFixture>
     {
-        
     }
 }

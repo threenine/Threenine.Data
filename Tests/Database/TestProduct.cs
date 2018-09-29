@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TestDatabase
@@ -13,7 +12,7 @@ namespace TestDatabase
         public string Name { get; set; }
 
         public TestCategory Category { get; set; }
-        
+
         public int CategoryId { get; set; }
     }
 }

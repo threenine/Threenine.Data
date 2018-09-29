@@ -20,7 +20,7 @@ namespace Threenine.Data.Tests.TestFixtures
                 .EnableSensitiveDataLogging()
                 .Options;
             var context = new TestDbContext(options);
-            
+
             return context;
         }
     }

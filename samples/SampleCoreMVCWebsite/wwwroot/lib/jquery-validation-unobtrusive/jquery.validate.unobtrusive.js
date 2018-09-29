@@ -118,7 +118,7 @@
             execInContext = function (name, args) {
                 var func = defaultOptions[name];
                 func && $.isFunction(func) && func.apply(form, args);
-            }
+            };
 
         if (!result) {
             result = {

@@ -1,4 +1,4 @@
-﻿@model SampleCoreMVCWebsite.Models.UserInputModel
+﻿@model UserInputModel
 
 <div class="row">
     <div class="col-lg-6">
@@ -10,44 +10,44 @@
                     @Html.DisplayNameFor(m => m.Salutation)
                 </dt>
                 <dd>
-                    @Html.TextBoxFor(m => m.Salutation, "", new { @class = "form-control" })
+                    @Html.TextBoxFor(m => m.Salutation, "", new {@class = "form-control"})
                 </dd>
                 <dt>
                     @Html.DisplayNameFor(m => m.FirstName)
                 </dt>
                 <dd>
-                    @Html.TextBoxFor(m => m.FirstName, "", new { @class = "form-control" })
+                    @Html.TextBoxFor(m => m.FirstName, "", new {@class = "form-control"})
                 </dd>
                 <dt>
                     @Html.DisplayNameFor(m => m.LastName)
                 </dt>
                 <dd>
-                    @Html.TextBoxFor(m => m.LastName, "", new { @class = "form-control" })
+                    @Html.TextBoxFor(m => m.LastName, "", new {@class = "form-control"})
                 </dd>
                 <dt>
                     @Html.DisplayNameFor(m => m.EmailAddress)
                 </dt>
                 <dd>
-                    @Html.TextBoxFor(m => m.EmailAddress, "", new { @class = "form-control" })
+                    @Html.TextBoxFor(m => m.EmailAddress, "", new {@class = "form-control"})
                 </dd>
                 <dt>
                     @Html.DisplayNameFor(m => m.TagLine)
                 </dt>
                 <dd>
-                    @Html.TextBoxFor(m => m.TagLine, "", new { @class = "form-control" })
+                    @Html.TextBoxFor(m => m.TagLine, "", new {@class = "form-control"})
                 </dd>
 
                 <dt>
                     @Html.DisplayNameFor(m => m.Profile)
                 </dt>
                 <dd>
-                    @Html.TextAreaFor(m => m.Profile, 20, 40, new { @class = "form-control" })
+                    @Html.TextAreaFor(m => m.Profile, 20, 40, new {@class = "form-control"})
                 </dd>
             </dl>
             <input type="submit" value="Submit" class="btn btn-group-lg btn-success"/>
         }
 
     </div>
-      
-      
+
+
 </div>

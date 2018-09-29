@@ -29,7 +29,7 @@ namespace Threenine.Data
 
             var type = typeof(TEntity);
             if (!_repositories.ContainsKey(type)) _repositories[type] = new RepositoryAsync<TEntity>(Context);
-            return (IRepositoryAsync<TEntity>)_repositories[type];
+            return (IRepositoryAsync<TEntity>) _repositories[type];
         }
 
         public IRepositoryReadOnly<TEntity> GetReadOnlyRepository<TEntity>() where TEntity : class

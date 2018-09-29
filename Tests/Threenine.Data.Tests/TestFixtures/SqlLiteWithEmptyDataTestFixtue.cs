@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using FizzWare.NBuilder;
 using Microsoft.EntityFrameworkCore;
 using TestDatabase;
 
@@ -25,10 +22,8 @@ namespace Threenine.Data.Tests.TestFixtures
             var context = new TestDbContext(options);
             context.Database.OpenConnection();
             context.Database.EnsureCreated();
-           
+
             return context;
         }
-        
-        
     }
 }
