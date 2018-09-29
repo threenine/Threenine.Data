@@ -1,5 +1,7 @@
-version: '1.0.{build}'
-image: Visual Studio 2017
+version: 1.0.{build}
+image: Ubuntu1804
+build:
+  verbosity: minimal
 branches:
   only:
   - master
