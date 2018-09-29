@@ -1,52 +1,64 @@
-﻿using TestDatabase;
+﻿using System;
+using TestDatabase;
+using Threenine.Data.Tests.TestFixtures;
 using Xunit;
 
 namespace Threenine.Data.Tests
 {
     [Collection("RepositoryAdd")]
-    public class RepositoryAddTestsSqlLite 
+    public class RepositoryAddTestsSqlLite : IDisposable
     {
-        public RepositoryAddTestsSqlLite(SqlLiteTestFixture fixture)
+        public RepositoryAddTestsSqlLite(SqlLiteWithEmptyDataTestFixture  fixture)
         {
             _fixture = fixture;
         }
 
-        private readonly SqlLiteTestFixture _fixture;
+        private readonly SqlLiteWithEmptyDataTestFixture  _fixture;
 
         [Fact]
         public void ShouldAddNewCategory()
         {
             //arange 
-            var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
-            var repo = uow.GetRepository<TestCategory>();
-            var newCategory = new TestCategory {Name = GlobalTestStrings.TestProductCategoryName};
+            using (var uow = new UnitOfWork<TestDbContext>(_fixture.Context))
+            {
+                var repo = uow.GetRepository<TestCategory>();
+                var newCategory = new TestCategory {Name = GlobalTestStrings.TestProductCategoryName};
 
-            //Act 
-            repo.Add(newCategory);
-            uow.SaveChanges();
+                //Act 
+                repo.Add(newCategory);
+                uow.SaveChanges();
 
-            //Assert
-            Assert.Equal(21, newCategory.Id);
+                //Assert
+                Assert.Equal(1, newCategory.Id);
+            }
         }
 
         [Fact]
         public void ShouldAddNewProduct()
         {
             //Arrange
-            var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
-            var repo = uow.GetRepository<TestProduct>();
-            var newProduct = new TestProduct
+            using (var uow = new UnitOfWork<TestDbContext>(_fixture.Context))
             {
-                Name = GlobalTestStrings.TestProductName,
-                Category = new TestCategory {Id = 1, Name = GlobalTestStrings.TestProductCategoryName}
-            };
+                var repo = uow.GetRepository<TestProduct>();
+                var newProduct = new TestProduct
+                {
+                    Name = GlobalTestStrings.TestProductName,
+                    Category = new TestCategory {Id = 1, Name = GlobalTestStrings.TestProductCategoryName}
+                };
 
-            //Act 
-            repo.Add(newProduct);
-            uow.SaveChanges();
+                //Act 
+                repo.Add(newProduct);
+                uow.SaveChanges();
 
-            //Assert
-            Assert.Equal(21, newProduct.Id);
+                //Assert
+                Assert.Equal(1, newProduct.Id);
+            }
+        }
+      
+
+        public void Dispose()
+        {
+            _fixture?.Dispose();
         }
     }
 }

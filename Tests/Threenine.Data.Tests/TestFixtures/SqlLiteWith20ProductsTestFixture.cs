@@ -5,9 +5,9 @@ using FizzWare.NBuilder;
 using Microsoft.EntityFrameworkCore;
 using TestDatabase;
 
-namespace Threenine.Data.Tests
+namespace Threenine.Data.Tests.TestFixtures
 {
-    public class SqlLiteTestFixture : IDisposable
+    public class SqlLiteWith20ProductsTestFixture : IDisposable
     {
         public TestDbContext Context => SqlLiteInMemoryContext();
 
@@ -21,7 +21,6 @@ namespace Threenine.Data.Tests
             var options = new DbContextOptionsBuilder<TestDbContext>()
                 .UseSqlite("DataSource=:memory:")
                 .Options;
-
 
             var context = new TestDbContext(options);
             context.Database.OpenConnection();

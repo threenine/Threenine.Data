@@ -66,7 +66,9 @@ namespace Threenine.Data
         {
             _dbSet.RemoveRange(entities);
         }
-      
+
+
+       
 
         [Obsolete("Method is replaced by GetList")]
         public IEnumerable<T> Get()

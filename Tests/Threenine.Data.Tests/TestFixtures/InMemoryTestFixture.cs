@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using TestDatabase;
 
-namespace Threenine.Data.Tests
+namespace Threenine.Data.Tests.TestFixtures
 {
     public class InMemoryTestFixture : IDisposable
     {

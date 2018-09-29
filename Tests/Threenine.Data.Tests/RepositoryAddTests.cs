@@ -1,4 +1,5 @@
 using TestDatabase;
+using Threenine.Data.Tests.TestFixtures;
 using Xunit;
 
 namespace Threenine.Data.Tests
