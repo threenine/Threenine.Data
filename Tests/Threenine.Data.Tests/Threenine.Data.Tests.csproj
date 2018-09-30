@@ -23,13 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-   
-    
-   
-    <ProjectReference Include="..\..\samples\SampleDB\Sample.csproj" />
-   
-    
-   
+      
     <ProjectReference Include="..\..\src\Threenine.Data.csproj" />
    
     <ProjectReference Include="..\Database\TestDatabase.csproj" />
