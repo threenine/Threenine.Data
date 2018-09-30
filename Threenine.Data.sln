@@ -4,8 +4,6 @@ VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Threenine.Data", "src\Threenine.Data.csproj", "{DF94471D-B653-4D62-97D8-77DB72603098}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{E4564824-A42B-4C0A-BDE0-BA923F25E70D}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Threenine.Data.Tests", "Tests\Threenine.Data.Tests\Threenine.Data.Tests.csproj", "{E97827CB-2677-436F-B84A-F945072F7821}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestDatabase", "Tests\Database\TestDatabase.csproj", "{021F5D7A-72D6-4909-94D8-B7F31ADDC77D}"
