@@ -31,5 +31,5 @@ deploy:
 - provider: NuGet
   server:  https://www.nuget.org/
   api_key:
-    secure: mf21OOa1QnyeVLSIaFDmmEj63k0aZ8NkhKIa7YspDZtCMRWfcHYpF/GXnJn3lDv4
+    secure: BB+Jow3pLKJtRhDDk7I0k9cqx+SBunp1ok9KWMYWpgUe+IYrLb5Y4SHTfQCWMvM5
  
