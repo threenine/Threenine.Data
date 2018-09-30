@@ -14,6 +14,7 @@ before_build:
   # Display .NET Core version
   - cmd: dotnet --version
   # Display minimal restore text
+  - cmd: dotnet clean
   - cmd: dotnet restore ./src/Threenine.Data.csproj --verbosity m
   - cmd: dotnet restore ./Tests/Threenine.Data.Tests/Threenine.Data.Tests.csproj --verbosity m
 build_script:
