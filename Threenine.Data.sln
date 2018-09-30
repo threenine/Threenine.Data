@@ -10,14 +10,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Threenine.Data.Tests", "Tes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestDatabase", "Tests\Database\TestDatabase.csproj", "{021F5D7A-72D6-4909-94D8-B7F31ADDC77D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{B057037A-9C20-497F-BE26-3D96CD68467B}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleCoreMVCWebsite", "samples\SampleCoreMVCWebsite\SampleCoreMVCWebsite.csproj", "{43BD1F07-16FC-49B5-A958-AE8A8342A519}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample", "samples\SampleDB\Sample.csproj", "{0A03A312-8DA0-4DB9-9561-A27C1BEDB895}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RazorPagesSample", "samples\RazorPagesSample\RazorPagesSample.csproj", "{38DA459B-A554-4953-AEE1-F3AD1F2B5902}"
-EndProject
+
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
