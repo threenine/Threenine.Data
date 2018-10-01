@@ -29,11 +29,9 @@ namespace Threenine.Data.Tests
             {
                 var repo = uow.GetRepository<TestCategory>();
                 var newCategory = new TestCategory {Name = GlobalTestStrings.TestProductCategoryName};
-
                 //Act 
                 repo.Add(newCategory);
                 uow.SaveChanges();
-
                 //Assert
                 Assert.Equal(1, newCategory.Id);
             }

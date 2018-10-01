@@ -57,6 +57,7 @@ namespace Threenine.Data.Tests
         [Fact]
         public void ShouldGet5ProductsOutOfStockMultiPredicateTest()
         {
+            // Arrange
             using (var uow = new UnitOfWork<TestDbContext>(_testFixture.Context))
             {
                 var repo = uow.GetRepository<TestProduct>();
@@ -70,6 +71,7 @@ namespace Threenine.Data.Tests
         [Fact]
         public void ShouldGetAllProductsFromSqlQuerySelect()
         {
+            // Arrange
             var strSQL = "Select * from TestProduct";
             using (var uow = new UnitOfWork<TestDbContext>(_testFixture.Context))
             {
@@ -84,8 +86,8 @@ namespace Threenine.Data.Tests
         [Fact]
         public void ShouldGetSqlQuerySelect()
         {
+            //Arrange
             var strSQL = "Select p.* from TestProduct p inner join TestCategory c on p.categoryid = c.id where c.id = 1";
-            
             using (var uow = new UnitOfWork<TestDbContext>(_testFixture.Context))
             {
                 var repo = uow.GetRepository<TestProduct>();

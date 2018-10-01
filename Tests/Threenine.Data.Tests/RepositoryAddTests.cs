@@ -17,16 +17,18 @@ namespace Threenine.Data.Tests
         public void ShouldAddNewProduct()
         {
             // Arrange 
-            var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
-            var repo = uow.GetRepository<TestProduct>();
-            var newProduct = new TestProduct {Name = GlobalTestStrings.TestProductName};
+            using (var uow = new UnitOfWork<TestDbContext>(_fixture.Context))
+            {
+                var repo = uow.GetRepository<TestProduct>();
+                var newProduct = new TestProduct {Name = GlobalTestStrings.TestProductName};
 
-            // Act
-            repo.Add(newProduct);
-            uow.SaveChanges();
+                // Act
+                repo.Add(newProduct);
+                uow.SaveChanges();
 
-            //Assert
-            Assert.Equal(1, newProduct.Id);
+                //Assert
+                Assert.Equal(1, newProduct.Id);
+            }
         }
     }
 }
