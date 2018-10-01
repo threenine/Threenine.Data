@@ -1,4 +1,4 @@
-﻿@model UserDetailModel
+﻿@model SampleCoreMVCWebsite.Models.UserDetailModel
 
 @{
     ViewData["Title"] = "UserDetail";
@@ -8,7 +8,7 @@
 
 <div>
     <h4>UserDetailModel</h4>
-    <hr/>
+    <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.FullName)
@@ -28,10 +28,10 @@
         <dd>
             @Html.DisplayFor(model => model.Bio)
         </dd>
-
+      
     </dl>
 </div>
 <div>
-    @Html.ActionLink("Edit", "Edit", new {/* id = Model.PrimaryKey */}) |
+    @Html.ActionLink("Edit","Edit", "Home", new {  id = Model.UserID  }) |
     <a asp-action="Index">Back to List</a>
 </div>
