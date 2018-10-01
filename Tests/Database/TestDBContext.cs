@@ -30,11 +30,22 @@ namespace TestDatabase
             modelBuilder.Entity<TestProduct>(entity =>
             {
                 entity.ToTable("TestProduct");
+                
                 entity.HasIndex(e => e.CategoryId).HasName("testCategory_testCategory_id_foreign");
                 entity.Property(e => e.CategoryId).HasColumnName("CategoryId");
+                
                 entity.Property(e => e.Name)
                     .HasColumnName("Name")
                     .HasColumnType("varchar(50)");
+                
+                entity.Property(e => e.Stock)
+                    .HasColumnName("Stock")
+                    .HasColumnType("int");
+                
+                entity.Property(e => e.InStock)
+                    .HasColumnName("inStock")
+                    .HasColumnType("bit")
+                    .HasDefaultValue(true);
 
                 entity.HasOne(d => d.Category)
                     .WithMany(p => p.Products)

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using TestDatabase;
 using Threenine.Data.Paging;
@@ -54,6 +55,49 @@ namespace Threenine.Data.Tests
         }
 
         [Fact]
+        public void ShouldGet5ProductsOutOfStockMultiPredicateTest()
+        {
+            using (var uow = new UnitOfWork<TestDbContext>(_testFixture.Context))
+            {
+                var repo = uow.GetRepository<TestProduct>();
+                //Act
+                var productList = repo.GetList(predicate: x =>  x.Stock == 0 && x.InStock.Value == false).Items;
+                //Assert
+                Assert.Equal(5, productList.Count);
+            }
+            
+        }
+        [Fact]
+        public void ShouldGetAllProductsFromSqlQuerySelect()
+        {
+            var strSQL = "Select * from TestProduct";
+            using (var uow = new UnitOfWork<TestDbContext>(_testFixture.Context))
+            {
+                var repo = uow.GetRepository<TestProduct>();
+                //Act
+                var productList = repo.Query(strSQL).AsEnumerable();
+                //Assert
+                Assert.Equal(20, productList.Count());
+            }
+        }
+        
+        [Fact]
+        public void ShouldGetSqlQuerySelect()
+        {
+            var strSQL = "Select p.* from TestProduct p inner join TestCategory c on p.categoryid = c.id where c.id = 1";
+            
+            using (var uow = new UnitOfWork<TestDbContext>(_testFixture.Context))
+            {
+                var repo = uow.GetRepository<TestProduct>();
+                //Act
+                var productList = repo.Query(strSQL).AsEnumerable();
+                //Assert
+                Assert.Equal(5, productList.Count());
+            }
+        }
+
+
+        [Fact]
         public void ShouldBeReadOnlyInterface()
         {
             // Arrange 
@@ -61,7 +105,6 @@ namespace Threenine.Data.Tests
             {
                 //Act
                 var repo = uow.GetReadOnlyRepository<TestProduct>();
-
                 //Assert
                 Assert.IsAssignableFrom<IRepositoryReadOnly<TestProduct>>(repo);
             }
@@ -74,10 +117,8 @@ namespace Threenine.Data.Tests
             using (var uow = new UnitOfWork<TestDbContext>(_testFixture.Context))
             {
                 var repo = uow.GetReadOnlyRepository<TestProduct>();
-
                 //Act 
                 var products = repo.GetList().Items;
-
                 //Assert
                 Assert.Equal(20, products.Count);
             }

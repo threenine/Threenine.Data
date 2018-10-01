@@ -7,7 +7,7 @@ using Threenine.Data.Paging;
 
 namespace Threenine.Data
 {
-    public abstract class BaseRepository<T> where T : class
+    public abstract class BaseRepository<T> : IReadRepository<T> where T : class
     {
         protected readonly DbContext _dbContext;
         protected readonly DbSet<T> _dbSet;
@@ -18,6 +18,11 @@ namespace Threenine.Data
             _dbSet = _dbContext.Set<T>();
         }
 
+
+        public virtual IQueryable<T> Query(string sql, params object[] parameters) => _dbSet.FromSql(sql, parameters);
+
+        public T Search(params object[] keyValues) => _dbSet.Find(keyValues);
+       
 
         public T Single(Expression<Func<T, bool>> predicate = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
