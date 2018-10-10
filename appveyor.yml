@@ -1,6 +1,7 @@
 version: 1.0.{build}
 image: Visual Studio 2017
 build:
+  project: Threenine.Data.sln
   verbosity: minimal
 branches:
   only:
