@@ -7,6 +7,7 @@ namespace Threenine.Data
     {
         IRepository<TEntity> GetRepository<TEntity>() where TEntity : class;
         IRepositoryAsync<TEntity> GetRepositoryAsync<TEntity>() where TEntity : class;
+        IRepositoryReadOnly<TEntity> GetReadOnlyRepository<TEntity>() where TEntity : class;
 
         int SaveChanges();
     }
