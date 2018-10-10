@@ -12,5 +12,4 @@ services:
     - "1433:1433"
 
 volumes:
-  mssql-volume: 
- 
+  mssql-volume:

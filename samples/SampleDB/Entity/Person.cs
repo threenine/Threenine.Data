@@ -9,7 +9,7 @@ namespace Sample.Entity
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [StringLength(10)] public string Salutation { get; set; }
+        [StringLength(10)] public string Title { get; set; }
 
         [DataType(DataType.Text)]
         [StringLength(100)]
@@ -17,7 +17,7 @@ namespace Sample.Entity
 
         public string LastName { get; set; }
 
-        public string EmailAddress { get; set; }
+        public string Email { get; set; }
 
         public string Profile { get; set; }
 

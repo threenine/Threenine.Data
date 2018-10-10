@@ -7,7 +7,7 @@ using Threenine.Data.Paging;
 
 namespace Threenine.Data
 {
-    public interface IRepository<T> : IReadRepository<T> where T : class
+    public interface IRepository<T> : IReadRepository<T>, IDisposable where T : class
     {
         void Add(T entity);
         void Add(params T[] entities);

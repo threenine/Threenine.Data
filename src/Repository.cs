@@ -93,5 +93,10 @@ namespace Threenine.Data
         {
             _dbSet.UpdateRange(entities);
         }
+
+        public void Dispose()
+        {
+            _dbContext?.Dispose();
+        }
     }
 }

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Threenine.Data
 {
     public class UnitOfWork<TContext> : IRepositoryFactory, IUnitOfWork<TContext>, IUnitOfWork
-        where TContext : DbContext
+        where TContext : DbContext, IDisposable
     {
         private Dictionary<Type, object> _repositories;
 
