@@ -13,7 +13,7 @@ namespace SampleCoreMVCWebsite.Models
     public class UserInputModel :   IMapTo<Person>
     {
         public int Id { get; set; }
-        public string Salutation { get; set; }
+        public string Title { get; set; }
 
         [Display(Name = "Name")]
         public string FirstName { get; set; }

@@ -54,16 +54,16 @@ namespace SampleCoreMVCWebsite.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var profile = Mapper.Map<EditProfileDetail>(_unitOfWork.GetRepository<Person>().Single(p => p.Id == id));
+            var profile = Mapper.Map<UserDetailModel>(_unitOfWork.GetRepository<Person>().Single(p => p.Id == id));
             return View("Edit", profile);
         }
 
         [HttpPost]
-        public IActionResult Edit(EditProfileDetail profile)
+        public IActionResult Edit(UserDetailModel profile)
         {
             _unitOfWork.GetRepository<Person>().Update(Mapper.Map<Person>(profile));
 
-            return RedirectToAction("UserDetail", "Home", new { id = profile.UserId });
+            return RedirectToAction("UserDetail", "Home", new { id = profile.UserID });
 
         }
        

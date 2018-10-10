@@ -20,7 +20,7 @@ before_build:
 build_script:
     - cmd: dotnet build ./src/Threenine.Data.csproj -c Release
     - cmd: dotnet build ./Tests/Threenine.Data.Tests/Threenine.Data.Tests.csproj -c Release
-    - cmd: dotnet pack  -c Release /p:PackageVersion=1.1.4 
+    - cmd: dotnet pack  -c Release /p:PackageVersion=1.1.5 
 test_script:
     - cmd: dotnet test "./Tests/Threenine.Data.Tests/Threenine.Data.Tests.csproj" -c Release
 artifacts:
