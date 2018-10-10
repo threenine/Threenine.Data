@@ -5,7 +5,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Version>1.1.5</Version>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Company>Three Nine Consulting Limited</Company>
+    <Company>threenine.co.uk</Company>
     <Authors>Gary Woodfine</Authors>
     <PackageProjectUrl>https://threenine.github.io/Threenine.Data/</PackageProjectUrl>
     <PackageIconUrl>http://static.threenine.co.uk/threeninedata_icon.png</PackageIconUrl>
