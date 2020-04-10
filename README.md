@@ -31,24 +31,13 @@ Check out [Nuget package page](https://www.nuget.org/packages/Threenine.Data/) f
 
 If you want to raise bugs or Request a feature please do so via a [Github issue](https://github.com/threenine/Threenine.Data/issues) and we will attempt to address it as soon as resource is available to do so.
 
-## Project Status
-
-[![Waffle.io - Columns and their card count](https://badge.waffle.io/threenine/Threenine.Data.svg?columns=all)](https://waffle.io/threenine/Threenine.Data)
- 
- 
-
-[![Throughput Graph](https://graphs.waffle.io/threenine/Threenine.Data/throughput.svg)](https://waffle.io/threenine/Threenine.Data/metrics)
-
 ## Documentation 
 
 All the documentation of how to use and implement the Threenine.Data : Generic Unit of Work and Repository is available on  [Read the Docs](http://genericrepository.readthedocs.io/en/latest/?badge=latest)
 
-## Donate
+## Open Source 
 
  Threenine.Data is developed and supported for free.
 
-If you would like to make a donation to keep the developers stocked with coffee and pizza's would be greatly appreciated.
-
-[![Donate via PayPal](https://garywoodfine.com/wp-content/plugins/stop-web-crawlers/images/donate.en.png)](https://www.paypal.me/geekiam/)
 
 [![threenine logo](http://static.threenine.co.uk/img/github_footer.png)](https://threenine.co.uk/)
