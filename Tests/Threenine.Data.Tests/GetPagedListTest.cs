@@ -22,24 +22,7 @@ namespace Threenine.Data.Tests
         }
 
         private readonly SqlLiteWith20ProductsTestFixture _testFixture;
-
-        [Fact]
-        public void GetPagedListIncludesTest()
-        {
-            using (var uow = new UnitOfWork<TestDbContext>(_testFixture.Context))
-            {
-                var cats = uow.GetRepository<TestCategory>().GetList(include: source =>
-                    source.Include(x => x.Products).ThenInclude(prod => prod.Category), size: 5);
-
-                Assert.IsAssignableFrom<Paginate<TestCategory>>(cats);
-
-                Assert.Equal(20, cats.Count);
-                Assert.Equal(4, cats.Pages);
-                Assert.Equal(5, cats.Items.Count);
-            }
-        }
-
-
+       
         [Fact]
         public void GetProductPagedListUsingPredicateTest()
         {
