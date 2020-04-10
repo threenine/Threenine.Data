@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Query;
 using Threenine.Data.Paging;
 
@@ -26,11 +27,12 @@ namespace Threenine.Data
             bool disableTracking = true,
             CancellationToken cancellationToken = default(CancellationToken));
 
-        Task AddAsync(T entity, CancellationToken cancellationToken = default(CancellationToken));
+        
+        Task InsertAsync(params T[] entities);
 
-        Task AddAsync(params T[] entities);
-
-        Task AddAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default(CancellationToken));
+        Task InsertAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default(CancellationToken));
+        
+        ValueTask<EntityEntry<T>> InsertAsync(T entity, CancellationToken cancellationToken = default(CancellationToken));
 
 
         void UpdateAsync(T entity);

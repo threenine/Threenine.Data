@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Query;
 using Threenine.Data.Paging;
 
@@ -37,6 +38,11 @@ namespace Threenine.Data
             return await query.FirstOrDefaultAsync();
         }
 
+        public IEnumerable<T> GetAsync(Expression<Func<T, bool>> predicate)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<IPaginate<T>> GetListAsync(Expression<Func<T, bool>> predicate = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
@@ -57,10 +63,11 @@ namespace Threenine.Data
             return query.ToPaginateAsync(index, size, 0, cancellationToken);
         }
 
-        public Task AddAsync(T entity, CancellationToken cancellationToken = default(CancellationToken))
+        public Task InsertAsync(params T[] entities)
         {
-            return _dbSet.AddAsync(entity, cancellationToken);
+            throw new NotImplementedException();
         }
+
 
         public Task AddAsync(params T[] entities)
         {
@@ -68,17 +75,16 @@ namespace Threenine.Data
         }
 
 
-        public Task AddAsync(IEnumerable<T> entities,
+        public Task InsertAsync(IEnumerable<T> entities,
             CancellationToken cancellationToken = default(CancellationToken))
         {
             return _dbSet.AddRangeAsync(entities, cancellationToken);
         }
+      
 
-
-        [Obsolete("Use get list ")]
-        public IEnumerable<T> GetAsync(Expression<Func<T, bool>> predicate)
+        public ValueTask<EntityEntry<T>> InsertAsync(T entity, CancellationToken cancellationToken = default(CancellationToken))
         {
-            throw new NotImplementedException();
+            return _dbSet.AddAsync(entity, cancellationToken);
         }
 
         public void UpdateAsync(T entity)
@@ -86,9 +92,6 @@ namespace Threenine.Data
             _dbSet.Update(entity);
         }
 
-        public Task AddAsync(T entity)
-        {
-            return AddAsync(entity, new CancellationToken());
-        }
+     
     }
 }
