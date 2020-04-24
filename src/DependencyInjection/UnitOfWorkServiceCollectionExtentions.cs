@@ -32,7 +32,6 @@ namespace Threenine.Data.DependencyInjection
             services.AddScoped<IUnitOfWork<TContext1>, UnitOfWork<TContext1>>();
             services.AddScoped<IUnitOfWork<TContext2>, UnitOfWork<TContext2>>();
             services.AddScoped<IUnitOfWork<TContext3>, UnitOfWork<TContext3>>();
-
             return services;
         }
 
@@ -47,7 +46,6 @@ namespace Threenine.Data.DependencyInjection
             services.AddScoped<IUnitOfWork<TContext2>, UnitOfWork<TContext2>>();
             services.AddScoped<IUnitOfWork<TContext3>, UnitOfWork<TContext3>>();
             services.AddScoped<IUnitOfWork<TContext4>, UnitOfWork<TContext4>>();
-
             return services;
         }
     }

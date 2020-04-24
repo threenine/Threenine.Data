@@ -37,7 +37,7 @@ namespace Threenine.Data.Tests
             }
         }
 
-        /*[Fact]
+        [Fact]
         public void ShouldAddNewProduct()
         {
             //Arrange
@@ -51,12 +51,13 @@ namespace Threenine.Data.Tests
                 };
 
                 //Act 
-                    (newProduct);
+                 repo.Insert(newProduct);
                 uow.SaveChanges();
 
+                
                 //Assert
                 Assert.Equal(1, newProduct.Id);
             }
-        }*/
+        }
     }
 }
