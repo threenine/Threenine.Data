@@ -18,7 +18,7 @@ namespace Threenine.Data
             _dbSet = _dbContext.Set<T>();
         }
 
-        public virtual IQueryable<T> Query(string sql, params object[] parameters) => _dbSet.FromSql(sql, parameters);
+        public virtual IQueryable<T> Query(string sql, params object[] parameters) => _dbSet.FromSqlRaw(sql, parameters);
 
         public T Search(params object[] keyValues) => _dbSet.Find(keyValues);
        

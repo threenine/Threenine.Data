@@ -13,18 +13,18 @@ namespace Threenine.Data
         {
         }
 
-        public void Add(T entity)
+        public void Insert(T entity)
         {
             _dbSet.Add(entity);
         }
 
-        public void Add(params T[] entities)
+        public void Insert(params T[] entities)
         {
             _dbSet.AddRange(entities);
         }
 
 
-        public void Add(IEnumerable<T> entities)
+        public void Insert(IEnumerable<T> entities)
         {
             _dbSet.AddRange(entities);
         }
@@ -64,19 +64,7 @@ namespace Threenine.Data
         {
             _dbSet.RemoveRange(entities);
         }
-
-
-        [Obsolete("Method is replaced by GetList")]
-        public IEnumerable<T> Get()
-        {
-            return _dbSet.AsEnumerable();
-        }
-
-        [Obsolete("Method is replaced by GetList")]
-        public IEnumerable<T> Get(Expression<Func<T, bool>> predicate)
-        {
-            return _dbSet.Where(predicate).AsEnumerable();
-        }
+     
 
         public void Update(T entity)
         {

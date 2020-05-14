@@ -30,7 +30,7 @@ namespace Threenine.Data.Tests
                 var repo = uow.GetRepository<TestCategory>();
                 var newCategory = new TestCategory {Name = GlobalTestStrings.TestProductCategoryName};
                 //Act 
-                repo.Add(newCategory);
+                repo.Insert(newCategory);
                 uow.SaveChanges();
                 //Assert
                 Assert.Equal(1, newCategory.Id);
@@ -51,9 +51,10 @@ namespace Threenine.Data.Tests
                 };
 
                 //Act 
-                repo.Add(newProduct);
+                 repo.Insert(newProduct);
                 uow.SaveChanges();
 
+                
                 //Assert
                 Assert.Equal(1, newProduct.Id);
             }

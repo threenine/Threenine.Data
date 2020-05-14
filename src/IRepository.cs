@@ -9,9 +9,9 @@ namespace Threenine.Data
 {
     public interface IRepository<T> : IReadRepository<T>, IDisposable where T : class
     {
-        void Add(T entity);
-        void Add(params T[] entities);
-        void Add(IEnumerable<T> entities);
+        void Insert(T entity);
+        void Insert(params T[] entities);
+        void Insert(IEnumerable<T> entities);
 
 
         void Delete(T entity);

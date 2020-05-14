@@ -23,7 +23,7 @@ namespace Threenine.Data.Tests
                 var newProduct = new TestProduct {Name = GlobalTestStrings.TestProductName};
 
                 // Act
-                repo.Add(newProduct);
+                repo.Insert(newProduct);
                 uow.SaveChanges();
 
                 //Assert
