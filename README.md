@@ -1,8 +1,8 @@
 # Generic Repository Pattern for C#  .net Core
 
-[![Build status](https://ci.appveyor.com/api/projects/status/cs7sy632fio3nx0d?svg=true)](https://ci.appveyor.com/project/garywoodfine/genericrepository)  [![NuGet Badge](https://buildstats.info/nuget/Threenine.Data)](https://www.nuget.org/packages/Threenine.Data/) [![NuGet Downloads](http://img.shields.io/nuget/dt/Threenine.Data.svg?style=flat)](https://www.nuget.org/packages/Threenine.Data/)  [![Twitter Follow](https://img.shields.io/twitter/follow/threenine39.svg?style=social?maxAge=2592000)](https://twitter.com/threenine39) [![PayPal](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://www.paypal.me/geekiam) [![Documentation Status](https://readthedocs.org/projects/genericrepository/badge/?version=latest)](http://genericrepository.readthedocs.io/en/latest/?badge=latest) 
+[![NuGet Badge](https://buildstats.info/nuget/Threenine.Data)](https://www.nuget.org/packages/Threenine.Data/) [![NuGet Downloads](http://img.shields.io/nuget/dt/Threenine.Data.svg?style=flat)](https://www.nuget.org/packages/Threenine.Data/)  [![Twitter Follow](https://img.shields.io/twitter/follow/threenine39.svg?style=social?maxAge=2592000)](https://twitter.com/threenine39) [![PayPal](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://www.paypal.me/geekiam) [![Documentation Status](https://readthedocs.org/projects/genericrepository/badge/?version=latest)](http://genericrepository.readthedocs.io/en/latest/?badge=latest) 
 
-A simple lean & clean generic repository pattern for .net core  abstraction layer EntityFramework Core.
+A simple lean & clean generic repository pattern for .net core  abstraction layer Entity Framework Core.
 
 
 Originally inspired by writing my blog post  [Generic Repository Pattern .net core](https://garywoodfine.com/generic-repository-pattern-net-core/), however the project has moved on to develop a reusable unit of work package with dependency injection functionality.
