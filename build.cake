@@ -5,6 +5,8 @@ var configuration = Argument("Configuration", "Release");
 Information($"Running target {target} in configuration {configuration}");
 
 var distDirectory = Directory("./build");
+var packageDirectory = Directory("./package");
+
 Task("Clean")
     .Does(() =>
     {
@@ -45,12 +47,26 @@ Task("Test")
                 });
         }
     });
+    
+  Task("Package")
+    .Does(() => 
+    {
+        var settings = new DotNetCorePackSettings
+             {
+                 Configuration = configuration,
+                 OutputDirectory = packageDirectory
+             };
+    
+          DotNetCorePack("./src/Threenine.Data.csproj", settings);
+    });
 
 Task("BuildAndTest")
     .IsDependentOn("Clean")
     .IsDependentOn("Restore")
     .IsDependentOn("Build")
-    .IsDependentOn("Test");
+    .IsDependentOn("Test")
+    .IsDependentOn("Package")
+    ;
 
 
 Task("Default")
