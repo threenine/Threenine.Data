@@ -8,15 +8,16 @@
     <Company>threenine.co.uk</Company>
     <Authors>Gary Woodfine</Authors>
     <PackageProjectUrl>https://threenine.github.io/Threenine.Data/</PackageProjectUrl>
-    <PackageIconUrl>http://static.threenine.co.uk/threeninedata_icon.png</PackageIconUrl>
+    <PackageIconUrl>http://static.threenine.co.uk/threenine_icon.png</PackageIconUrl>
     <PackageTags>generic repository</PackageTags>
-    <Copyright>Copyright ©2018 Three Nine Consulting Limited</Copyright>
+    <Copyright>Copyright ©2020 Three Nine Consulting Limited</Copyright>
     <Description>A simple generic repository wrapper library for entity framework core</Description>
     <PackageLicenseUrl>http://opensource.org/licenses/MS-PL</PackageLicenseUrl>
     <NeutralLanguage>en</NeutralLanguage>
-    <RepositoryUrl>https://github.com/threenine/GenericRepository</RepositoryUrl>
+    <RepositoryUrl>https://github.com/threenine/Threenine.Data</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
      <PackageReleaseNotes>Had to re-release</PackageReleaseNotes>
+     <Title>Threenine.Data</Title>
   </PropertyGroup>
 
   <ItemGroup>
