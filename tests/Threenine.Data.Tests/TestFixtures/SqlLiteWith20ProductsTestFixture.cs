@@ -40,13 +40,15 @@ namespace Threenine.Data.Tests.TestFixtures
         {
             var productList = Builder<TestProduct>.CreateListOfSize(20)
                 .TheFirst(5)
-                    .With(x => x.CategoryId = 1)
-                    .With(x => x.InStock = true)
+                .With(x => x.CategoryId = 1)
+                .With(x => x.InStock = true)
+                .With(x => x.Stock = 300)
                 .TheNext(5)
-                    .With(x => x.InStock = false)
-                    .With(y => y.Stock = 0)
+                .With(x => x.InStock = false)
+                .With(x => x.CategoryId = 2)
+                .With(y => y.Stock = 0)
                 .Build();
-            
+
             return productList.ToList();
         }
     }
