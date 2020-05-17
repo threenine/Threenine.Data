@@ -12,12 +12,11 @@ namespace Threenine.Data
 {
     public interface IRepositoryAsync<T> where T : class
     {
-        Task<T> SingleAsync(Expression<Func<T, bool>> predicate = null,
+        Task<T> SingleOrDefaultAsync(Expression<Func<T, bool>> predicate = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
-            bool disableTracking = true);
-
-        IEnumerable<T> GetAsync(Expression<Func<T, bool>> predicate);
+            bool disableTracking = true,
+            bool ignoreQueryFilters = false);
 
         Task<IPaginate<T>> GetListAsync(Expression<Func<T, bool>> predicate = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
@@ -25,16 +24,16 @@ namespace Threenine.Data
             int index = 0,
             int size = 20,
             bool disableTracking = true,
-            CancellationToken cancellationToken = default(CancellationToken));
+            CancellationToken cancellationToken = default);
 
-        
+
+        ValueTask<EntityEntry<T>> InsertAsync(T entity,
+            CancellationToken cancellationToken = default);
+
         Task InsertAsync(params T[] entities);
 
-        Task InsertAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default(CancellationToken));
-        
-        ValueTask<EntityEntry<T>> InsertAsync(T entity, CancellationToken cancellationToken = default(CancellationToken));
+        Task InsertAsync(IEnumerable<T> entities,
+            CancellationToken cancellationToken = default);
 
-
-        void UpdateAsync(T entity);
     }
 }

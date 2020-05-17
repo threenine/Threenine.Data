@@ -35,7 +35,6 @@ namespace Threenine.Data.Tests
             Assert.Equal(20, testList.Items.Count);
         }
         
-        
         [Fact]
         public async Task ShouldGetFiveProductsInStockOnePage()
         {
