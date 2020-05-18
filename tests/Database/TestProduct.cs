@@ -6,8 +6,8 @@ namespace TestDatabase
 {
     public class TestProduct
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Key]
+       
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         public string Name { get; set; }
