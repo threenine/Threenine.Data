@@ -8,7 +8,7 @@ using Xunit;
 
 namespace Threenine.Data.Tests
 {
-    [Collection("PagedList")]
+    [Collection(GlobalTestStrings.ProductCollectionName)]
     public class GetPagedListTest : IDisposable
     {
         public GetPagedListTest(SqlLiteWith20ProductsTestFixture fixture)

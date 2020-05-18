@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Threenine.Data.Tests
 {
-    [Collection("PagedList")]
+    [Collection(GlobalTestStrings.ProductCollectionName)]
     public class InsertAsyncTests: IDisposable
     {
         private readonly SqlLiteWith20ProductsTestFixture _fixture;

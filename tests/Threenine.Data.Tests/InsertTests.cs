@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Threenine.Data.Tests
 {
-    [Collection("PagedList")]
+    [Collection(GlobalTestStrings.ProductCollectionName)]
     public class InsertTests : IDisposable
     {
         private readonly SqlLiteWith20ProductsTestFixture _fixture;
@@ -17,7 +17,7 @@ namespace Threenine.Data.Tests
         }
 
         [Fact]
-        public void ShoudInsertandReturnCreatedEntity()
+        public void ShouldInsertAndReturnCreatedEntity()
         {
             BuilderSetup.DisablePropertyNamingFor<TestProduct, int>(x => x.Id);
             var prod = Builder<TestProduct>.CreateNew()
@@ -37,7 +37,7 @@ namespace Threenine.Data.Tests
         }
 
         [Fact]
-        public void ShouldInsertMultipleProducts()
+        public void ShouldInsertMultipleProductsByList()
         {
             BuilderSetup.DisablePropertyNamingFor<TestProduct, int>(x => x.Id);
             var products = Builder<TestProduct>.CreateListOfSize(3)
@@ -53,8 +53,27 @@ namespace Threenine.Data.Tests
             var numberOfItems = repo.GetList().Count;
             
             Assert.Equal(23, numberOfItems );
+        }
+
+        [Fact]
+        public void ShouldInsertMutipleProductsByParams()
+        {
+            BuilderSetup.DisablePropertyNamingFor<TestProduct, int>(x => x.Id);
+
+            var product1 = Builder<TestProduct>.CreateNew().Build();
+            var product2 = Builder<TestProduct>.CreateNew().Build();
             
+            using var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
+            var repo = uow.GetRepository<TestProduct>();
+
+            repo.Insert(product1, product2);
+
+            uow.Commit();
             
+            var numberOfItems = repo.GetList().Count;
+            
+            Assert.Equal(22, numberOfItems );
+
         }
 
         public void Dispose()
