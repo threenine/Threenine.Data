@@ -22,7 +22,7 @@ Task("Restore")
  Task("Build")
     .Does(() =>
     {
-        DotNetCoreBuild(".",
+        DotNetCoreBuild("./src/Threenine.Data.csproj",
             new DotNetCoreBuildSettings()
             {
                 Configuration = configuration,
@@ -60,16 +60,15 @@ Task("Test")
           DotNetCorePack("./src/Threenine.Data.csproj", settings);
     });
 
-Task("BuildAndTest")
+Task("BuildTestDeploy")
     .IsDependentOn("Clean")
     .IsDependentOn("Restore")
     .IsDependentOn("Build")
     .IsDependentOn("Test")
-    .IsDependentOn("Package")
-    ;
+    .IsDependentOn("Package");
 
 
 Task("Default")
-    .IsDependentOn("BuildAndTest");
+    .IsDependentOn("BuildTestDeploy");
   
 RunTarget(target);

@@ -12,9 +12,11 @@ namespace Threenine.Data
         {
         }
 
-        public void Insert(T entity)
+        #region Insert Functions
+
+        public virtual  T  Insert(T entity)
         {
-            _dbSet.Add(entity);
+           return _dbSet.Add(entity).Entity;
         }
 
         public void Insert(params T[] entities)
@@ -28,6 +30,7 @@ namespace Threenine.Data
             _dbSet.AddRange(entities);
         }
 
+        #endregion
 
         public void Delete(T entity)
         {
@@ -63,7 +66,7 @@ namespace Threenine.Data
         {
             _dbSet.RemoveRange(entities);
         }
-     
+
 
         public void Update(T entity)
         {

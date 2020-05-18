@@ -20,7 +20,11 @@ namespace TestDatabase
             modelBuilder.Entity<TestCategory>(entity =>
             {
                 entity.ToTable("TestCategory");
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .HasAnnotation("Sqlite:Autoincrement", true)
+                    .IsRequired()
+                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.Name)
                     .HasColumnName("Name")
@@ -30,6 +34,11 @@ namespace TestDatabase
             modelBuilder.Entity<TestProduct>(entity =>
             {
                 entity.ToTable("TestProduct");
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .HasAnnotation("Sqlite:Autoincrement", true)
+                    .IsRequired()
+                    .ValueGeneratedOnAdd();
                 
                 entity.HasIndex(e => e.CategoryId).HasName("testCategory_testCategory_id_foreign");
                 entity.Property(e => e.CategoryId).HasColumnName("CategoryId");

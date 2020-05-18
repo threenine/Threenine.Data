@@ -33,11 +33,13 @@ namespace Threenine.Data.Tests.TestFixtures
 
         private List<TestCategory> TestCategories()
         {
+            BuilderSetup.DisablePropertyNamingFor<TestCategory, int>(x => x.Id);
             return Builder<TestCategory>.CreateListOfSize(20).Build().ToList();
         }
 
         private List<TestProduct> TestProducts()
         {
+            BuilderSetup.DisablePropertyNamingFor<TestProduct, int>(x => x.Id);
             var productList = Builder<TestProduct>.CreateListOfSize(20)
                 .TheFirst(5)
                 .With(x => x.CategoryId = 1)
