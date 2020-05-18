@@ -15,7 +15,7 @@ namespace Threenine.Data
         Task<T> SingleOrDefaultAsync(Expression<Func<T, bool>> predicate = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
-            bool disableTracking = true,
+            bool enableTracking = true,
             bool ignoreQueryFilters = false);
 
         Task<IPaginate<T>> GetListAsync(Expression<Func<T, bool>> predicate = null,
@@ -26,6 +26,7 @@ namespace Threenine.Data
             bool disableTracking = true,
             CancellationToken cancellationToken = default);
 
+        #region Insert Functions
 
         ValueTask<EntityEntry<T>> InsertAsync(T entity,
             CancellationToken cancellationToken = default);
@@ -35,5 +36,8 @@ namespace Threenine.Data
         Task InsertAsync(IEnumerable<T> entities,
             CancellationToken cancellationToken = default);
 
+        #endregion
+        
+       
     }
 }

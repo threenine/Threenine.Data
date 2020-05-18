@@ -23,12 +23,12 @@ namespace Threenine.Data
       public virtual async Task<T> SingleOrDefaultAsync(Expression<Func<T, bool>> predicate = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
-            bool disableTracking = true,
+            bool enableTracking = true,
             bool ignoreQueryFilters = false)
         {
             IQueryable<T> query = _dbSet;
 
-            if (disableTracking)
+            if (!enableTracking)
             {
                 query = query.AsNoTracking();
             }
@@ -77,8 +77,9 @@ namespace Threenine.Data
             return query.ToPaginateAsync(index, size, 0, cancellationToken);
         }
 
-      
-       
+        #region Insert Functions
+
+        
         public virtual ValueTask<EntityEntry<T>> InsertAsync(T entity, CancellationToken cancellationToken = default)
         {
             return _dbSet.AddAsync(entity, cancellationToken);
@@ -90,6 +91,10 @@ namespace Threenine.Data
 
         
         public virtual Task InsertAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default) => _dbSet.AddRangeAsync(entities, cancellationToken);
+       
+
+        #endregion
+       
 
 
        

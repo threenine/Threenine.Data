@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
 namespace Threenine.Data
@@ -9,7 +10,8 @@ namespace Threenine.Data
         IRepositoryAsync<TEntity> GetRepositoryAsync<TEntity>() where TEntity : class;
         IRepositoryReadOnly<TEntity> GetReadOnlyRepository<TEntity>() where TEntity : class;
 
-        int Commit();
+        int Commit(bool autoHistory = false);
+        Task<int> CommitAsync(bool autoHistory = false);
     }
 
     public interface IUnitOfWork<TContext> : IUnitOfWork where TContext : DbContext

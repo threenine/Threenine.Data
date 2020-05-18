@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
 namespace Threenine.Data
@@ -43,9 +44,23 @@ namespace Threenine.Data
 
         public TContext Context { get; }
 
-        public int Commit()
+        public int Commit(bool autoHistory = false)
         {
+            if (autoHistory)
+            {
+                Context.EnsureAutoHistory();
+            }
             return Context.SaveChanges();
+        }
+
+        public async Task<int> CommitAsync(bool autoHistory = false)
+        {
+            if (autoHistory)
+            {
+                Context.EnsureAutoHistory();
+            }
+
+            return await Context.SaveChangesAsync();
         }
 
         public void Dispose()

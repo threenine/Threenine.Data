@@ -18,19 +18,21 @@ namespace Threenine.Data.Tests
         }
 
        [Fact]
-        public async Task ShouldInsertNewProduct()
+        public async Task ShouldInsertNewProductndReturnCreatedEntity()
         {
-            var prod = Builder<TestProduct>.CreateNew().With(x => x.Name = "Cool Product").With(x=> x.Id = 1001).With(x=> x.CategoryId = 1).Build();
+            BuilderSetup.DisablePropertyNamingFor<TestProduct, int>(x => x.Id);
+            var prod = Builder<TestProduct>.CreateNew().With(x => x.Name = "Cool Product").With(x=> x.CategoryId = 1).Build();
             using var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
             var repo = uow.GetRepositoryAsync<TestProduct>();
 
-            await repo.InsertAsync(prod);
-            uow.Commit();
+            var newProduct = await repo.InsertAsync(prod);
+            await uow.CommitAsync();
 
-            var getNewProd = await repo.SingleOrDefaultAsync(x => x.Name == "Cool Product");
+           
             
-            Assert.NotNull(getNewProd);
-            Assert.IsAssignableFrom<TestProduct>(getNewProd);
+            Assert.NotNull(newProduct);
+            Assert.IsAssignableFrom<TestProduct>(newProduct.Entity);
+            Assert.Equal(21, newProduct.Entity.Id);
         }
 
         public void Dispose()

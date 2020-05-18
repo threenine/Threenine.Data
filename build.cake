@@ -33,7 +33,7 @@ Task("Restore")
 Task("Test")
     .Does(() =>
     {
-        var projects = GetFiles("./tests/**/*.csproj");
+        var projects = GetFiles("./tests/Threenine.Data.Tests/Threenine.Data.Tests.csproj");
         foreach(var project in projects)
         {
             Information("Testing project " + project);
