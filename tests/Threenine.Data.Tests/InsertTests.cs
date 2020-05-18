@@ -24,15 +24,36 @@ namespace Threenine.Data.Tests
                 .With(x => x.Name = "Cool Product")
                 .With(x => x.CategoryId = 1)
                 .Build();
-            
+
             using var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
             var repo = uow.GetRepository<TestProduct>();
 
-             var newProduct  = repo.Insert(prod);
-            uow.SaveChanges();
-            
+            var newProduct = repo.Insert(prod);
+            uow.Commit();
+
             Assert.NotNull(newProduct);
             Assert.IsAssignableFrom<TestProduct>(newProduct);
+            Assert.Equal(21, newProduct.Id);
+        }
+
+        [Fact]
+        public void ShouldInsertMultipleProducts()
+        {
+            BuilderSetup.DisablePropertyNamingFor<TestProduct, int>(x => x.Id);
+            var products = Builder<TestProduct>.CreateListOfSize(3)
+                .TheFirst(3)
+                .With(x => x.CategoryId = 1)
+                .Build();
+
+            using var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
+            var repo = uow.GetRepository<TestProduct>();
+
+            repo.Insert(products);
+            uow.Commit();
+            var numberOfItems = repo.GetList().Count;
+            
+            Assert.Equal(23, numberOfItems );
+            
             
         }
 

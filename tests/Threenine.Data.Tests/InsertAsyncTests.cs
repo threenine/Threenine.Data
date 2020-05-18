@@ -25,7 +25,7 @@ namespace Threenine.Data.Tests
             var repo = uow.GetRepositoryAsync<TestProduct>();
 
             await repo.InsertAsync(prod);
-            uow.SaveChanges();
+            uow.Commit();
 
             var getNewProd = await repo.SingleOrDefaultAsync(x => x.Name == "Cool Product");
             

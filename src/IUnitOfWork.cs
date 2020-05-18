@@ -9,7 +9,7 @@ namespace Threenine.Data
         IRepositoryAsync<TEntity> GetRepositoryAsync<TEntity>() where TEntity : class;
         IRepositoryReadOnly<TEntity> GetReadOnlyRepository<TEntity>() where TEntity : class;
 
-        int SaveChanges();
+        int Commit();
     }
 
     public interface IUnitOfWork<TContext> : IUnitOfWork where TContext : DbContext

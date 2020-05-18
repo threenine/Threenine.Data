@@ -19,16 +19,10 @@ namespace Threenine.Data
            return _dbSet.Add(entity).Entity;
         }
 
-        public void Insert(params T[] entities)
-        {
-            _dbSet.AddRange(entities);
-        }
-
-
-        public void Insert(IEnumerable<T> entities)
-        {
-            _dbSet.AddRange(entities);
-        }
+        public void Insert(params T[] entities) => _dbSet.AddRange(entities);
+        
+        public void Insert(IEnumerable<T> entities) => _dbSet.AddRange(entities);
+        
 
         #endregion
 

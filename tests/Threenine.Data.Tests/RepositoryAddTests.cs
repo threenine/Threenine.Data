@@ -23,7 +23,7 @@ namespace Threenine.Data.Tests
 
             // Act
             repo.Insert(newProduct);
-            uow.SaveChanges();
+            uow.Commit();
 
             //Assert
             Assert.Equal(1, newProduct.Id);

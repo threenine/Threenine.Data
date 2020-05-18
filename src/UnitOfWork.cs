@@ -43,7 +43,7 @@ namespace Threenine.Data
 
         public TContext Context { get; }
 
-        public int SaveChanges()
+        public int Commit()
         {
             return Context.SaveChanges();
         }
