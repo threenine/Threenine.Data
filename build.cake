@@ -22,12 +22,19 @@ Task("Restore")
  Task("Build")
     .Does(() =>
     {
-        DotNetCoreBuild("./src/Threenine.Data.csproj",
-            new DotNetCoreBuildSettings()
-            {
-                Configuration = configuration,
-                ArgumentCustomization = args => args.Append("--no-restore"),
-            });
+    
+       var buildSettings =  new DotNetCoreBuildSettings {
+                                           Configuration = configuration,
+                                           ArgumentCustomization = args => args.Append("--no-restore"),
+                                       };
+                                       
+         Information("Building Test Database Project");                               
+        DotNetCoreBuild("./tests/Database/TestDatabase.csproj", buildSettings);
+        Information("Building Unit Test Project Project");  
+        DotNetCoreBuild("./tests/Threenine.Data.Tests/Threenine.Data.Tests.csproj", buildSettings);
+        Information("Building Threenine.Data Project");  
+        DotNetCoreBuild("./src/Threenine.Data.csproj", buildSettings);
+           
     });
 
 Task("Test")
@@ -41,9 +48,7 @@ Task("Test")
                 project.ToString(),
                 new DotNetCoreTestSettings()
                 {
-                    Configuration = configuration,
-                    NoBuild = true,
-                    ArgumentCustomization = args => args.Append("--no-restore"),
+                    Configuration = configuration
                 });
         }
     });
@@ -60,15 +65,11 @@ Task("Test")
           DotNetCorePack("./src/Threenine.Data.csproj", settings);
     });
 
-Task("BuildTestDeploy")
-    .IsDependentOn("Clean")
-    .IsDependentOn("Restore")
-    .IsDependentOn("Build")
-    .IsDependentOn("Test")
-    .IsDependentOn("Package");
-
-
 Task("Default")
-    .IsDependentOn("BuildTestDeploy");
+       .IsDependentOn("Clean")
+       .IsDependentOn("Restore")
+       .IsDependentOn("Build")
+       .IsDependentOn("Test")
+       .IsDependentOn("Package");;
   
 RunTarget(target);
