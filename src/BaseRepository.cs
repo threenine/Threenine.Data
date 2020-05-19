@@ -18,17 +18,6 @@ namespace Threenine.Data
             _dbSet = _dbContext.Set<T>();
         }
 
-        public virtual IQueryable<T> Query(string sql, params object[] parameters)
-        {
-            return _dbSet.FromSqlRaw(sql, parameters);
-        }
-
-        public T Search(params object[] keyValues)
-        {
-            return _dbSet.Find(keyValues);
-        }
-
-
         public T SingleOrDefault(Expression<Func<T, bool>> predicate = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
@@ -77,6 +66,11 @@ namespace Threenine.Data
             return orderBy != null
                 ? orderBy(query).Select(selector).ToPaginate(index, size)
                 : query.Select(selector).ToPaginate(index, size);
+        }
+
+        public virtual IQueryable<T> Query(string sql, params object[] parameters)
+        {
+            return _dbSet.FromSqlRaw(sql, parameters);
         }
     }
 }

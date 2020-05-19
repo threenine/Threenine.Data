@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 
@@ -56,46 +55,6 @@ namespace Threenine.Data
         public void Insert(IEnumerable<T> entities)
         {
             _dbSet.AddRange(entities);
-        }
-
-        #endregion
-
-
-        #region Delete Functions
-
-        public void Delete(T entity)
-        {
-            var existing = _dbSet.Find(entity);
-            if (existing != null) _dbSet.Remove(existing);
-        }
-
-
-        public void Delete(object id)
-        {
-            var typeInfo = typeof(T).GetTypeInfo();
-            var key = _dbContext.Model.FindEntityType(typeInfo).FindPrimaryKey().Properties.FirstOrDefault();
-            var property = typeInfo.GetProperty(key?.Name);
-            if (property != null)
-            {
-                var entity = Activator.CreateInstance<T>();
-                property.SetValue(entity, id);
-                _dbContext.Entry(entity).State = EntityState.Deleted;
-            }
-            else
-            {
-                var entity = _dbSet.Find(id);
-                if (entity != null) Delete(entity);
-            }
-        }
-
-        public void Delete(params T[] entities)
-        {
-            _dbSet.RemoveRange(entities);
-        }
-
-        public void Delete(IEnumerable<T> entities)
-        {
-            _dbSet.RemoveRange(entities);
         }
 
         #endregion
