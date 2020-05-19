@@ -15,58 +15,54 @@ namespace Threenine.Data
         }
 
         #region Get Functions
-        public T GetSingleOrDefault(Expression<Func<T, bool>> predicate = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null, bool enableTracking = true,
+
+        public T GetSingleOrDefault(Expression<Func<T, bool>> predicate = null,
+            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
+            Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null, bool enableTracking = true,
             bool ignoreQueryFilters = false)
         {
             IQueryable<T> query = _dbSet;
 
-            if (!enableTracking)
-            {
-                query = query.AsNoTracking();
-            }
+            if (!enableTracking) query = query.AsNoTracking();
 
-            if (include != null)
-            {
-                query = include(query);
-            }
+            if (include != null) query = include(query);
 
-            if (predicate != null)
-            {
-                query = query.Where(predicate);
-            }
+            if (predicate != null) query = query.Where(predicate);
 
-            if (ignoreQueryFilters)
-            {
-                query = query.IgnoreQueryFilters();
-            }
+            if (ignoreQueryFilters) query = query.IgnoreQueryFilters();
 
             return orderBy != null ? orderBy(query).FirstOrDefault() : query.FirstOrDefault();
         }
-        
-        
-        
-      
+
         #endregion
-        
-        #region Insert Functions
 
-       
-
-        public virtual  T  Insert(T entity)
+        public void Dispose()
         {
-           return _dbSet.Add(entity).Entity;
+            _dbContext?.Dispose();
         }
 
-        public void Insert(params T[] entities) => _dbSet.AddRange(entities);
-        
-        public void Insert(IEnumerable<T> entities) => _dbSet.AddRange(entities);
-        
+        #region Insert Functions
+
+        public virtual T Insert(T entity)
+        {
+            return _dbSet.Add(entity).Entity;
+        }
+
+        public void Insert(params T[] entities)
+        {
+            _dbSet.AddRange(entities);
+        }
+
+        public void Insert(IEnumerable<T> entities)
+        {
+            _dbSet.AddRange(entities);
+        }
 
         #endregion
 
 
         #region Delete Functions
-        
+
         public void Delete(T entity)
         {
             var existing = _dbSet.Find(entity);
@@ -102,32 +98,26 @@ namespace Threenine.Data
             _dbSet.RemoveRange(entities);
         }
 
-        
-
-        #endregion
-       
-
-        #region  Update Functions
-       
-
-       public void Update(T entity)
-       {
-           _dbSet.Update(entity);
-           /*_dbSet.Attach(entity);
-           _dbContext.Entry(entity).State = EntityState.Modified;*/
-
-       }
-
-        public void Update(params T[] entities) => _dbSet.UpdateRange(entities);
-
-        public void Update(IEnumerable<T> entities) => _dbSet.UpdateRange(entities);
-        
-        
         #endregion
 
-        public void Dispose()
+
+        #region Update Functions
+
+        public void Update(T entity)
         {
-            _dbContext?.Dispose();
+            _dbSet.Update(entity);
         }
+
+        public void Update(params T[] entities)
+        {
+            _dbSet.UpdateRange(entities);
+        }
+
+        public void Update(IEnumerable<T> entities)
+        {
+            _dbSet.UpdateRange(entities);
+        }
+
+        #endregion
     }
 }

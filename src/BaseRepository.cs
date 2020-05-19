@@ -18,12 +18,18 @@ namespace Threenine.Data
             _dbSet = _dbContext.Set<T>();
         }
 
-        public virtual IQueryable<T> Query(string sql, params object[] parameters) => _dbSet.FromSqlRaw(sql, parameters);
+        public virtual IQueryable<T> Query(string sql, params object[] parameters)
+        {
+            return _dbSet.FromSqlRaw(sql, parameters);
+        }
 
-        public T Search(params object[] keyValues) => _dbSet.Find(keyValues);
-       
+        public T Search(params object[] keyValues)
+        {
+            return _dbSet.Find(keyValues);
+        }
 
-        public T Single(Expression<Func<T, bool>> predicate = null,
+
+        public T SingleOrDefault(Expression<Func<T, bool>> predicate = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
             bool disableTracking = true)
