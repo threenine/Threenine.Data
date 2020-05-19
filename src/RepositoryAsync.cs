@@ -20,7 +20,7 @@ namespace Threenine.Data
             _dbSet = dbContext.Set<T>();
         }
 
-      public virtual async Task<T> SingleOrDefaultAsync(Expression<Func<T, bool>> predicate = null,
+        public virtual async Task<T> SingleOrDefaultAsync(Expression<Func<T, bool>> predicate = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
             bool enableTracking = true,
@@ -28,30 +28,15 @@ namespace Threenine.Data
         {
             IQueryable<T> query = _dbSet;
 
-            if (!enableTracking)
-            {
-                query = query.AsNoTracking();
-            }
+            if (!enableTracking) query = query.AsNoTracking();
 
-            if (include != null)
-            {
-                query = include(query);
-            }
+            if (include != null) query = include(query);
 
-            if (predicate != null)
-            {
-                query = query.Where(predicate);
-            }
+            if (predicate != null) query = query.Where(predicate);
 
-            if (ignoreQueryFilters)
-            {
-                query = query.IgnoreQueryFilters();
-            }
+            if (ignoreQueryFilters) query = query.IgnoreQueryFilters();
 
-            if (orderBy != null)
-            {
-                return await orderBy(query).FirstOrDefaultAsync();
-            }
+            if (orderBy != null) return await orderBy(query).FirstOrDefaultAsync();
 
             return await query.FirstOrDefaultAsync();
         }
@@ -62,11 +47,11 @@ namespace Threenine.Data
             Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
             int index = 0,
             int size = 20,
-            bool disableTracking = true,
+            bool enableTracking = true,
             CancellationToken cancellationToken = default)
         {
             IQueryable<T> query = _dbSet;
-            if (disableTracking) query = query.AsNoTracking();
+            if (!enableTracking) query = query.AsNoTracking();
 
             if (include != null) query = include(query);
 
@@ -79,26 +64,23 @@ namespace Threenine.Data
 
         #region Insert Functions
 
-        
         public virtual ValueTask<EntityEntry<T>> InsertAsync(T entity, CancellationToken cancellationToken = default)
         {
             return _dbSet.AddAsync(entity, cancellationToken);
-           
         }
 
-        
-        public virtual Task InsertAsync(params T[] entities) => _dbSet.AddRangeAsync(entities);
 
-        
-        public virtual Task InsertAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default) => _dbSet.AddRangeAsync(entities, cancellationToken);
-       
+        public virtual Task InsertAsync(params T[] entities)
+        {
+            return _dbSet.AddRangeAsync(entities);
+        }
+
+
+        public virtual Task InsertAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default)
+        {
+            return _dbSet.AddRangeAsync(entities, cancellationToken);
+        }
 
         #endregion
-       
-
-
-       
-
-     
     }
 }

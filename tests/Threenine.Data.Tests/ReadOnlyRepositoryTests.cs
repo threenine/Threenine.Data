@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using TestDatabase;
 using Threenine.Data.Tests.TestFixtures;
 using Xunit;
@@ -29,6 +30,18 @@ namespace Threenine.Data.Tests
             var product = repo.SingleOrDefault(x => x.Id == 1);
 
             Assert.NotNull(product);
+        }
+
+        [Fact]
+        public void ShouldReturnAListOfProducts()
+        {
+            using var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
+            var repo = uow.GetReadOnlyRepository<TestProduct>();
+
+            var products = repo.GetList(x => x.CategoryId == 1);
+
+            Assert.NotNull(products);
+            Assert.IsAssignableFrom<IEnumerable<TestProduct>>(products.Items);
         }
 
         [Fact]

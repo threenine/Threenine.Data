@@ -23,7 +23,7 @@ namespace Threenine.Data
             Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
             int index = 0,
             int size = 20,
-            bool disableTracking = true,
+            bool enableTracking = true,
             CancellationToken cancellationToken = default);
 
         #region Insert Functions
@@ -37,7 +37,5 @@ namespace Threenine.Data
             CancellationToken cancellationToken = default);
 
         #endregion
-        
-       
     }
 }
