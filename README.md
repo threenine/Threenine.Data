@@ -37,7 +37,16 @@ All the documentation of how to use and implement the Threenine.Data : Generic U
 
 ## Open Source 
 
- Threenine.Data is developed and supported for free.
+ The source code for the project is free to use.
 
+## Free to use NOT free to support
+
+Although this product is free to use and the source code is provided free of charge to learn from.  The product itself is not come with free support or warranties of any kind.
+
+If you would like an issue fixed or a feature implemented then you have two options:
+
+1. Clone the repository, Create an issue completing all the details defined in Issue Template. Implement the code, then submit a Pull Request .
+
+2. 
 
 [![threenine logo](http://static.threenine.co.uk/img/github_footer.png)](https://threenine.co.uk/)
