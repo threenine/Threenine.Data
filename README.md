@@ -47,6 +47,6 @@ If you would like an issue fixed or a feature implemented then you have two opti
 
 1. Clone the repository, Create an issue completing all the details defined in Issue Template. Implement the code, then submit a Pull Request .
 
-2. 
+2. Make a donation  or sub
 
 [![threenine logo](http://static.threenine.co.uk/img/github_footer.png)](https://threenine.co.uk/)
