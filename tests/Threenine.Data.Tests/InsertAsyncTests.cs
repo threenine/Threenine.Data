@@ -23,12 +23,11 @@ namespace Threenine.Data.Tests
             BuilderSetup.DisablePropertyNamingFor<TestProduct, int>(x => x.Id);
             var prod = Builder<TestProduct>.CreateNew().With(x => x.Name = "Cool Product").With(x=> x.CategoryId = 1).Build();
             using var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
+            
             var repo = uow.GetRepositoryAsync<TestProduct>();
 
             var newProduct = await repo.InsertAsync(prod);
             await uow.CommitAsync();
-
-           
             
             Assert.NotNull(newProduct);
             Assert.IsAssignableFrom<TestProduct>(newProduct.Entity);
