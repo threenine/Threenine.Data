@@ -15,14 +15,35 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-using Microsoft.EntityFrameworkCore;
+using TestDatabase;
+using Threenine.Data.Tests.TestFixtures;
+using Xunit;
 
-namespace Threenine.Data
+namespace Threenine.Data.Tests
 {
-    public class RepositoryReadOnly<T> : BaseRepository<T>, IRepositoryReadOnly<T> where T : class
+    public class RepositoryAddTest : IClassFixture<InMemoryTestFixture>
     {
-        public RepositoryReadOnly(DbContext context) : base(context)
+        public RepositoryAddTest(InMemoryTestFixture fixture)
         {
+            _fixture = fixture;
+        }
+
+        private readonly InMemoryTestFixture _fixture;
+
+        [Fact]
+        public void ShouldAddNewProduct()
+        {
+            // Arrange 
+            using var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
+            var repo = uow.GetRepository<TestProduct>();
+            var newProduct = new TestProduct {Name = GlobalTestStrings.TestProductName};
+
+            // Act
+            repo.Insert(newProduct);
+            uow.Commit();
+
+            //Assert
+            Assert.Equal(1, newProduct.Id);
         }
     }
 }

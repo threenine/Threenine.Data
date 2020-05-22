@@ -15,22 +15,32 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
-using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Threenine.Data.Paging
+namespace TestDatabase
 {
-    public static class PaginateExtensions
+    public class TestProduct
     {
-        public static IPaginate<T> ToPaginate<T>(this IEnumerable<T> source, int index, int size, int from = 0)
-        {
-            return new Paginate<T>(source, index, size, from);
-        }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
 
-        public static IPaginate<TResult> ToPaginate<TSource, TResult>(this IEnumerable<TSource> source,
-            Func<IEnumerable<TSource>, IEnumerable<TResult>> converter, int index, int size, int from = 0)
+        public string Name { get; set; }
+
+        public TestCategory Category { get; set; }
+
+        public int CategoryId { get; set; }
+
+        public int Stock { get; set; }
+
+        public bool?
+            InStock
         {
-            return new Paginate<TSource, TResult>(source, converter, index, size, from);
-        }
+            get;
+            set;
+        } //SQL Lite does not have bit or boolean datatypes  https://www.sqlite.org/datatype3.html
+
+        // Boolean values are stored as integers 0 (false) and 1 (true)
     }
 }

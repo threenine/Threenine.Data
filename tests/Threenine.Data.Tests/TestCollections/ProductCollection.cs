@@ -14,25 +14,13 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+using Threenine.Data.Tests.TestFixtures;
+using Xunit;
 
-using System;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-
-namespace Threenine.Data
+namespace Threenine.Data.Tests.TestCollections
 {
-    public interface IUnitOfWork : IDisposable
+    [CollectionDefinition(GlobalTestStrings.ProductCollectionName)]
+    public class ProductCollection : ICollectionFixture<SqlLiteWith20ProductsTestFixture>
     {
-        IRepository<TEntity> GetRepository<TEntity>() where TEntity : class;
-        IRepositoryAsync<TEntity> GetRepositoryAsync<TEntity>() where TEntity : class;
-        IRepositoryReadOnly<TEntity> GetReadOnlyRepository<TEntity>() where TEntity : class;
-
-        int Commit(bool autoHistory = false);
-        Task<int> CommitAsync(bool autoHistory = false);
-    }
-
-    public interface IUnitOfWork<TContext> : IUnitOfWork where TContext : DbContext
-    {
-        TContext Context { get; }
     }
 }

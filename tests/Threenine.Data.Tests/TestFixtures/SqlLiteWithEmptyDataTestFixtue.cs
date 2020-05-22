@@ -1,3 +1,6 @@
+using System;
+using Microsoft.EntityFrameworkCore;
+using TestDatabase;
 /* Copyright (c) threenine.co.uk . All rights reserved.
  
    GNU GENERAL PUBLIC LICENSE  Version 3, 29 June 2007
@@ -14,25 +17,28 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
-using System;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-
-namespace Threenine.Data
+namespace Threenine.Data.Tests.TestFixtures
 {
-    public interface IUnitOfWork : IDisposable
+    public class SqlLiteWithEmptyDataTestFixture : IDisposable
     {
-        IRepository<TEntity> GetRepository<TEntity>() where TEntity : class;
-        IRepositoryAsync<TEntity> GetRepositoryAsync<TEntity>() where TEntity : class;
-        IRepositoryReadOnly<TEntity> GetReadOnlyRepository<TEntity>() where TEntity : class;
+        public TestDbContext Context => SqlLiteInMemoryContext();
 
-        int Commit(bool autoHistory = false);
-        Task<int> CommitAsync(bool autoHistory = false);
-    }
+        public void Dispose()
+        {
+            Context?.Dispose();
+        }
 
-    public interface IUnitOfWork<TContext> : IUnitOfWork where TContext : DbContext
-    {
-        TContext Context { get; }
+        private TestDbContext SqlLiteInMemoryContext()
+        {
+            var options = new DbContextOptionsBuilder<TestDbContext>()
+                .UseSqlite("DataSource=:memory:")
+                .Options;
+
+            var context = new TestDbContext(options);
+            context.Database.OpenConnection();
+            context.Database.EnsureCreated();
+
+            return context;
+        }
     }
 }

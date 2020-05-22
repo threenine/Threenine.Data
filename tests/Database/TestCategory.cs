@@ -1,4 +1,4 @@
-/* Copyright (c) threenine.co.uk . All rights reserved.
+﻿/* Copyright (c) threenine.co.uk . All rights reserved.
  
    GNU GENERAL PUBLIC LICENSE  Version 3, 29 June 2007
    This program is free software: you can redistribute it and/or modify
@@ -15,24 +15,25 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Threenine.Data
+namespace TestDatabase
 {
-    public interface IUnitOfWork : IDisposable
+    public class TestCategory
     {
-        IRepository<TEntity> GetRepository<TEntity>() where TEntity : class;
-        IRepositoryAsync<TEntity> GetRepositoryAsync<TEntity>() where TEntity : class;
-        IRepositoryReadOnly<TEntity> GetReadOnlyRepository<TEntity>() where TEntity : class;
+        public TestCategory()
+        {
+            Products = new HashSet<TestProduct>();
+        }
 
-        int Commit(bool autoHistory = false);
-        Task<int> CommitAsync(bool autoHistory = false);
-    }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
 
-    public interface IUnitOfWork<TContext> : IUnitOfWork where TContext : DbContext
-    {
-        TContext Context { get; }
+        [Required] public string Name { get; set; }
+
+        public ICollection<TestProduct> Products { get; set; }
     }
 }

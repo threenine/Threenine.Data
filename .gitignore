@@ -4,7 +4,8 @@
 #ignore thumbnails created by windows
 Thumbs.db
 .idea
-
+build
+package
 .vscode
 # User-specific files
 *.suo
