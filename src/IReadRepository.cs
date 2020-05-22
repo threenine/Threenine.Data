@@ -23,7 +23,7 @@ namespace Threenine.Data
             Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
             int index = 0,
             int size = 20,
-            bool disableTracking = true);
+            bool enableTracking = true);
 
         IPaginate<TResult> GetList<TResult>(Expression<Func<T, TResult>> selector,
             Expression<Func<T, bool>> predicate = null,
@@ -31,6 +31,6 @@ namespace Threenine.Data
             Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
             int index = 0,
             int size = 20,
-            bool disableTracking = true) where TResult : class;
+            bool enableTracking = true) where TResult : class;
     }
 }
