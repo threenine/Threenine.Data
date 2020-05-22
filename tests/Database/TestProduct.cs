@@ -1,4 +1,20 @@
-﻿using System;
+﻿/* Copyright (c) threenine.co.uk . All rights reserved.
+ 
+   GNU GENERAL PUBLIC LICENSE  Version 3, 29 June 2007
+   This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -6,8 +22,8 @@ namespace TestDatabase
 {
     public class TestProduct
     {
-       
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         public string Name { get; set; }
@@ -15,10 +31,16 @@ namespace TestDatabase
         public TestCategory Category { get; set; }
 
         public int CategoryId { get; set; }
-        
+
         public int Stock { get; set; }
-        
-        public Nullable<bool> InStock { get; set; }   //SQL Lite does not have bit or boolean datatypes  https://www.sqlite.org/datatype3.html
-                                           // Boolean values are stored as integers 0 (false) and 1 (true)
+
+        public bool?
+            InStock
+        {
+            get;
+            set;
+        } //SQL Lite does not have bit or boolean datatypes  https://www.sqlite.org/datatype3.html
+
+        // Boolean values are stored as integers 0 (false) and 1 (true)
     }
 }

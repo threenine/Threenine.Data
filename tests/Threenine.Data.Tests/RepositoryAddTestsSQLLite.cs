@@ -1,4 +1,8 @@
-﻿using System;
+﻿// Copyright (c) threenine.co.uk . All rights reserved.
+//GNU GENERAL PUBLIC LICENSE  Version 3, 29 June 2007
+//  See LICENSE in the project root for license information.
+
+using System;
 using TestDatabase;
 using Threenine.Data.Tests.TestFixtures;
 using Xunit;
@@ -51,10 +55,10 @@ namespace Threenine.Data.Tests
                 };
 
                 //Act 
-                 repo.Insert(newProduct);
+                repo.Insert(newProduct);
                 uow.Commit();
 
-                
+
                 //Assert
                 Assert.Equal(1, newProduct.Id);
             }

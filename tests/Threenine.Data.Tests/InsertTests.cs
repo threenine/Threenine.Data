@@ -1,3 +1,7 @@
+// Copyright (c) threenine.co.uk . All rights reserved.
+//GNU GENERAL PUBLIC LICENSE  Version 3, 29 June 2007
+//  See LICENSE in the project root for license information.
+
 using System;
 using FizzWare.NBuilder;
 using TestDatabase;
@@ -9,12 +13,17 @@ namespace Threenine.Data.Tests
     [Collection(GlobalTestStrings.ProductCollectionName)]
     public class InsertTests : IDisposable
     {
-        private readonly SqlLiteWith20ProductsTestFixture _fixture;
-
         public InsertTests(SqlLiteWith20ProductsTestFixture fixture)
         {
             _fixture = fixture;
         }
+
+        public void Dispose()
+        {
+            _fixture?.Dispose();
+        }
+
+        private readonly SqlLiteWith20ProductsTestFixture _fixture;
 
         [Fact]
         public void ShouldInsertAndReturnCreatedEntity()
@@ -51,8 +60,8 @@ namespace Threenine.Data.Tests
             repo.Insert(products);
             uow.Commit();
             var numberOfItems = repo.GetList().Count;
-            
-            Assert.Equal(23, numberOfItems );
+
+            Assert.Equal(23, numberOfItems);
         }
 
         [Fact]
@@ -62,23 +71,17 @@ namespace Threenine.Data.Tests
 
             var product1 = Builder<TestProduct>.CreateNew().Build();
             var product2 = Builder<TestProduct>.CreateNew().Build();
-            
+
             using var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
             var repo = uow.GetRepository<TestProduct>();
 
             repo.Insert(product1, product2);
 
             uow.Commit();
-            
+
             var numberOfItems = repo.GetList().Count;
-            
-            Assert.Equal(22, numberOfItems );
 
-        }
-
-        public void Dispose()
-        {
-            _fixture?.Dispose();
+            Assert.Equal(22, numberOfItems);
         }
     }
 }

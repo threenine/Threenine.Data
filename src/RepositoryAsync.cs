@@ -1,4 +1,21 @@
-﻿using System;
+﻿/* Copyright (c) threenine.co.uk . All rights reserved.
+ 
+   GNU GENERAL PUBLIC LICENSE  Version 3, 29 June 2007
+   This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -19,6 +36,8 @@ namespace Threenine.Data
         {
             _dbSet = dbContext.Set<T>();
         }
+
+        #region SingleOrDefault
 
         public virtual async Task<T> SingleOrDefaultAsync(Expression<Func<T, bool>> predicate = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
@@ -41,6 +60,9 @@ namespace Threenine.Data
             return await query.FirstOrDefaultAsync();
         }
 
+        #endregion
+
+        #region GetListAsync
 
         public Task<IPaginate<T>> GetListAsync(Expression<Func<T, bool>> predicate = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
@@ -61,6 +83,8 @@ namespace Threenine.Data
                 return orderBy(query).ToPaginateAsync(index, size, 0, cancellationToken);
             return query.ToPaginateAsync(index, size, 0, cancellationToken);
         }
+
+        #endregion
 
         #region Insert Functions
 
