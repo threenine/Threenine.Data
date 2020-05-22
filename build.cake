@@ -23,12 +23,11 @@ Task("Restore")
     .Does(() =>
     {
     
-       var buildSettings =  new DotNetCoreBuildSettings {
-                                           Configuration = configuration,
-                                           ArgumentCustomization = args => args.Append("--no-restore"),
-                                       };
+       var buildSettings =  new DotNetCoreBuildSettings { Configuration = configuration,
+                                                          ArgumentCustomization = args => args.Append("--no-restore"),
+                                                         };
                                        
-         Information("Building Test Database Project");                               
+        Information("Building Test Database Project");                               
         DotNetCoreBuild("./tests/Database/TestDatabase.csproj", buildSettings);
         Information("Building Unit Test Project Project");  
         DotNetCoreBuild("./tests/Threenine.Data.Tests/Threenine.Data.Tests.csproj", buildSettings);
@@ -53,23 +52,10 @@ Task("Test")
         }
     });
     
-  Task("Package")
-    .Does(() => 
-    {
-        var settings = new DotNetCorePackSettings
-             {
-                 Configuration = configuration,
-                 OutputDirectory = packageDirectory
-             };
-    
-          DotNetCorePack("./src/Threenine.Data.csproj", settings);
-    });
-
 Task("Default")
        .IsDependentOn("Clean")
        .IsDependentOn("Restore")
        .IsDependentOn("Build")
        .IsDependentOn("Test")
-       .IsDependentOn("Package");;
   
 RunTarget(target);
