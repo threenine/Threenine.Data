@@ -28,7 +28,7 @@ namespace Threenine.Data
         T SingleOrDefault(Expression<Func<T, bool>> predicate = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
-            bool disableTracking = true);
+            bool enableTracking = true);
 
         IPaginate<T> GetList(Expression<Func<T, bool>> predicate = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
