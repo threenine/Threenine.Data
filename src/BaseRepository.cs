@@ -38,10 +38,10 @@ namespace Threenine.Data
         public T SingleOrDefault(Expression<Func<T, bool>> predicate = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
-            bool disableTracking = true)
+            bool enableTracking = true)
         {
             IQueryable<T> query = _dbSet;
-            if (disableTracking) query = query.AsNoTracking();
+            if (!enableTracking) query = query.AsNoTracking();
 
             if (include != null) query = include(query);
 
@@ -55,10 +55,10 @@ namespace Threenine.Data
         public IPaginate<T> GetList(Expression<Func<T, bool>> predicate = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null, int index = 0,
-            int size = 20, bool disableTracking = true)
+            int size = 20, bool enableTracking = true)
         {
             IQueryable<T> query = _dbSet;
-            if (disableTracking) query = query.AsNoTracking();
+            if (!enableTracking) query = query.AsNoTracking();
 
             if (include != null) query = include(query);
 
@@ -71,10 +71,10 @@ namespace Threenine.Data
         public IPaginate<TResult> GetList<TResult>(Expression<Func<T, TResult>> selector,
             Expression<Func<T, bool>> predicate = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
-            int index = 0, int size = 20, bool disableTracking = true) where TResult : class
+            int index = 0, int size = 20, bool enableTracking = true) where TResult : class
         {
             IQueryable<T> query = _dbSet;
-            if (disableTracking) query = query.AsNoTracking();
+            if (!enableTracking) query = query.AsNoTracking();
 
             if (include != null) query = include(query);
 
