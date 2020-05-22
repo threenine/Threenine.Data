@@ -84,10 +84,5 @@ namespace Threenine.Data
                 ? orderBy(query).Select(selector).ToPaginate(index, size)
                 : query.Select(selector).ToPaginate(index, size);
         }
-
-        public virtual IQueryable<T> Query(string sql, params object[] parameters)
-        {
-            return _dbSet.FromSqlRaw(sql, parameters);
-        }
     }
 }
