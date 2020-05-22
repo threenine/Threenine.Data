@@ -7,9 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Threenine.Data", "src\Three
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unit Tests", "Unit Tests", "{777F3CFA-4D37-43BF-A7ED-13DA581F8511}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDatabase", "Tests\Database\TestDatabase.csproj", "{B820F59F-4C61-41D7-BB98-2766F327BBD6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDatabase", "tests\Database\TestDatabase.csproj", "{B820F59F-4C61-41D7-BB98-2766F327BBD6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Threenine.Data.Tests", "Tests\Threenine.Data.Tests\Threenine.Data.Tests.csproj", "{CCF3C100-2D8A-45EC-BDFA-741DDFA35C56}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Threenine.Data.Tests", "tests\Threenine.Data.Tests\Threenine.Data.Tests.csproj", "{CCF3C100-2D8A-45EC-BDFA-741DDFA35C56}"
 EndProject
 Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
