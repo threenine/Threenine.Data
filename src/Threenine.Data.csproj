@@ -6,19 +6,21 @@
     <Version>1.1.5</Version>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Company>threenine.co.uk</Company>
-    <Authors>Gary Woodfine</Authors>
-    <PackageProjectUrl>https://threenine.github.io/Threenine.Data/</PackageProjectUrl>
-    <PackageIconUrl>http://static.threenine.co.uk/threenine_icon.png</PackageIconUrl>
-    <PackageTags>generic repository</PackageTags>
-    <Copyright>Copyright ©2020 Three Nine Consulting Limited</Copyright>
-    <Description>A simple generic repository wrapper library for entity framework core</Description>
-    <PackageLicenseUrl>https://github.com/threenine/Threenine.Data/blob/master/LICENSE</PackageLicenseUrl>
-    <NeutralLanguage>en</NeutralLanguage>
-    <RepositoryUrl>https://github.com/threenine/Threenine.Data</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-     <PackageReleaseNotes>Had to re-release</PackageReleaseNotes>
-     <Title>Threenine.Data</Title>
-     <PackageVersion>2.0</PackageVersion>
+      <Authors>Gary Woodfine</Authors>
+      <PackageProjectUrl>https://threenine.github.io/Threenine.Data/</PackageProjectUrl>
+      <PackageIconUrl>http://static.threenine.co.uk/threenine_icon.png</PackageIconUrl>
+      <PackageTags>generic repository</PackageTags>
+      <Copyright>Copyright ©2020 Three Nine Consulting Limited</Copyright>
+      <Description>A simple generic repository wrapper library for entity framework core</Description>
+      <PackageLicenseUrl>https://github.com/threenine/Threenine.Data/blob/master/LICENSE</PackageLicenseUrl>
+      <NeutralLanguage>en</NeutralLanguage>
+      <RepositoryUrl>https://github.com/threenine/Threenine.Data</RepositoryUrl>
+      <RepositoryType>git</RepositoryType>
+      <PackageReleaseNotes>Update to .net 3.1 and complete refactor.
+          Warning: Number of breaking changes from 1.X releases
+      </PackageReleaseNotes>
+      <Title>Threenine.Data</Title>
+      <PackageVersion>2.0</PackageVersion>
   </PropertyGroup>
 
   <ItemGroup>
