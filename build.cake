@@ -23,7 +23,8 @@ Task("Restore")
     .Does(() =>
     {
     
-       var buildSettings =  new DotNetCoreBuildSettings { Configuration = configuration,
+       var buildSettings =  new DotNetCoreBuildSettings { 
+                                                          Configuration = configuration,
                                                           ArgumentCustomization = args => args.Append("--no-restore"),
                                                          };
         var projects = GetFiles("./**/*.csproj");
