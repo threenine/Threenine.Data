@@ -26,20 +26,19 @@ Task("Restore")
        var buildSettings =  new DotNetCoreBuildSettings { Configuration = configuration,
                                                           ArgumentCustomization = args => args.Append("--no-restore"),
                                                          };
-                                       
-        Information("Building Test Database Project");                               
-        DotNetCoreBuild("./tests/Database/TestDatabase.csproj", buildSettings);
-        Information("Building Unit Test Project Project");  
-        DotNetCoreBuild("./tests/Threenine.Data.Tests/Threenine.Data.Tests.csproj", buildSettings);
-        Information("Building Threenine.Data Project");  
-        DotNetCoreBuild("./src/Threenine.Data.csproj", buildSettings);
-           
-    });
+        var projects = GetFiles("./**/*.csproj");
+        
+        foreach(var project in projects)
+        {
+           Information("Building Project: " + project);
+           DotNetCoreBuild(project.ToString(), buildSettings);
+        }
+      });
 
 Task("Test")
     .Does(() =>
     {
-        var projects = GetFiles("./tests/Threenine.Data.Tests/Threenine.Data.Tests.csproj");
+        var projects = GetFiles("./tests/**/*.Tests.csproj");
         foreach(var project in projects)
         {
             Information("Testing project " + project);
