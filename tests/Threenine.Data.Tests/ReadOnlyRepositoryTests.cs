@@ -41,6 +41,16 @@ namespace Threenine.Data.Tests
         private readonly SqlLiteWith20ProductsTestFixture _fixture;
 
         [Fact]
+        public void ShouldReturnInstanceIfInterface()
+        {
+            using var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
+            var repo = uow.GetReadOnlyRepository<TestProduct>();
+
+            Assert.IsAssignableFrom<IRepositoryReadOnly<TestProduct>>(repo);
+
+        }
+        
+        [Fact]
         public void ShouldGetItems()
         {
             using var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
@@ -73,5 +83,6 @@ namespace Threenine.Data.Tests
 
             Assert.Null(product);
         }
+        
     }
 }
