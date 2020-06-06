@@ -26,9 +26,9 @@ using Xunit;
 namespace Threenine.Data.Tests
 {
     [Collection(GlobalTestStrings.ProductCollectionName)]
-    public class ReadOnlyRepositoryTests : IDisposable
+    public class RepositoryReadOnlyTests : IDisposable
     {
-        public ReadOnlyRepositoryTests(SqlLiteWith20ProductsTestFixture fixture)
+        public RepositoryReadOnlyTests(SqlLiteWith20ProductsTestFixture fixture)
         {
             _fixture = fixture;
         }
@@ -40,6 +40,16 @@ namespace Threenine.Data.Tests
 
         private readonly SqlLiteWith20ProductsTestFixture _fixture;
 
+        [Fact]
+        public void ShouldReturnInstanceIfInterface()
+        {
+            using var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
+            var repo = uow.GetReadOnlyRepository<TestProduct>();
+
+            Assert.IsAssignableFrom<IRepositoryReadOnly<TestProduct>>(repo);
+
+        }
+        
         [Fact]
         public void ShouldGetItems()
         {
@@ -73,5 +83,6 @@ namespace Threenine.Data.Tests
 
             Assert.Null(product);
         }
+        
     }
 }

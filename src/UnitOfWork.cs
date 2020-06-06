@@ -59,6 +59,15 @@ namespace Threenine.Data
             return (IRepositoryReadOnly<TEntity>) _repositories[type];
         }
 
+        public IRepositoryReadOnlyAsync<TEntity> GetReadOnlyRepositoryAsync<TEntity>() where TEntity : class
+        {
+            if (_repositories == null) _repositories = new Dictionary<Type, object>();
+
+            var type = typeof(TEntity);
+            if (!_repositories.ContainsKey(type)) _repositories[type] = new RepositoryReadOnlyAsync<TEntity>(Context);
+            return (IRepositoryReadOnlyAsync<TEntity>) _repositories[type];
+        }
+
         public TContext Context { get; }
 
         public int Commit(bool autoHistory = false)
