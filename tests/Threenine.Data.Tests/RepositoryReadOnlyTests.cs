@@ -26,9 +26,9 @@ using Xunit;
 namespace Threenine.Data.Tests
 {
     [Collection(GlobalTestStrings.ProductCollectionName)]
-    public class ReadOnlyRepositoryTests : IDisposable
+    public class RepositoryReadOnlyTests : IDisposable
     {
-        public ReadOnlyRepositoryTests(SqlLiteWith20ProductsTestFixture fixture)
+        public RepositoryReadOnlyTests(SqlLiteWith20ProductsTestFixture fixture)
         {
             _fixture = fixture;
         }
