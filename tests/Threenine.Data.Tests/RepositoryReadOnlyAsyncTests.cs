@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using TestDatabase;
 using Threenine.Data.Tests.TestFixtures;
 using Xunit;
@@ -31,7 +32,7 @@ namespace Threenine.Data.Tests
         }
         
         [Fact]
-        public async Task ShouldGetItems()
+        public async Task ShouldGetSingleItem()
         {
             using var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
             var repo = uow.GetReadOnlyRepositoryAsync<TestProduct>();
@@ -39,6 +40,31 @@ namespace Threenine.Data.Tests
             var product = await repo.SingleOrDefaultAsync(x => x.Id == 1);
 
             Assert.NotNull(product);
+        }
+
+        [Fact]
+        public async Task ShouldGetListOfItems()
+        {
+            using var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
+            var repo = uow.GetReadOnlyRepositoryAsync<TestProduct>();
+            
+            var results = await repo.GetListAsync(t => t.InStock == true && t.CategoryId == 1,
+                size: 5);
+
+            Assert.Equal(5, results.Items.Count);
+            Assert.Equal(1, results.Pages);
+            
+        }
+        
+        [Fact]
+        public async Task ShouldReturnNullObject()
+        {
+            using var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
+            var repo = uow.GetReadOnlyRepositoryAsync<TestProduct>();
+
+            var product = await repo.SingleOrDefaultAsync(x => x.Id == 10001);
+
+            Assert.Null(product);
         }
     }
 }

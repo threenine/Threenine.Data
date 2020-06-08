@@ -32,12 +32,18 @@ namespace Threenine.Data
         {
         }
 
-        public async Task<T> SingleOrDefaultAsync(Expression<Func<T, bool>> predicate = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null)
+        public async Task<T> SingleOrDefaultAsync(Expression<Func<T, bool>> predicate = null, Func<IQueryable<T>, 
+            IOrderedQueryable<T>> orderBy = null, Func<IQueryable<T>, 
+            IIncludableQueryable<T, object>> include = null)
         {
            return await base.SingleOrDefaultAsync(predicate, orderBy, include, false);
         }
 
-        public async Task<IPaginate<T>> GetListAsync(Expression<Func<T, bool>> predicate = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null, int index = 0, int size = 20)
+        public async Task<IPaginate<T>> GetListAsync(Expression<Func<T, bool>> predicate = null, 
+            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, 
+            Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null, 
+            int index = 0, 
+            int size = 20)
         {
             return await base.GetListAsync(predicate, orderBy, include, index, size, false);
         }
