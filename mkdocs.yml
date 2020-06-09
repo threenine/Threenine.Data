@@ -1,0 +1,6 @@
+site_name: Threenine.Data
+
+nav:
+  - Home: 'index.md'
+  - Getting Started: 'getting-started.md'
+
