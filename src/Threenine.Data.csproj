@@ -7,6 +7,7 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Company>threenine.co.uk</Company>
       <Authors>Gary Woodfine</Authors>
+      <Owners>threenine.co.uk</Owners>
       <PackageProjectUrl>https://threenine.github.io/Threenine.Data/</PackageProjectUrl>
       <PackageIconUrl>http://static.threenine.co.uk/threenine_icon.png</PackageIconUrl>
       <PackageTags>generic repository</PackageTags>
@@ -16,9 +17,7 @@
       <NeutralLanguage>en</NeutralLanguage>
       <RepositoryUrl>https://github.com/threenine/Threenine.Data</RepositoryUrl>
       <RepositoryType>git</RepositoryType>
-      <PackageReleaseNotes>Update to .net 3.1 and complete refactor.
-          Warning: Number of breaking changes from 1.X releases
-      </PackageReleaseNotes>
+      <PackageReleaseNotes>Implemented IDeleteRepository</PackageReleaseNotes>
       <Title>Threenine.Data</Title>
       <PackageVersion>2.0</PackageVersion>
   </PropertyGroup>
