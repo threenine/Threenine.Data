@@ -1,6 +1,3 @@
-// Copyright (c) threenine.co.uk . All rights reserved.
-//GNU GENERAL PUBLIC LICENSE  Version 3, 29 June 2007
-//  See LICENSE in the project root for license information.
 /* Copyright (c) threenine.co.uk . All rights reserved.
  
    GNU GENERAL PUBLIC LICENSE  Version 3, 29 June 2007
@@ -17,6 +14,7 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 using System;
 using System.Collections.Generic;
 using TestDatabase;
@@ -41,16 +39,6 @@ namespace Threenine.Data.Tests
         private readonly SqlLiteWith20ProductsTestFixture _fixture;
 
         [Fact]
-        public void ShouldReturnInstanceIfInterface()
-        {
-            using var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
-            var repo = uow.GetReadOnlyRepository<TestProduct>();
-
-            Assert.IsAssignableFrom<IRepositoryReadOnly<TestProduct>>(repo);
-
-        }
-        
-        [Fact]
         public void ShouldGetItems()
         {
             using var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
@@ -59,6 +47,17 @@ namespace Threenine.Data.Tests
             var product = repo.SingleOrDefault(x => x.Id == 1);
 
             Assert.NotNull(product);
+        }
+
+        [Fact]
+        public void ShouldGetListOfProducts()
+        {
+            using var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
+            var repo = uow.GetReadOnlyRepository<TestProduct>();
+
+            var products = repo.GetList();
+
+            Assert.NotNull(products);
         }
 
         [Fact]
@@ -74,6 +73,15 @@ namespace Threenine.Data.Tests
         }
 
         [Fact]
+        public void ShouldReturnInstanceIfInterface()
+        {
+            using var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
+            var repo = uow.GetReadOnlyRepository<TestProduct>();
+
+            Assert.IsAssignableFrom<IRepositoryReadOnly<TestProduct>>(repo);
+        }
+
+        [Fact]
         public void ShouldReturnNullObject()
         {
             using var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
@@ -82,18 +90,6 @@ namespace Threenine.Data.Tests
             var product = repo.SingleOrDefault(x => x.Id == 10001);
 
             Assert.Null(product);
-        }
-
-        [Fact]
-        public void ShouldGetListOfProducts()
-        {
-            using var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
-            var repo = uow.GetReadOnlyRepository<TestProduct>();
-
-            var products = repo.GetList();
-            
-            Assert.NotNull(products);
-
         }
     }
 }
