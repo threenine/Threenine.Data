@@ -12,7 +12,7 @@
       <PackageTags>generic repository</PackageTags>
       <Copyright>Copyright ©2020 Three Nine Consulting Limited</Copyright>
       <Description>A simple generic repository wrapper library for entity framework core</Description>
-      <PackageLicenseUrl></PackageLicenseUrl>
+      <PackageLicenseUrl>https://github.com/threenine/Threenine.Data/blob/master/LICENSE</PackageLicenseUrl>
       <NeutralLanguage>en</NeutralLanguage>
       <RepositoryUrl>https://github.com/threenine/Threenine.Data</RepositoryUrl>
       <RepositoryType>git</RepositoryType>
