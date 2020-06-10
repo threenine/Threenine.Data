@@ -65,7 +65,6 @@ namespace Threenine.Data.Tests
             var product1 = repo.GetSingleOrDefault(x => x.Id == 1);
             var product2 = repo.GetSingleOrDefault(x => x.Id == 2);
 
-
             product1.Name = newProduct1Name;
             product2.Name = newProduct2Name;
 
