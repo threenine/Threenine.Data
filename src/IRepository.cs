@@ -38,5 +38,12 @@ namespace Threenine.Data
         void Update(T entity);
         void Update(params T[] entities);
         void Update(IEnumerable<T> entities);
+
+
+        void Delete(T entity);
+
+        void Delete(params T[] entities);
+
+        void Delete(IEnumerable<T> entities);
     }
 }

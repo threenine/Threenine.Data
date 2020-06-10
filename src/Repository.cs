@@ -57,6 +57,22 @@ namespace Threenine.Data
             _dbContext?.Dispose();
         }
 
+
+        public void Delete(T entity)
+        {
+            _dbSet.Remove(entity);
+        }
+
+        public void Delete(params T[] entities)
+        {
+            _dbSet.RemoveRange(entities);
+        }
+
+        public void Delete(IEnumerable<T> entities)
+        {
+            _dbSet.RemoveRange(entities);
+        }
+
         #region Insert Functions
 
         public virtual T Insert(T entity)

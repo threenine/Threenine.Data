@@ -83,8 +83,8 @@ namespace Threenine.Data
                 return orderBy(query).ToPaginateAsync(index, size, 0, cancellationToken);
             return query.ToPaginateAsync(index, size, 0, cancellationToken);
         }
-        
-        public  Task<IPaginate<TResult>> GetListAsync<TResult>(Expression<Func<T, TResult>> selector,
+
+        public Task<IPaginate<TResult>> GetListAsync<TResult>(Expression<Func<T, TResult>> selector,
             Expression<Func<T, bool>> predicate = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
@@ -99,28 +99,16 @@ namespace Threenine.Data
 
             if (!enableTracking) query = query.AsNoTracking();
 
-            if (include != null)
-            {
-                query = include(query);
-            }
+            if (include != null) query = include(query);
 
-            if (predicate != null)
-            {
-                query = query.Where(predicate);
-            }
+            if (predicate != null) query = query.Where(predicate);
 
-            if (ignoreQueryFilters)
-            {
-                query = query.IgnoreQueryFilters();
-            }
+            if (ignoreQueryFilters) query = query.IgnoreQueryFilters();
 
             if (orderBy != null)
-            {
                 return orderBy(query).Select(selector).ToPaginateAsync(index, size, 0, cancellationToken);
-            }
-            
+
             return query.Select(selector).ToPaginateAsync(index, size, 0, cancellationToken);
-            
         }
 
         #endregion

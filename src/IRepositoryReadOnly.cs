@@ -23,12 +23,12 @@ using Threenine.Data.Paging;
 
 namespace Threenine.Data
 {
-    public interface IRepositoryReadOnly<T>  where T : class
+    public interface IRepositoryReadOnly<T> where T : class
     {
         T SingleOrDefault(Expression<Func<T, bool>> predicate = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null
-            );
+        );
 
         IPaginate<T> GetList(Expression<Func<T, bool>> predicate = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,

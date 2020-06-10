@@ -80,7 +80,9 @@ namespace Threenine.Data
 
             if (predicate != null) query = query.Where(predicate);
 
-            return orderBy != null ? orderBy(query).Select(selector).ToPaginate(index, size): query.Select(selector).ToPaginate(index, size);
+            return orderBy != null
+                ? orderBy(query).Select(selector).ToPaginate(index, size)
+                : query.Select(selector).ToPaginate(index, size);
         }
     }
 }
