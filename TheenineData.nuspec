@@ -15,7 +15,7 @@
         <authors>Gary Woodfine</authors>
         <copyright>Copyright © 2005 - 2020 Three Nine Consulting Limited</copyright>
         <licenseUrl>https://github.com/threenine/Threenine.Data/blob/master/LICENSE</licenseUrl>
-        <projectUrl>ttps://threenine.github.io/Threenine.Data/</projectUrl>
+        <projectUrl>https://threenine.github.io/Threenine.Data/</projectUrl>
         <tags>Unit of Work, Repository Pattern, Repository</tags>
     </metadata>
 </package>
