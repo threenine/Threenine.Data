@@ -83,6 +83,17 @@ namespace Threenine.Data.Tests
 
             Assert.Null(product);
         }
-        
+
+        [Fact]
+        public void ShouldGetListOfProducts()
+        {
+            using var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
+            var repo = uow.GetReadOnlyRepository<TestProduct>();
+
+            var products = repo.GetList();
+            
+            Assert.NotNull(products);
+
+        }
     }
 }
