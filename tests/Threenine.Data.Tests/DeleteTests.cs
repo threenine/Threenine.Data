@@ -1,6 +1,3 @@
-// Copyright (c) threenine.co.uk . All rights reserved.
-//GNU GENERAL PUBLIC LICENSE  Version 3, 29 June 2007
-//  See LICENSE in the project root for license information.
 /* Copyright (c) threenine.co.uk . All rights reserved.
  
    GNU GENERAL PUBLIC LICENSE  Version 3, 29 June 2007
@@ -17,8 +14,8 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 using System;
-using System.Collections.Generic;
 using TestDatabase;
 using Threenine.Data.Tests.TestFixtures;
 using Xunit;
@@ -26,12 +23,13 @@ using Xunit;
 namespace Threenine.Data.Tests
 {
     [Collection(GlobalTestStrings.ProductCollectionName)]
-    public class ReadOnlyRepositoryTests : IDisposable
+    public class DeleteTests : IDisposable
     {
-        public ReadOnlyRepositoryTests(SqlLiteWith20ProductsTestFixture fixture)
+        public DeleteTests(SqlLiteWith20ProductsTestFixture fixture)
         {
             _fixture = fixture;
         }
+
 
         public void Dispose()
         {
@@ -41,37 +39,21 @@ namespace Threenine.Data.Tests
         private readonly SqlLiteWith20ProductsTestFixture _fixture;
 
         [Fact]
-        public void ShouldGetItems()
+        public void ShouldDeleteProduct()
         {
             using var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
-            var repo = uow.GetReadOnlyRepository<TestProduct>();
 
-            var product = repo.SingleOrDefault(x => x.Id == 1);
+            var get = uow.GetRepository<TestProduct>();
 
-            Assert.NotNull(product);
-        }
 
-        [Fact]
-        public void ShouldReturnAListOfProducts()
-        {
-            using var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
-            var repo = uow.GetReadOnlyRepository<TestProduct>();
+            uow.Commit();
 
-            var products = repo.GetList(x => x.CategoryId == 1);
+            var prod = get.SingleOrDefault(x => x.Id == 1);
+            get.Delete(prod);
+            uow.Commit();
 
-            Assert.NotNull(products);
-            Assert.IsAssignableFrom<IEnumerable<TestProduct>>(products.Items);
-        }
-
-        [Fact]
-        public void ShouldReturnNullObject()
-        {
-            using var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
-            var repo = uow.GetReadOnlyRepository<TestProduct>();
-
-            var product = repo.SingleOrDefault(x => x.Id == 10001);
-
-            Assert.Null(product);
+            prod = get.SingleOrDefault(x => x.Id == 1);
+            Assert.Null(prod);
         }
     }
 }
