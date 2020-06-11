@@ -48,13 +48,33 @@ public class Startup
         {
             // Use the Threenine.Data Dependency Injection to set up the Unit of Work
             services.AddDbContext<SampleContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("SampleDB")))
+                options.UseNpgsql(Configuration.GetConnectionString("SampleDB")))
                 .AddUnitOfWork<SampleContext>();
 
             services.AddMvc();
         }
 ```
-### 
+We can use any of the Entity Framework Core supported database drivers, in the example about we made use of PostgreSql.
+Once the Dependency Injection has been configured. You can now simply make use of the Unit of Work to access your 
+repositories via Dependency Injection.
+
+```c#
+
+ public class AddressService : IService<Address>
+    {
+        private readonly IUnitOfWork _unitOfWork;
+        public AddressService(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
+        public Address GetAddressDetail(int id)
+        {
+           return _unitOfWork.GetReadOnlyRepository<Address>().SingleOrDefault(x => x.Id == id);
+           
+        }
+    }
+
+```
 
 
 
