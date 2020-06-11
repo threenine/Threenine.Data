@@ -83,5 +83,25 @@ namespace Threenine.Data.Tests
             //Assert
             Assert.Equal(20, products.Count);
         }
+
+        [Fact]
+        public void ShouldGetListWithSelectedColumns()
+        {
+            // Arrange 
+            using var uow = new UnitOfWork<TestDbContext>(_testFixture.Context);
+            var repo = uow.GetReadOnlyRepository<TestProduct>();
+
+          var list =  repo.GetList(s => new
+          {
+              ProductName = s.Name,
+              StockLevel = s.Stock
+          });
+          
+          Assert.NotNull(list);
+         Assert.Equal(20, list.Items.Count);
+         
+            
+
+        }
     }
 }

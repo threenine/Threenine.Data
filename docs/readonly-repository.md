@@ -24,3 +24,8 @@ Threenine.Data provides a `ReadOnlyRepository` which is preconfigured to provide
 Use the SingleOrDefault method to get a single matching entity if one exists.
  
  SingleOrDefault returns the default value for the entity, returning a single matching element, or the default value if no element is found.
+ 
+#### GetList
+
+Get list returns a paginated list of the items by default.
+ 
