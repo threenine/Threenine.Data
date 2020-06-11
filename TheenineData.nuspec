@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+    <metadata>
+        <id>Threenine.Data</id>
+        <title>Threenine.Data</title>
+        <iconUrl>https://raw.githubusercontent.com/threenine/Threenine.Data/master/threeninedata_icon.png</iconUrl>
+        <description>
+            A simple generic repository wrapper library for entity framework core
+        </description>
+        <summary>
+            A resuable generic unit of work and repository pattern for an abstracting Entity Framework Core in .net core
+            projects
+        </summary>
+        <requireLicenseAcceptance>true</requireLicenseAcceptance>
+        <authors>Gary Woodfine</authors>
+        <copyright>Copyright © 2005 - 2020 Three Nine Consulting Limited</copyright>
+        <licenseUrl>https://github.com/threenine/Threenine.Data/blob/master/LICENSE</licenseUrl>
+        <projectUrl>https://threenine.github.io/Threenine.Data/</projectUrl>
+        <tags>Unit of Work, Repository Pattern, Repository</tags>
+    </metadata>
+</package>

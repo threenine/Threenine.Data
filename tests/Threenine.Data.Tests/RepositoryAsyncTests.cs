@@ -13,7 +13,7 @@
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/// Copyright (c) threenine.co.uk . All rights reserved.
+*/ // Copyright (c) threenine.co.uk . All rights reserved.
 //GNU GENERAL PUBLIC LICENSE  Version 3, 29 June 2007
 //  See LICENSE in the project root for license information.
 

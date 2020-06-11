@@ -27,7 +27,6 @@ namespace Threenine.Data
 {
     public interface IRepositoryReadOnlyAsync<T> where T : class
     {
-        
         Task<T> SingleOrDefaultAsync(Expression<Func<T, bool>> predicate = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null
@@ -50,4 +49,4 @@ namespace Threenine.Data
             bool ignoreQueryFilters = false)
             where TResult : class;
     }
-} 
+}

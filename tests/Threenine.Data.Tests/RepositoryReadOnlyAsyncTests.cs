@@ -9,8 +9,6 @@ namespace Threenine.Data.Tests
     [Collection(GlobalTestStrings.ProductCollectionName)]
     public class RepositoryReadOnlyAsyncTests : IDisposable
     {
-        private readonly SqlLiteWith20ProductsTestFixture _fixture;
-        
         public RepositoryReadOnlyAsyncTests(SqlLiteWith20ProductsTestFixture fixture)
         {
             _fixture = fixture;
@@ -21,6 +19,32 @@ namespace Threenine.Data.Tests
             _fixture?.Dispose();
         }
 
+        private readonly SqlLiteWith20ProductsTestFixture _fixture;
+
+        [Fact]
+        public async Task ShouldGetListOfItems()
+        {
+            using var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
+            var repo = uow.GetReadOnlyRepositoryAsync<TestProduct>();
+
+            var results = await repo.GetListAsync(t => t.InStock == true && t.CategoryId == 1,
+                size: 5);
+
+            Assert.Equal(5, results.Items.Count);
+            Assert.Equal(1, results.Pages);
+        }
+
+        [Fact]
+        public async Task ShouldGetSingleItem()
+        {
+            using var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
+            var repo = uow.GetReadOnlyRepositoryAsync<TestProduct>();
+
+            var product = await repo.SingleOrDefaultAsync(x => x.Id == 1);
+
+            Assert.NotNull(product);
+        }
+
         [Fact]
         public void ShouldReturnInstanceIfInterface()
         {
@@ -29,16 +53,16 @@ namespace Threenine.Data.Tests
 
             Assert.IsAssignableFrom<IRepositoryReadOnlyAsync<TestProduct>>(repo);
         }
-        
+
         [Fact]
-        public async Task ShouldGetItems()
+        public async Task ShouldReturnNullObject()
         {
             using var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
             var repo = uow.GetReadOnlyRepositoryAsync<TestProduct>();
 
-            var product = await repo.SingleOrDefaultAsync(x => x.Id == 1);
+            var product = await repo.SingleOrDefaultAsync(x => x.Id == 10001);
 
-            Assert.NotNull(product);
+            Assert.Null(product);
         }
     }
 }
