@@ -37,7 +37,7 @@ namespace Threenine.Data
             if (_repositories == null) _repositories = new Dictionary<Type, object>();
 
             var type = typeof(TEntity);
-            if (!_repositories.ContainsKey(type)) _repositories[type] = new Repository<TEntity>(Context);
+            if (!_repositories.ContainsKey(type)) _repositories.Add(type , new Repository<TEntity>(Context));
             return (IRepository<TEntity>) _repositories[type];
         }
 
@@ -47,7 +47,7 @@ namespace Threenine.Data
             if (_repositories == null) _repositories = new Dictionary<Type, object>();
 
             var type = typeof(TEntity);
-            if (!_repositories.ContainsKey(type)) _repositories[type] = new RepositoryAsync<TEntity>(Context);
+            if (!_repositories.ContainsKey(type)) _repositories.Add(type, new RepositoryAsync<TEntity>(Context));
             return (IRepositoryAsync<TEntity>) _repositories[type];
         }
 
@@ -56,7 +56,7 @@ namespace Threenine.Data
             if (_repositories == null) _repositories = new Dictionary<Type, object>();
 
             var type = typeof(TEntity);
-            if (!_repositories.ContainsKey(type)) _repositories[type] = new RepositoryReadOnly<TEntity>(Context);
+            if (!_repositories.ContainsKey(type)) _repositories.Add(type, new RepositoryReadOnly<TEntity>(Context));
             return (IRepositoryReadOnly<TEntity>) _repositories[type];
         }
 
@@ -65,7 +65,7 @@ namespace Threenine.Data
             if (_repositories == null) _repositories = new Dictionary<Type, object>();
 
             var type = typeof(TEntity);
-            if (!_repositories.ContainsKey(type)) _repositories[type] = new RepositoryReadOnlyAsync<TEntity>(Context);
+            if (!_repositories.ContainsKey(type)) _repositories.Add(type, new RepositoryReadOnlyAsync<TEntity>(Context));
             return (IRepositoryReadOnlyAsync<TEntity>) _repositories[type];
         }
 
