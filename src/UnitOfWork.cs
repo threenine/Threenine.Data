@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,7 +26,7 @@ namespace Threenine.Data
     public class UnitOfWork<TContext> : IRepositoryFactory, IUnitOfWork<TContext>
         where TContext : DbContext, IDisposable
     {
-        private Dictionary<Type, object> _repositories;
+        private Dictionary<(Type type, string name), object> _repositories;
 
         public UnitOfWork(TContext context)
         {
@@ -34,41 +35,41 @@ namespace Threenine.Data
 
         public IRepository<TEntity> GetRepository<TEntity>() where TEntity : class
         {
-            if (_repositories == null) _repositories = new Dictionary<Type, object>();
 
-            var type = typeof(TEntity);
-            if (!_repositories.ContainsKey(type)) _repositories[type] = new Repository<TEntity>(Context);
-            return (IRepository<TEntity>) _repositories[type];
+            return (IRepository<TEntity>) GetOrAddRepository(typeof(TEntity), new Repository<TEntity>(Context));
         }
 
 
         public IRepositoryAsync<TEntity> GetRepositoryAsync<TEntity>() where TEntity : class
         {
-            if (_repositories == null) _repositories = new Dictionary<Type, object>();
-
-            var type = typeof(TEntity);
-            if (!_repositories.ContainsKey(type)) _repositories[type] = new RepositoryAsync<TEntity>(Context);
-            return (IRepositoryAsync<TEntity>) _repositories[type];
+           return (IRepositoryAsync<TEntity>) GetOrAddRepository( typeof(TEntity),  new RepositoryAsync<TEntity>(Context));
         }
 
         public IRepositoryReadOnly<TEntity> GetReadOnlyRepository<TEntity>() where TEntity : class
         {
-            if (_repositories == null) _repositories = new Dictionary<Type, object>();
-
-            var type = typeof(TEntity);
-            if (!_repositories.ContainsKey(type)) _repositories[type] = new RepositoryReadOnly<TEntity>(Context);
-            return (IRepositoryReadOnly<TEntity>) _repositories[type];
+           return (IRepositoryReadOnly<TEntity>)GetOrAddRepository( typeof(TEntity),  new RepositoryReadOnly<TEntity>(Context));
         }
 
         public IRepositoryReadOnlyAsync<TEntity> GetReadOnlyRepositoryAsync<TEntity>() where TEntity : class
         {
-            if (_repositories == null) _repositories = new Dictionary<Type, object>();
-
-            var type = typeof(TEntity);
-            if (!_repositories.ContainsKey(type)) _repositories[type] = new RepositoryReadOnlyAsync<TEntity>(Context);
-            return (IRepositoryReadOnlyAsync<TEntity>) _repositories[type];
+            return (IRepositoryReadOnlyAsync<TEntity>) GetOrAddRepository( typeof(TEntity), new RepositoryReadOnlyAsync<TEntity>(Context));
         }
 
+        private object GetOrAddRepository(Type type, object repo)
+        {
+            if (_repositories == null)
+            {
+               _repositories = new Dictionary<(Type type, string Name), object>();
+            }
+            
+            if (!_repositories.TryGetValue((type, repo.GetType().FullName), out var repository))
+            {
+                _repositories.Add((type, repo.GetType().FullName), repo);
+               
+            }
+
+            return repo;
+        }
         public TContext Context { get; }
 
         public int Commit(bool autoHistory = false)

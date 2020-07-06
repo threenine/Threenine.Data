@@ -16,6 +16,7 @@
 */
 
 using System;
+using System.Threading.Tasks;
 using TestDatabase;
 using Threenine.Data.Tests.TestFixtures;
 using Xunit;
@@ -98,6 +99,45 @@ namespace Threenine.Data.Tests
             var updatedProduct = repo.GetSingleOrDefault(x => x.Id == 1);
 
             Assert.Equal(updatedProduct.Name, newProductName);
+        }
+
+        [Fact]
+        public async Task ShouldUpdateWIthSameRepository()
+        {
+           var testNameChange =  "Test Product Name Change";
+            using var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
+            var repo =  uow.GetRepository<TestProduct>();
+
+            var prod = repo.SingleOrDefault(x => x.Id == 1);
+            prod.Name = testNameChange;
+           
+            repo.Update(prod);
+
+            await uow.CommitAsync();
+            
+            var prod2 = repo.SingleOrDefault(x => x.Id == 1);
+
+            Assert.Equal(testNameChange, prod2.Name);
+        }
+        
+        [Fact]
+        public async Task ShouldAddMultipleRepositoryTypes()
+        {
+            var testNameChange =  "Test Product Name Change";
+            using var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
+            var repo =  uow.GetRepositoryAsync<TestProduct>();
+
+            var prod = await repo.SingleOrDefaultAsync(x => x.Id == 1);
+            prod.Name = testNameChange;
+
+            var repo2 = uow.GetRepository<TestProduct>();
+            repo2.Update(prod);
+
+            await uow.CommitAsync();
+            
+            var prod2 = await repo.SingleOrDefaultAsync(x => x.Id == 1);
+
+            Assert.Equal(testNameChange, prod2.Name);
         }
     }
 }
