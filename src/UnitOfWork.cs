@@ -40,7 +40,6 @@ namespace Threenine.Data
             return (IRepository<TEntity>) GetOrAddRepository(typeof(TEntity), new Repository<TEntity>(Context));
         }
 
-
         public IRepositoryAsync<TEntity> GetRepositoryAsync<TEntity>() where TEntity : class
         {
             return (IRepositoryAsync<TEntity>) GetOrAddRepository(typeof(TEntity),
