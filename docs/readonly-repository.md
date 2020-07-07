@@ -29,3 +29,7 @@ Use the SingleOrDefault method to get a single matching entity if one exists.
 
 Get list returns a paginated list of the items by default.
  
+ The really useful aspect of the `GetList` is that it comes with a built in pagination functionality, which can be customised for your specific purposes
+ but is instantiated with intuitive defaults.
+ 
+ 
