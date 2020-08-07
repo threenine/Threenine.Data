@@ -16,48 +16,38 @@
 */
 
 using System;
-using System.Threading.Tasks;
 using TestDatabase;
 using Threenine.Data.Tests.TestFixtures;
 using Xunit;
 
 namespace Threenine.Data.Tests
 {
-    [Collection(GlobalTestStrings.ProductCollectionName)]
-    public class UpdateAsyncTests : IDisposable
+    [Collection(GlobalTestStrings.Product40COllection)]
+    public class GetRepositoryTests : IDisposable
     {
-        public UpdateAsyncTests(SqlLiteWith20ProductsTestFixture fixture)
+        public GetRepositoryTests(SqlLiteWith40ProductsTestFixture fixture)
         {
-            _fixture = fixture;
+            _testFixture = fixture;
         }
 
         public void Dispose()
         {
-            _fixture?.Dispose();
+            _testFixture?.Dispose();
         }
 
-        private readonly SqlLiteWith20ProductsTestFixture _fixture;
+        private readonly SqlLiteWith40ProductsTestFixture _testFixture;
 
         [Fact]
-        public async Task ShouldUpdateProductName()
+        public void GetProductPagedListUsingWithNoPredicateTest()
         {
-            const string newProductName = "Foo Bar";
-            using var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
+            //Arrange 
+            using var uow = new UnitOfWork<TestDbContext>(_testFixture.Context);
             var repo = uow.GetRepository<TestProduct>();
-
-            var product = repo.SingleOrDefault(x => x.Id == 1);
-
-            Assert.IsAssignableFrom<TestProduct>(product);
-
-            product.Name = newProductName;
-
-            repo.Update(product);
-
-            await uow.CommitAsync();
-
-            var updatedProduct = repo.SingleOrDefault(x => x.Id == 1);
-
-            Assert.Equal(updatedProduct.Name, newProductName);
+            //Act
+            var productList = repo.GetList(size: int.MaxValue).Items;
+            //Assert
+            Assert.Equal(40, productList.Count);
+            1
         }
     }
 }

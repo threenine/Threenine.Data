@@ -32,7 +32,7 @@ namespace Threenine.Data
 
         #region Get Functions
 
-        public T GetSingleOrDefault(Expression<Func<T, bool>> predicate = null,
+        public T SingleOrDefault(Expression<Func<T, bool>> predicate = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null, bool enableTracking = true,
             bool ignoreQueryFilters = false)
