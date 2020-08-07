@@ -1,4 +1,4 @@
-
+#tool "nuget:?package=JetBrains.dotCover.CommandLineTools"
 var target = Argument("Target", "Default");
 var configuration = Argument("Configuration", "Release");
 
@@ -6,14 +6,32 @@ Information($"Running target {target} in configuration {configuration}");
 
 var distDirectory = Directory("./build");
 var packageDirectory = Directory("./package");
+var temporaryFolder = Directory("./temp");
+TaskSetup(setupContext =>
+{
+   if(TeamCity.IsRunningOnTeamCity)
+   {
+      TeamCity.WriteStartBuildBlock(setupContext.Task.Description ?? setupContext.Task.Name);
+   }
+});
+
+TaskTeardown(teardownContext =>
+{
+   if(TeamCity.IsRunningOnTeamCity)
+   {
+      TeamCity.WriteEndProgress(teardownContext.Task.Description ?? teardownContext.Task.Name);
+   }
+});
 
 Task("Clean")
+    .Description("Cleaning the solution directory")
     .Does(() =>
     {
         CleanDirectory(distDirectory);
     });
 
 Task("Restore")
+    .Description("Restoring the solution dependencies")
     .Does(() =>
     {
         DotNetCoreRestore();
@@ -51,7 +69,34 @@ Task("Test")
                 });
         }
     });
-    
+ Task("TestCoverage")
+ .Does(() => {
+  var coverageResultFile = System.IO.Path.Combine(temporaryFolder, "coverageResult.dcvr");
+ 
+    var testDllsPattern = string.Format("./**/bin/{0}/*.*Tests.dll", configuration);
+ 
+    var testDlls = GetFiles(testDllsPattern);
+ 
+    var testResultsFile = System.IO.Path.Combine(temporaryFolder, "testResults.trx");
+ 
+    DotCoverCover(tool => {
+          tool.MSTest(testDlls, new MSTestSettings() {
+             ResultsFile = testResultsFile
+          });
+       },
+       new FilePath(coverageResultFile),
+       new DotCoverCoverSettings()
+          .WithFilter("+:Application")
+          .WithFilter("-:Application.*Tests")
+       );
+ 
+    if(TeamCity.IsRunningOnTeamCity)
+    {
+       TeamCity.ImportData("mstest", testResultsFile);
+ 
+       TeamCity.ImportDotCoverCoverage(coverageResultFile);
+    }
+ });  
 Task("Default")
        .IsDependentOn("Clean")
        .IsDependentOn("Restore")
@@ -59,3 +104,4 @@ Task("Default")
        .IsDependentOn("Test");
   
 RunTarget(target);
+
