@@ -16,6 +16,8 @@
 */
 
 using System;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using TestDatabase;
 using Threenine.Data.Tests.TestFixtures;
 using Xunit;
@@ -88,6 +90,34 @@ namespace Threenine.Data.Tests
             //Assert
             Assert.Equal(5, productList.Items.Count);
             Assert.Equal(1, productList.Pages);
+        }
+
+        [Fact]
+        public void GetProductSingleOrDefaultOrderbyTest()
+        {
+            //Arrange 
+            using var uow = new UnitOfWork<TestDbContext>(_testFixture.Context);
+
+            //Act
+            var product = uow.GetRepository<TestProduct>().SingleOrDefault(orderBy: x => x.OrderBy(x => x.Name),
+                include: x => x.Include(x => x.Category));
+            //Assert
+            Assert.NotNull(product);
+            Assert.Equal("Name1", product.Name);
+            //Assert.Equal(1, product.Id);
+        }
+
+        [Fact]
+        public void GetProductSingleOrDefaultTest()
+        {
+            //Arrange 
+            using var uow = new UnitOfWork<TestDbContext>(_testFixture.Context);
+
+            //Act
+            var product = uow.GetRepository<TestProduct>().SingleOrDefault(x => x.Id == 1);
+            //Assert
+            Assert.NotNull(product);
+            Assert.Equal(1, product.Id);
         }
     }
 }

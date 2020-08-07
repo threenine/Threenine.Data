@@ -1,6 +1,6 @@
 # Read Only Repository
 
-Threenine.Data supports readonly repository which enable retrieving data from from Entity Framework without the addiitional over head 
+Threenine.Data supports readonly repository which enable retrieving data from from Entity Framework without the additional over head 
 of the EF core query tracking.
 
 Tracking behavior controls if Entity Framework Core will keep information about an entity instance in its change tracker. If an entity is tracked, 
@@ -24,6 +24,10 @@ Threenine.Data provides a `ReadOnlyRepository` which is preconfigured to provide
 Use the SingleOrDefault method to get a single matching entity if one exists.
  
  SingleOrDefault returns the default value for the entity, returning a single matching element, or the default value if no element is found.
+ 
+ ```c#
+   var product = uow.GetRepository<TestProduct>().SingleOrDefault(x => x.Id == 1);
+```
  
 #### GetList
 
