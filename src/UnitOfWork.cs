@@ -58,6 +58,12 @@ namespace Threenine.Data
                 new RepositoryReadOnlyAsync<TEntity>(Context));
         }
 
+        public IDeleteRepository<TEntity> DeleteRepository<TEntity>() where TEntity : class
+        {
+            return (IDeleteRepository<TEntity>) GetOrAddRepository(typeof(TEntity),
+                new DeleteRepository<TEntity>(Context));
+        }
+
         public TContext Context { get; }
 
         public int Commit(bool autoHistory = false)

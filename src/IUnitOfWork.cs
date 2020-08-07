@@ -27,6 +27,7 @@ namespace Threenine.Data
         IRepositoryAsync<TEntity> GetRepositoryAsync<TEntity>() where TEntity : class;
         IRepositoryReadOnly<TEntity> GetReadOnlyRepository<TEntity>() where TEntity : class;
         IRepositoryReadOnlyAsync<TEntity> GetReadOnlyRepositoryAsync<TEntity>() where TEntity : class;
+        IDeleteRepository<TEntity> DeleteRepository<TEntity>() where TEntity : class;
 
 
         int Commit(bool autoHistory = false);

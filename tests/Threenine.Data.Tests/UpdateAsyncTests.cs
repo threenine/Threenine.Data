@@ -45,7 +45,7 @@ namespace Threenine.Data.Tests
             using var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
             var repo = uow.GetRepository<TestProduct>();
 
-            var product = repo.GetSingleOrDefault(x => x.Id == 1);
+            var product = repo.SingleOrDefault(x => x.Id == 1);
 
             Assert.IsAssignableFrom<TestProduct>(product);
 
@@ -55,7 +55,7 @@ namespace Threenine.Data.Tests
 
             await uow.CommitAsync();
 
-            var updatedProduct = repo.GetSingleOrDefault(x => x.Id == 1);
+            var updatedProduct = repo.SingleOrDefault(x => x.Id == 1);
 
             Assert.Equal(updatedProduct.Name, newProductName);
         }
