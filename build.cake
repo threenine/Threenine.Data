@@ -69,12 +69,10 @@ Task("Test")
                 });
         }
     });
- Task("TestCoverage")
+ Task("Coverage")
  .Does(() => {
-  var coverageResultFile = System.IO.Path.Combine(temporaryFolder, "coverageResult.dcvr");
- 
-    var testDllsPattern = string.Format("./**/bin/{0}/*.*Tests.dll", configuration);
- 
+   var coverageResultFile = System.IO.Path.Combine(temporaryFolder, "coverageResult.dcvr");
+   var testDllsPattern = string.Format("./**/bin/{0}/*.*Tests.dll", configuration);
     var testDlls = GetFiles(testDllsPattern);
  
     var testResultsFile = System.IO.Path.Combine(temporaryFolder, "testResults.trx");
@@ -93,15 +91,15 @@ Task("Test")
     if(TeamCity.IsRunningOnTeamCity)
     {
        TeamCity.ImportData("mstest", testResultsFile);
- 
-       TeamCity.ImportDotCoverCoverage(coverageResultFile);
+        TeamCity.ImportDotCoverCoverage(coverageResultFile);
     }
  });  
 Task("Default")
        .IsDependentOn("Clean")
        .IsDependentOn("Restore")
        .IsDependentOn("Build")
-       .IsDependentOn("Test");
+       .IsDependentOn("Test")
+       .IsDependentOn("Coverage");
   
 RunTarget(target);
 
