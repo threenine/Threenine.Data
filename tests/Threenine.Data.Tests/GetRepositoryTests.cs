@@ -104,7 +104,8 @@ namespace Threenine.Data.Tests
             //Assert
             Assert.NotNull(product);
             Assert.Equal("Name1", product.Name);
-            //Assert.Equal(1, product.Id);
+            Assert.IsAssignableFrom<TestProduct>(product);
+            Assert.IsAssignableFrom<TestCategory>(product.Category);
         }
 
         [Fact]

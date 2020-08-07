@@ -28,6 +28,12 @@ Use the SingleOrDefault method to get a single matching entity if one exists.
  ```c#
    var product = uow.GetRepository<TestProduct>().SingleOrDefault(x => x.Id == 1);
 ```
+ `SingleOrDefault` also enables the functionality to Order and Include before making the selection
+ 
+ ```c#
+  var product = uow.GetRepository<TestProduct>().SingleOrDefault(orderBy: x => x.OrderBy(x => x.Name),
+                 include: x => x.Include(x => x.Category));
+```
  
 #### GetList
 
