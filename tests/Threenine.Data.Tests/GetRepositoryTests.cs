@@ -47,7 +47,6 @@ namespace Threenine.Data.Tests
             var productList = repo.GetList(size: int.MaxValue).Items;
             //Assert
             Assert.Equal(40, productList.Count);
-            1
         }
     }
 }
