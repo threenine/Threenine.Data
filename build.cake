@@ -38,6 +38,7 @@ Task("Restore")
     });
 
  Task("Build")
+    .Description("Building the Solution")
     .Does(() =>
     {
     
@@ -55,6 +56,7 @@ Task("Restore")
       });
 
 Task("Test")
+    .Description("Running Unit Tests")
     .Does(() =>
     {
         var projects = GetFiles("./tests/**/*.Tests.csproj");
