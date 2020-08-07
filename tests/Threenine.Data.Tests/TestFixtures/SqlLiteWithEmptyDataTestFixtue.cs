@@ -1,7 +1,3 @@
-using System;
-using Microsoft.EntityFrameworkCore;
-using TestDatabase;
-
 /* Copyright (c) threenine.co.uk . All rights reserved.
  
    GNU GENERAL PUBLIC LICENSE  Version 3, 29 June 2007
@@ -18,6 +14,11 @@ using TestDatabase;
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
+using System;
+using Microsoft.EntityFrameworkCore;
+using TestDatabase;
+
 namespace Threenine.Data.Tests.TestFixtures
 {
     public class SqlLiteWithEmptyDataTestFixture : IDisposable
@@ -32,7 +33,7 @@ namespace Threenine.Data.Tests.TestFixtures
         private TestDbContext SqlLiteInMemoryContext()
         {
             var options = new DbContextOptionsBuilder<TestDbContext>()
-                .UseSqlite("DataSource=:memory:")
+                .UseSqlite(GlobalTestStrings.SQLLiteInMemoryConnectionString)
                 .Options;
 
             var context = new TestDbContext(options);

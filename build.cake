@@ -50,7 +50,7 @@ Task("Restore")
         
         foreach(var project in projects)
         {
-           Information("Building Project: " + project);
+           Information("Building Project: " + project.ToString());
            DotNetCoreBuild(project.ToString(), buildSettings);
         }
       });
@@ -73,6 +73,7 @@ Task("Test")
     });
  
 Task("Default")
+       .Description("Default build task")
        .IsDependentOn("Clean")
        .IsDependentOn("Restore")
        .IsDependentOn("Build")

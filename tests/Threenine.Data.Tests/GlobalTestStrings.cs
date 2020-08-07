@@ -21,9 +21,8 @@ namespace Threenine.Data.Tests
     {
         public const string TestProductCategoryName = "Unit Test Product";
         public const string TestProductName = "Test Product";
-
         public const string ProductCollectionName = "Products";
-
         public const string Product40COllection = "Products40";
+        public const string SQLLiteInMemoryConnectionString = "DataSource=:memory:";
     }
 }

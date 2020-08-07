@@ -36,7 +36,7 @@ namespace Threenine.Data.Tests.TestFixtures
         private TestDbContext SqlLiteInMemoryContext()
         {
             var options = new DbContextOptionsBuilder<TestDbContext>()
-                .UseSqlite("DataSource=:memory:")
+                .UseSqlite(GlobalTestStrings.SQLLiteInMemoryConnectionString)
                 .Options;
 
             var context = new TestDbContext(options);
