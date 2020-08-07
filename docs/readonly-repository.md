@@ -31,5 +31,25 @@ Get list returns a paginated list of the items by default.
  
  The really useful aspect of the `GetList` is that it comes with a built in pagination functionality, which can be customised for your specific purposes but is instantiated with intuitive defaults.
  
+ The default size settings for items returned by `GetList` method is supplied as 20.  However this setting can be overridden in number of ways.  
+ 
+ If you are unsure of the number records you want retrieved and would like the repository to return as many as possible you can simply pass the `size: int.MaxValue` setting
+ 
+ ``` c#
+   var repo = uow.GetRepository<SomeEntity>().GetList(size: int.MaxValue).Items;
+```
+
+You can also provide a predicate containing the where clause you want to extract records on and supply a size counter for the number of records you want to appear on each page
+
+```c#
+  var items = uow.GetRepository<SomeEntity>().GetList(x => x.CategoryId == 1 ).Items
+
+// or 
+var result = uow.GetRepository<SomeEntity>().GetList(x => x.CategoryId == 1 );
+
+var theItems = result.Items
+
+```
+
  
  

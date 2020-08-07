@@ -38,6 +38,21 @@ namespace Threenine.Data.Tests
         private readonly SqlLiteWith40ProductsTestFixture _testFixture;
 
         [Fact]
+        public void GetProductPagedListPaginate()
+        {
+            //Arrange 
+            using var uow = new UnitOfWork<TestDbContext>(_testFixture.Context);
+            var repo = uow.GetRepository<TestProduct>();
+            //Act
+            var productList = repo.GetList(size: 5);
+            //Assert
+            Assert.Equal(5, productList.Items.Count);
+            Assert.Equal(8, productList.Pages);
+            Assert.Equal(5, productList.Size);
+            Assert.True(productList.HasNext);
+        }
+
+        [Fact]
         public void GetProductPagedListUsingWithNoPredicateTest()
         {
             //Arrange 
@@ -47,6 +62,32 @@ namespace Threenine.Data.Tests
             var productList = repo.GetList(size: int.MaxValue).Items;
             //Assert
             Assert.Equal(40, productList.Count);
+        }
+
+        [Fact]
+        public void GetProductPagedListWith8PagesTest()
+        {
+            //Arrange 
+            using var uow = new UnitOfWork<TestDbContext>(_testFixture.Context);
+            var repo = uow.GetRepository<TestProduct>();
+            //Act
+            var productList = repo.GetList(size: 5);
+            //Assert
+            Assert.Equal(5, productList.Items.Count);
+            Assert.Equal(8, productList.Pages);
+        }
+
+        [Fact]
+        public void GetProductPagedListWithPredicateTest()
+        {
+            //Arrange 
+            using var uow = new UnitOfWork<TestDbContext>(_testFixture.Context);
+            var repo = uow.GetRepository<TestProduct>();
+            //Act
+            var productList = repo.GetList(x => x.CategoryId == 1);
+            //Assert
+            Assert.Equal(5, productList.Items.Count);
+            Assert.Equal(1, productList.Pages);
         }
     }
 }
