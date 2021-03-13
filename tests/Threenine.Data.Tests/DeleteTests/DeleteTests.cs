@@ -16,48 +16,44 @@
 */
 
 using System;
-using System.Threading.Tasks;
+using Shouldly;
 using TestDatabase;
 using Threenine.Data.Tests.TestFixtures;
 using Xunit;
 
-namespace Threenine.Data.Tests
+namespace Threenine.Data.Tests.DeleteTests
 {
     [Collection(GlobalTestStrings.ProductCollectionName)]
-    public class UpdateAsyncTests : IDisposable
+    public class DeleteTests : IDisposable
     {
-        public UpdateAsyncTests(SqlLiteWith20ProductsTestFixture fixture)
+        private readonly SqlLiteWith20ProductsTestFixture _fixture;
+        private readonly IRepository<TestProduct> _repository;
+        private readonly IUnitOfWork _unitOfWork;
+
+        public DeleteTests(SqlLiteWith20ProductsTestFixture fixture)
         {
             _fixture = fixture;
+            _unitOfWork = new UnitOfWork<TestDbContext>(_fixture.Context);
+            _repository = _unitOfWork.GetRepository<TestProduct>();
         }
+
 
         public void Dispose()
         {
             _fixture?.Dispose();
+            _unitOfWork?.Dispose();
+            _repository?.Dispose();
         }
 
-        private readonly SqlLiteWith20ProductsTestFixture _fixture;
-
         [Fact]
-        public async Task ShouldUpdateProductName()
+        public void Should_Delete_Product()
         {
-            const string newProductName = "Foo Bar";
-            using var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
-            var repo = uow.GetRepository<TestProduct>();
+            var prod = _repository.SingleOrDefault(x => x.Id == 1);
+            _repository.Delete(prod);
+            _unitOfWork.Commit();
 
-            var product = repo.SingleOrDefault(x => x.Id == 1);
-
-            Assert.IsAssignableFrom<TestProduct>(product);
-
-            product.Name = newProductName;
-
-            repo.Update(product);
-
-            await uow.CommitAsync();
-
-            var updatedProduct = repo.SingleOrDefault(x => x.Id == 1);
-
-            Assert.Equal(updatedProduct.Name, newProductName);
+            prod = _repository.SingleOrDefault(x => x.Id == 1);
+            prod.ShouldBeNull();
         }
     }
 }

@@ -20,11 +20,13 @@ using TestDatabase;
 using Threenine.Data.Tests.TestFixtures;
 using Xunit;
 
-namespace Threenine.Data.Tests
+namespace Threenine.Data.Tests.AddTests
 {
     [Collection("RepositoryAdd")]
     public class RepositoryAddTestsSqlLite : IDisposable
     {
+        private readonly SqlLiteWithEmptyDataTestFixture _fixture;
+
         public RepositoryAddTestsSqlLite(SqlLiteWithEmptyDataTestFixture fixture)
         {
             _fixture = fixture;
@@ -35,8 +37,6 @@ namespace Threenine.Data.Tests
         {
             _fixture?.Dispose();
         }
-
-        private readonly SqlLiteWithEmptyDataTestFixture _fixture;
 
         [Fact]
         public void ShouldAddNewCategory()

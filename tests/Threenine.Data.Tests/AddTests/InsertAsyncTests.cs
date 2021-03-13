@@ -16,44 +16,45 @@
 */
 
 using System;
+using System.Threading.Tasks;
+using FizzWare.NBuilder;
 using TestDatabase;
 using Threenine.Data.Tests.TestFixtures;
 using Xunit;
 
-namespace Threenine.Data.Tests
+namespace Threenine.Data.Tests.AddTests
 {
     [Collection(GlobalTestStrings.ProductCollectionName)]
-    public class DeleteTests : IDisposable
+    public class InsertAsyncTests : IDisposable
     {
-        public DeleteTests(SqlLiteWith20ProductsTestFixture fixture)
+        private readonly SqlLiteWith20ProductsTestFixture _fixture;
+
+        public InsertAsyncTests(SqlLiteWith20ProductsTestFixture fixture)
         {
             _fixture = fixture;
         }
-
 
         public void Dispose()
         {
             _fixture?.Dispose();
         }
 
-        private readonly SqlLiteWith20ProductsTestFixture _fixture;
-
         [Fact]
-        public void ShouldDeleteProduct()
+        public async Task ShouldInsertNewProductndReturnCreatedEntity()
         {
+            BuilderSetup.DisablePropertyNamingFor<TestProduct, int>(x => x.Id);
+            var prod = Builder<TestProduct>.CreateNew().With(x => x.Name = "Cool Product").With(x => x.CategoryId = 1)
+                .Build();
             using var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
 
-            var get = uow.GetRepository<TestProduct>();
+            var repo = uow.GetRepositoryAsync<TestProduct>();
 
+            var newProduct = await repo.InsertAsync(prod);
+            await uow.CommitAsync();
 
-            uow.Commit();
-
-            var prod = get.SingleOrDefault(x => x.Id == 1);
-            get.Delete(prod);
-            uow.Commit();
-
-            prod = get.SingleOrDefault(x => x.Id == 1);
-            Assert.Null(prod);
+            Assert.NotNull(newProduct);
+            Assert.IsAssignableFrom<TestProduct>(newProduct.Entity);
+            Assert.Equal(21, newProduct.Entity.Id);
         }
     }
 }

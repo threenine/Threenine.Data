@@ -19,16 +19,16 @@ using TestDatabase;
 using Threenine.Data.Tests.TestFixtures;
 using Xunit;
 
-namespace Threenine.Data.Tests
+namespace Threenine.Data.Tests.AddTests
 {
     public class RepositoryAddTest : IClassFixture<InMemoryTestFixture>
     {
+        private readonly InMemoryTestFixture _fixture;
+
         public RepositoryAddTest(InMemoryTestFixture fixture)
         {
             _fixture = fixture;
         }
-
-        private readonly InMemoryTestFixture _fixture;
 
         [Fact]
         public void ShouldAddNewProduct()

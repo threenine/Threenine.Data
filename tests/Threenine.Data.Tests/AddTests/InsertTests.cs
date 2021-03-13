@@ -24,11 +24,13 @@ using TestDatabase;
 using Threenine.Data.Tests.TestFixtures;
 using Xunit;
 
-namespace Threenine.Data.Tests
+namespace Threenine.Data.Tests.AddTests
 {
     [Collection(GlobalTestStrings.ProductCollectionName)]
     public class InsertTests : IDisposable
     {
+        private readonly SqlLiteWith20ProductsTestFixture _fixture;
+
         public InsertTests(SqlLiteWith20ProductsTestFixture fixture)
         {
             _fixture = fixture;
@@ -38,8 +40,6 @@ namespace Threenine.Data.Tests
         {
             _fixture?.Dispose();
         }
-
-        private readonly SqlLiteWith20ProductsTestFixture _fixture;
 
         [Fact]
         public void ShouldInsertAndReturnCreatedEntity()

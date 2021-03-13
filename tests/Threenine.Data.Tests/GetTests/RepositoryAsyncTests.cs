@@ -25,11 +25,13 @@ using TestDatabase;
 using Threenine.Data.Tests.TestFixtures;
 using Xunit;
 
-namespace Threenine.Data.Tests
+namespace Threenine.Data.Tests.GetTests
 {
     [Collection(GlobalTestStrings.ProductCollectionName)]
     public class RepositoryAsyncTests : IDisposable
     {
+        private readonly SqlLiteWith20ProductsTestFixture _fixture;
+
         public RepositoryAsyncTests(SqlLiteWith20ProductsTestFixture fixture)
         {
             _fixture = fixture;
@@ -39,8 +41,6 @@ namespace Threenine.Data.Tests
         {
             _fixture?.Dispose();
         }
-
-        private readonly SqlLiteWith20ProductsTestFixture _fixture;
 
 
         [Fact]

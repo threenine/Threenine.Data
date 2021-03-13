@@ -16,92 +16,87 @@
 */
 
 using System;
+using Shouldly;
 using TestDatabase;
 using Threenine.Data.Tests.TestFixtures;
 using Xunit;
 
-namespace Threenine.Data.Tests
+namespace Threenine.Data.Tests.GetTests
 {
     [Collection(GlobalTestStrings.ProductCollectionName)]
     public class GetPagedListTest : IDisposable
     {
+        private readonly IRepository<TestProduct> _repository;
+
+        private readonly SqlLiteWith20ProductsTestFixture _testFixture;
+        private readonly IUnitOfWork _unitOfWork;
+
         public GetPagedListTest(SqlLiteWith20ProductsTestFixture fixture)
         {
             _testFixture = fixture;
+            _unitOfWork = new UnitOfWork<TestDbContext>(fixture.Context);
+            _repository = _unitOfWork.GetRepository<TestProduct>();
         }
 
         public void Dispose()
         {
+            _repository?.Dispose();
+            _unitOfWork?.Dispose();
             _testFixture?.Dispose();
         }
 
-        private readonly SqlLiteWith20ProductsTestFixture _testFixture;
-
         [Fact]
-        public void GetProductPagedListUsingPredicateTest()
+        public void Should_Get_Product_Paged_List_Using_Predicate()
         {
-            //Arrange 
-            using var uow = new UnitOfWork<TestDbContext>(_testFixture.Context);
-            var repo = uow.GetRepository<TestProduct>();
             //Act
-            var productList = repo.GetList(x => x.CategoryId == 1).Items;
+            var productList = _repository.GetList(x => x.CategoryId == 1).Items;
             //Assert
-            Assert.Equal(5, productList.Count);
+            productList.Count.ShouldBeEquivalentTo(5);
         }
 
         [Fact]
-        public void ShouldBeReadOnlyInterface()
+        public void Should_Return_Read_Only_Interface()
         {
             // Arrange 
             using var uow = new UnitOfWork<TestDbContext>(_testFixture.Context);
             //Act
             var repo = uow.GetReadOnlyRepository<TestProduct>();
             //Assert
-            Assert.IsAssignableFrom<IRepositoryReadOnly<TestProduct>>(repo);
+            repo.ShouldBeAssignableTo<IRepositoryReadOnly<TestProduct>>();
         }
 
         [Fact]
-        public void ShouldGet5ProductsOutOfStockMultiPredicateTest()
+        public void Should_Get_5_Products_Out_Of_Stock_Multi_Predicate()
         {
-            // Arrange
-            using var uow = new UnitOfWork<TestDbContext>(_testFixture.Context);
-            var repo = uow.GetRepository<TestProduct>();
             //Act
-            var productList = repo.GetList(x => x.Stock == 0 && x.InStock.Value == false).Items;
+            var productList = _repository.GetList(x => x.Stock == 0 && x.InStock.Value == false).Items;
+
             //Assert
-            Assert.Equal(5, productList.Count);
+            productList.Count.ShouldBeEquivalentTo(5);
         }
 
         [Fact]
-        public void ShouldReadFromProducts()
+        public void Should_Read_From_Products()
         {
-            // Arrange 
-            using var uow = new UnitOfWork<TestDbContext>(_testFixture.Context);
-            var repo = uow.GetReadOnlyRepository<TestProduct>();
             //Act 
-            var products = repo.GetList().Items;
+            var products = _repository.GetList().Items;
             //Assert
-            Assert.Equal(20, products.Count);
+            products.Count.ShouldBeEquivalentTo(20);
         }
 
         [Fact]
         public void ShouldGetListWithSelectedColumns()
         {
-            // Arrange 
-            using var uow = new UnitOfWork<TestDbContext>(_testFixture.Context);
-            var repo = uow.GetReadOnlyRepository<TestProduct>();
+            //Act
+            var list = _repository.GetList(s => new
+            {
+                ProductName = s.Name,
+                StockLevel = s.Stock
+            });
 
-          var list =  repo.GetList(s => new
-          {
-              ProductName = s.Name,
-              StockLevel = s.Stock
-          });
-          
-          Assert.NotNull(list);
-         Assert.Equal(20, list.Items.Count);
-         
-            
-
+            //Assert
+            list.ShouldNotBeNull();
+            list.Items.Count.ShouldBeEquivalentTo(20);
         }
     }
 }

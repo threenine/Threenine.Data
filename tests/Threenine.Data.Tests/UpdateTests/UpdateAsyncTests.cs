@@ -17,17 +17,18 @@
 
 using System;
 using System.Threading.Tasks;
-using FizzWare.NBuilder;
 using TestDatabase;
 using Threenine.Data.Tests.TestFixtures;
 using Xunit;
 
-namespace Threenine.Data.Tests
+namespace Threenine.Data.Tests.UpdateTests
 {
     [Collection(GlobalTestStrings.ProductCollectionName)]
-    public class InsertAsyncTests : IDisposable
+    public class UpdateAsyncTests : IDisposable
     {
-        public InsertAsyncTests(SqlLiteWith20ProductsTestFixture fixture)
+        private readonly SqlLiteWith20ProductsTestFixture _fixture;
+
+        public UpdateAsyncTests(SqlLiteWith20ProductsTestFixture fixture)
         {
             _fixture = fixture;
         }
@@ -37,24 +38,26 @@ namespace Threenine.Data.Tests
             _fixture?.Dispose();
         }
 
-        private readonly SqlLiteWith20ProductsTestFixture _fixture;
-
         [Fact]
-        public async Task ShouldInsertNewProductndReturnCreatedEntity()
+        public async Task ShouldUpdateProductName()
         {
-            BuilderSetup.DisablePropertyNamingFor<TestProduct, int>(x => x.Id);
-            var prod = Builder<TestProduct>.CreateNew().With(x => x.Name = "Cool Product").With(x => x.CategoryId = 1)
-                .Build();
+            const string newProductName = "Foo Bar";
             using var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
+            var repo = uow.GetRepository<TestProduct>();
 
-            var repo = uow.GetRepositoryAsync<TestProduct>();
+            var product = repo.SingleOrDefault(x => x.Id == 1);
 
-            var newProduct = await repo.InsertAsync(prod);
+            Assert.IsAssignableFrom<TestProduct>(product);
+
+            product.Name = newProductName;
+
+            repo.Update(product);
+
             await uow.CommitAsync();
 
-            Assert.NotNull(newProduct);
-            Assert.IsAssignableFrom<TestProduct>(newProduct.Entity);
-            Assert.Equal(21, newProduct.Entity.Id);
+            var updatedProduct = repo.SingleOrDefault(x => x.Id == 1);
+
+            Assert.Equal(updatedProduct.Name, newProductName);
         }
     }
 }
