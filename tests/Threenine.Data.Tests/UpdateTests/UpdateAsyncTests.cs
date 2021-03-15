@@ -27,14 +27,17 @@ namespace Threenine.Data.Tests.UpdateTests
     public class UpdateAsyncTests : IDisposable
     {
         private readonly SqlLiteWith20ProductsTestFixture _fixture;
+        private readonly IUnitOfWork _unitOfWork;
 
         public UpdateAsyncTests(SqlLiteWith20ProductsTestFixture fixture)
         {
             _fixture = fixture;
+            _unitOfWork = new UnitOfWork<TestDbContext>(fixture.Context);
         }
 
         public void Dispose()
         {
+            _unitOfWork?.Dispose();
             _fixture?.Dispose();
         }
 
@@ -42,8 +45,8 @@ namespace Threenine.Data.Tests.UpdateTests
         public async Task ShouldUpdateProductName()
         {
             const string newProductName = "Foo Bar";
-            using var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
-            var repo = uow.GetRepository<TestProduct>();
+
+            var repo = _unitOfWork.GetRepository<TestProduct>();
 
             var product = repo.SingleOrDefault(x => x.Id == 1);
 
@@ -53,7 +56,7 @@ namespace Threenine.Data.Tests.UpdateTests
 
             repo.Update(product);
 
-            await uow.CommitAsync();
+            await _unitOfWork.CommitAsync();
 
             var updatedProduct = repo.SingleOrDefault(x => x.Id == 1);
 

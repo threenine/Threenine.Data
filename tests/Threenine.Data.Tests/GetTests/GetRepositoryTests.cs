@@ -42,6 +42,7 @@ namespace Threenine.Data.Tests.GetTests
 
         public void Dispose()
         {
+            _unitOfWork?.Dispose();
             _testFixture?.Dispose();
         }
 

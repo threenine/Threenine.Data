@@ -17,6 +17,7 @@
 
 using System;
 using System.Threading.Tasks;
+using Shouldly;
 using TestDatabase;
 using Threenine.Data.Tests.TestFixtures;
 using Xunit;
@@ -26,52 +27,54 @@ namespace Threenine.Data.Tests.UpdateTests
     [Collection(GlobalTestStrings.ProductCollectionName)]
     public class UpdateTests : IDisposable
     {
+        private const string TestProductNameChange = "Test Product Name Change";
+        private const string NewProductName = "Foo Bar";
         private readonly SqlLiteWith20ProductsTestFixture _fixture;
+
+        private readonly IUnitOfWork _unitOfWork;
 
         public UpdateTests(SqlLiteWith20ProductsTestFixture fixture)
         {
             _fixture = fixture;
+            _unitOfWork = new UnitOfWork<TestDbContext>(fixture.Context);
         }
 
         public void Dispose()
         {
+            _unitOfWork?.Dispose();
             _fixture?.Dispose();
         }
 
         [Fact]
         public async Task ShouldAddMultipleRepositoryTypes()
         {
-            var testNameChange = "Test Product Name Change";
-            using var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
-            var repo = uow.GetRepositoryAsync<TestProduct>();
+            var repo = _unitOfWork.GetRepositoryAsync<TestProduct>();
 
             var prod = await repo.SingleOrDefaultAsync(x => x.Id == 1);
-            prod.Name = testNameChange;
+            prod.Name = TestProductNameChange;
 
-            var repo2 = uow.GetRepository<TestProduct>();
+            var repo2 = _unitOfWork.GetRepository<TestProduct>();
             repo2.Update(prod);
 
-            await uow.CommitAsync();
+            await _unitOfWork.CommitAsync();
 
             var prod2 = await repo.SingleOrDefaultAsync(x => x.Id == 1);
 
-            Assert.Equal(testNameChange, prod2.Name);
+            prod2.Name.ShouldBeEquivalentTo(TestProductNameChange);
         }
 
         [Fact]
         public void ShouldThrowInvalidOperationException()
         {
-            const string newProductName = "Foo Bar";
-            using var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
-            var repo = uow.GetRepository<TestProduct>();
+            var repo = _unitOfWork.GetRepository<TestProduct>();
 
             var product = repo.SingleOrDefault(x => x.Id == 1, enableTracking: false);
 
-            Assert.IsAssignableFrom<TestProduct>(product);
+            product.ShouldBeAssignableTo<TestProduct>();
 
-            product.Name = newProductName;
+            product.Name = NewProductName;
 
-            Assert.Throws<InvalidOperationException>(() => repo.Update(product));
+            Should.Throw<InvalidOperationException>(() => repo.Update(product));
         }
 
         [Fact]
@@ -80,8 +83,7 @@ namespace Threenine.Data.Tests.UpdateTests
             const string newProduct1Name = "Foo Bar";
             const string newProduct2Name = "Bar Foo";
 
-            using var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
-            var repo = uow.GetRepository<TestProduct>();
+            var repo = _unitOfWork.GetRepository<TestProduct>();
 
             var product1 = repo.SingleOrDefault(x => x.Id == 1);
             var product2 = repo.SingleOrDefault(x => x.Id == 2);
@@ -91,53 +93,50 @@ namespace Threenine.Data.Tests.UpdateTests
 
             repo.Update(product1, product2);
 
-            uow.Commit();
+            _unitOfWork.Commit();
 
             var updatedProduct1 = repo.SingleOrDefault(x => x.Id == 1);
             var updatedProduct2 = repo.SingleOrDefault(x => x.Id == 2);
-            Assert.Equal(updatedProduct1.Name, newProduct1Name);
-            Assert.Equal(updatedProduct2.Name, newProduct2Name);
+
+            updatedProduct1.Name.ShouldBeEquivalentTo(newProduct1Name);
+            updatedProduct2.Name.ShouldBeEquivalentTo(newProduct2Name);
         }
 
         [Fact]
         public void ShouldUpdateProductName()
         {
             const string newProductName = "Foo Bar";
-            using var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
-            var repo = uow.GetRepository<TestProduct>();
+
+            var repo = _unitOfWork.GetRepository<TestProduct>();
 
             var product = repo.SingleOrDefault(x => x.Id == 1);
 
-            Assert.IsAssignableFrom<TestProduct>(product);
+            product.ShouldBeAssignableTo<TestProduct>();
 
             product.Name = newProductName;
 
             repo.Update(product);
 
-            uow.Commit();
+            _unitOfWork.Commit();
 
             var updatedProduct = repo.SingleOrDefault(x => x.Id == 1);
-
-            Assert.Equal(updatedProduct.Name, newProductName);
+            updatedProduct.Name.ShouldBeEquivalentTo(newProductName);
         }
 
         [Fact]
         public async Task ShouldUpdateWIthSameRepository()
         {
-            var testNameChange = "Test Product Name Change";
-            using var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
-            var repo = uow.GetRepository<TestProduct>();
+            var repo = _unitOfWork.GetRepository<TestProduct>();
 
             var prod = repo.SingleOrDefault(x => x.Id == 1);
-            prod.Name = testNameChange;
+            prod.Name = TestProductNameChange;
 
             repo.Update(prod);
 
-            await uow.CommitAsync();
+            await _unitOfWork.CommitAsync();
 
             var prod2 = repo.SingleOrDefault(x => x.Id == 1);
-
-            Assert.Equal(testNameChange, prod2.Name);
+            prod2.Name.ShouldBeEquivalentTo(TestProductNameChange);
         }
     }
 }
