@@ -17,7 +17,7 @@
       <NeutralLanguage>en</NeutralLanguage>
       <RepositoryUrl>https://github.com/threenine/Threenine.Data</RepositoryUrl>
       <RepositoryType>git</RepositoryType>
-      <PackageReleaseNotes>Implemented IDeleteRepository</PackageReleaseNotes>
+      <PackageReleaseNotes>Upgraded to .Net 5.0</PackageReleaseNotes>
       <Title>Threenine.Data</Title>
       <PackageVersion>2.0</PackageVersion>
   </PropertyGroup>
