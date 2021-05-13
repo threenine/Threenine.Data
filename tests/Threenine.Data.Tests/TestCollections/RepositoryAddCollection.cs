@@ -20,7 +20,7 @@ using Xunit;
 
 namespace Threenine.Data.Tests.TestCollections
 {
-    [CollectionDefinition("RepositoryAdd")]
+    [CollectionDefinition(GlobalTestStrings.RepositoryAdd)]
     public class RepositoryAddCollection : ICollectionFixture<SqlLiteWithEmptyDataTestFixture>
     {
     }

@@ -25,5 +25,6 @@ namespace Threenine.Data.Tests
         public const string ProductCollectionName = "Products";
 
         public const string Product40COllection = "Products40";
+        public const string RepositoryAdd = "RepositoryAdd";
     }
 }

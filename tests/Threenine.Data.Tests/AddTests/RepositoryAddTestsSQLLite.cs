@@ -22,7 +22,7 @@ using Xunit;
 
 namespace Threenine.Data.Tests.AddTests
 {
-    [Collection("RepositoryAdd")]
+    [Collection(GlobalTestStrings.RepositoryAdd)]
     public class RepositoryAddTestsSqlLite : IDisposable
     {
         private readonly SqlLiteWithEmptyDataTestFixture _fixture;

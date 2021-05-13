@@ -21,6 +21,7 @@ using Xunit;
 
 namespace Threenine.Data.Tests.AddTests
 {
+    
     public class RepositoryAddTest : IClassFixture<InMemoryTestFixture>
     {
         private readonly InMemoryTestFixture _fixture;
