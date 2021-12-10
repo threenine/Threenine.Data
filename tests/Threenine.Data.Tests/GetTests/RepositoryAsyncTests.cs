@@ -31,14 +31,17 @@ namespace Threenine.Data.Tests.GetTests
     public class RepositoryAsyncTests : IDisposable
     {
         private readonly SqlLiteWith20ProductsTestFixture _fixture;
+        private readonly IUnitOfWork uow;
 
         public RepositoryAsyncTests(SqlLiteWith20ProductsTestFixture fixture)
         {
-            _fixture = fixture;
+            _fixture = fixture; 
+            uow = new UnitOfWork<TestDbContext>(_fixture.Context);
         }
 
         public void Dispose()
         {
+            uow?.Dispose();
             _fixture?.Dispose();
         }
 
@@ -46,7 +49,7 @@ namespace Threenine.Data.Tests.GetTests
         [Fact]
         public async Task ShouldGet5ProductsAndIncludeCategoryInfo()
         {
-            using var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
+           
             var repo = uow.GetRepositoryAsync<TestProduct>();
 
             var results = await repo.GetListAsync(t => t.InStock == true && t.CategoryId == 1,
@@ -62,7 +65,7 @@ namespace Threenine.Data.Tests.GetTests
         [Fact]
         public async Task ShouldGetFiveProductsInStockOnePage()
         {
-            using var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
+            
             var repo = uow.GetRepositoryAsync<TestProduct>();
 
             var results = await repo.GetListAsync(t => t.InStock == true && t.CategoryId == 1,
@@ -76,7 +79,7 @@ namespace Threenine.Data.Tests.GetTests
         public async Task ShouldGetListOf20TestProducts()
         {
             // Arrange 
-            using var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
+            
             var repo = uow.GetRepositoryAsync<TestProduct>();
 
             // Act
@@ -91,7 +94,7 @@ namespace Threenine.Data.Tests.GetTests
         [Fact]
         public async Task ShouldGetSingleValueAsync()
         {
-            using var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
+            
             var repo = uow.GetRepositoryAsync<TestProduct>();
 
             var product = await repo.SingleOrDefaultAsync(x => x.Id == 3);
