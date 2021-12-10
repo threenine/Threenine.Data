@@ -88,28 +88,6 @@ namespace Threenine.Data.Tests.GetTests
             productList.Pages.ShouldBeEquivalentTo(1);
         }
 
-        [Fact]
-        public void GetProductSingleOrDefaultOrderbyTest()
-        {
-            //Act
-            var product = _unitOfWork.GetRepository<TestProduct>().SingleOrDefault(
-                orderBy: x => x.OrderBy(product => product.Name),
-                include: x => x.Include(cat => cat.Category));
-            //Assert
-            product.ShouldNotBeNull();
-            product.Name.ShouldBeEquivalentTo("Name1");
-            product.ShouldBeAssignableTo<TestProduct>();
-            product.Category.ShouldBeAssignableTo<TestCategory>();
-        }
-
-        [Fact]
-        public void GetProductSingleOrDefaultTest()
-        {
-            //Act
-            var product = _unitOfWork.GetRepository<TestProduct>().SingleOrDefault(x => x.Id == 1);
-            //Assert
-            product.ShouldNotBeNull();
-            product.Id.ShouldBeEquivalentTo(1);
-        }
+     
     }
 }
