@@ -90,6 +90,12 @@ namespace Threenine.Data
             _dbSet.AddRange(entities);
         }
 
+        public void InsertNotExists(Expression<Func<T, bool>> predicate, T entity)
+        {
+            var exists = predicate != null ? _dbSet.Any(predicate) : _dbSet.Any();
+            if (!exists) _dbSet.Add(entity);
+        }
+
         #endregion
 
 
