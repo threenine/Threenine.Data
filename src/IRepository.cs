@@ -35,7 +35,8 @@ namespace Threenine.Data
         void Insert(params T[] entities);
         void Insert(IEnumerable<T> entities);
 
-        void InsertNotExists(Expression<Func<T, bool>> predicate, T entity);
+        T InsertNotExists(Expression<Func<T, bool>> predicate, T entity);
+       
 
         void Update(T entity);
         void Update(params T[] entities);
