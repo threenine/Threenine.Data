@@ -92,7 +92,7 @@ namespace Threenine.Data
 
         public T InsertNotExists(Expression<Func<T, bool>> predicate, T entity)
         {
-            if (_dbSet.Any(predicate)) return _dbSet.SingleOrDefault(predicate);
+            if (_dbSet.Any(predicate)) return _dbSet.SingleOrDefault(predicate.Compile());
             _dbSet.Add(entity);
             return entity;
 
