@@ -1,7 +1,9 @@
 mode: Mainline
+next-version: 3.0
 branches:
   feature:
     tag: beta
   main: {}
 ignore:
   sha: []
+
