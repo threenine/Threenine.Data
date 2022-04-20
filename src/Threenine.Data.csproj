@@ -27,6 +27,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.6" />
      <PackageReference Include="Microsoft.EntityFrameworkCore.AutoHistory" Version="5.0.0" />
     <PackageReference Include="System.Linq" Version="4.3.0" />
+    <PackageReference Include="Threenine.Specification" Version="0.1.15" />
   </ItemGroup>
 
 </Project>
