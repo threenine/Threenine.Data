@@ -30,27 +30,20 @@ namespace Threenine.Data.Paging
             if (from > index)
                 throw new ArgumentException($"indexFrom: {from} > pageIndex: {index}, must indexFrom <= pageIndex");
 
-            if (source is IQueryable<T> querable)
+            if (source is IQueryable<T> queryable)
             {
-                Index = index;
-                Size = size;
-                From = from;
-                Count = querable.Count();
-                Pages = (int) Math.Ceiling(Count / (double) Size);
-
-                Items = querable.Skip((Index - From) * Size).Take(Size).ToList();
+                Count = queryable.Count();
+                Items = queryable.Skip((Index - From) * Size).Take(Size).ToList();
             }
             else
             {
-                Index = index;
-                Size = size;
-                From = from;
-
-                Count = enumerable.Count();
-                Pages = (int) Math.Ceiling(Count / (double) Size);
-
+                Count = enumerable.Length;
                 Items = enumerable.Skip((Index - From) * Size).Take(Size).ToList();
             }
+            Index = index;
+            Size = size;
+            From = from;
+            Pages = (int) (Math.Ceiling(Count / (double) Size)) - 1;
         }
 
         internal Paginate()
