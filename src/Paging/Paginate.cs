@@ -64,7 +64,7 @@ namespace Threenine.Data.Paging
         public int Count { get; set; }
         public int Pages { get; set; }
         public IList<T> Items { get; set; }
-        public bool HasPrevious => Index - From > 0;
+        public bool HasPrevious => Index - From > 1;
         public bool HasNext => Index - From + 1 < Pages;
     }
 

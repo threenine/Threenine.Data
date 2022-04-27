@@ -24,7 +24,7 @@ using Microsoft.EntityFrameworkCore.Query;
 
 namespace Threenine.Data
 {
-    public class Repository<T> : BaseRepository<T>, IRepository<T> where T : class
+    public sealed class Repository<T> : BaseRepository<T>, IRepository<T> where T : class
     {
         public Repository(DbContext context) : base(context)
         {
@@ -75,7 +75,7 @@ namespace Threenine.Data
 
         #region Insert Functions
 
-        public virtual T Insert(T entity)
+        public T Insert(T entity)
         {
             return _dbSet.Add(entity).Entity;
         }
