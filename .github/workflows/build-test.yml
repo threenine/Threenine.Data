@@ -37,13 +37,13 @@ jobs:
         run: dotnet restore
 
       - name: Build dotnet
-        run: dotnet build ApiResponse.sln --configuration release /p:Version=${{ steps.gitversion.outputs.AssemblySemVer }} /p:AssemblyVersion=${{ steps.gitversion.outputs.AssemblySemVer }} /p:InformationalVersion=${{ steps.gitversion.outputs.InformationalVersion }} --no-restore
+        run: dotnet build Threenine.Data.sln --configuration release /p:Version=${{ steps.gitversion.outputs.AssemblySemVer }} /p:AssemblyVersion=${{ steps.gitversion.outputs.AssemblySemVer }} /p:InformationalVersion=${{ steps.gitversion.outputs.InformationalVersion }} --no-restore
 
       - name: Run Tests
         run: dotnet test --configuration Release /p:Version=${{ steps.gitversion.outputs.AssemblySemVer }} --no-build --verbosity normal
 
       - name: Package nuget
-        run: dotnet pack ApiResponse.sln --configuration release -o:package /p:PackageVersion=${{ steps.gitversion.outputs.AssemblySemVer }}
+        run: dotnet pack Threenine.Data.sln --configuration release -o:package /p:PackageVersion=${{ steps.gitversion.outputs.AssemblySemVer }}
 
       - name: Push generated package to GitHub registry
         run: dotnet nuget push ./package/*.nupkg  --source "https://nuget.pkg.github.com/threenine/index.json"  --api-key ${{ github.token }}
