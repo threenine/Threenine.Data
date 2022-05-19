@@ -47,3 +47,6 @@ jobs:
 
       - name: Push generated package to GitHub registry
         run: dotnet nuget push ./package/*.nupkg  --source "https://nuget.pkg.github.com/threenine/index.json"  --api-key ${{ github.token }}
+        
+      - name: Push generated package to nuget registry
+        run: dotnet nuget push ./package/*.nupkg  --source "https://api.nuget.org/v3/index.json"  -k ${{ secrets.NUGET_API_KEY }}
