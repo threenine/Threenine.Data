@@ -69,7 +69,7 @@ namespace Threenine.Data.Tests.GetTests
         public void Should_Get_5_Products_Out_Of_Stock_Multi_Predicate()
         {
             //Act
-            var productList = _repository.GetList(x => x.Stock == 0 && x.InStock.Value == false).Items;
+            var productList = _repository.GetList(x => x.Stock == 0 && x.InStock.Value == false);
 
             //Assert
             productList.Count.ShouldBeEquivalentTo(5);

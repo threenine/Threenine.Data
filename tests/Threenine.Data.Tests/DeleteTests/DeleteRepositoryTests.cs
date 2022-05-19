@@ -30,7 +30,7 @@ namespace Threenine.Data.Tests.DeleteTests
             var delRepo = uow.DeleteRepository<TestProduct>();
 
 
-            var prod = getRepo.SingleOrDefault(x => x.Id == 1);
+            var prod = getRepo.SingleOrDefault(x => x.Id == 1, enableTracking:true);
             delRepo.Delete(prod);
             uow.Commit();
 

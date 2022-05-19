@@ -32,23 +32,7 @@ namespace Threenine.Data
 
         #region Get Functions
 
-        public T SingleOrDefault(Expression<Func<T, bool>> predicate = null,
-            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
-            Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null, bool enableTracking = true,
-            bool ignoreQueryFilters = false)
-        {
-            IQueryable<T> query = _dbSet;
-
-            if (!enableTracking) query = query.AsNoTracking();
-
-            if (include != null) query = include(query);
-
-            if (predicate != null) query = query.Where(predicate);
-
-            if (ignoreQueryFilters) query = query.IgnoreQueryFilters();
-
-            return orderBy != null ? orderBy(query).FirstOrDefault() : query.FirstOrDefault();
-        }
+     
 
         #endregion
 

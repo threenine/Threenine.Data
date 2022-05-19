@@ -22,8 +22,37 @@ namespace Threenine.Data.Tests.GetTests
             _unitOfWork = new UnitOfWork<TestDbContext>(fixture.Context);
             _repository = _unitOfWork.GetRepository<TestProduct>();
         }
+
         [Fact]
-        public void GetProductSingleOrDefaultOrderbyTest()
+        public void GetSingleOrDefaultTest()
+        {
+            //Act
+            var product = _unitOfWork.GetRepository<TestProduct>().SingleOrDefault(x => x.Id == 1);
+
+            //Assert
+            product.ShouldSatisfyAllConditions(
+                () => product.ShouldNotBeNull(),
+                () => product.Name.ShouldBeEquivalentTo("Name27"),
+                () => product.ShouldBeAssignableTo<TestProduct>()
+            );
+        }
+        [Fact]
+        public void GetSingleOrDefaultWithOrderByTest()
+        {
+            //Act
+            var product = _unitOfWork.GetRepository<TestProduct>().SingleOrDefault( x => x.Name.Contains("Name"),
+                 x => x.OrderBy(product => product.Name));
+
+            //Assert
+            product.ShouldSatisfyAllConditions(
+                () => product.ShouldNotBeNull(),
+                () => product.Name.ShouldBeEquivalentTo("Name1"),
+                () => product.ShouldBeAssignableTo<TestProduct>()
+            );
+        }
+
+        [Fact]
+        public void GetProductSingleOrDefaultOrderByTest()
         {
             //Act
             var product = _unitOfWork.GetRepository<TestProduct>().SingleOrDefault(
@@ -45,8 +74,8 @@ namespace Threenine.Data.Tests.GetTests
             product.ShouldNotBeNull();
             product.Id.ShouldBeEquivalentTo(1);
         }
-        
-        
+
+
         public void Dispose()
         {
             _repository?.Dispose();

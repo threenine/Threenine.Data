@@ -29,6 +29,12 @@ namespace Threenine.Data
 {
     public interface IRepositoryAsync<T> where T : class
     {
+     Task<T> SingleOrDefaultAsync(Expression<Func<T, bool>> predicate,   Func<IQueryable<T>, IOrderedQueryable<T>> orderBy);
+        
+        Task<T> SingleOrDefaultAsync(Expression<Func<T, bool>> predicate,   Func<IQueryable<T>, IOrderedQueryable<T>> orderBy,  Func<IQueryable<T>, IIncludableQueryable<T, object>> include );
+        
+        Task<T> SingleOrDefaultAsync(Expression<Func<T, bool>> predicate,   Func<IQueryable<T>, IOrderedQueryable<T>> orderBy,  Func<IQueryable<T>, IIncludableQueryable<T, object>> include, bool enableTracking);
+        
         Task<T> SingleOrDefaultAsync(Expression<Func<T, bool>> predicate = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,

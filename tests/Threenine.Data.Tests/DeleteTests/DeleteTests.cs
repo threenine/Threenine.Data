@@ -48,11 +48,11 @@ namespace Threenine.Data.Tests.DeleteTests
         [Fact]
         public void Should_Delete_Product()
         {
-            var prod = _repository.SingleOrDefault(x => x.Id == 1);
+            var prod = _repository.SingleOrDefault(x => x.Id == 1, enableTracking:true);
             _repository.Delete(prod);
             _unitOfWork.Commit();
 
-            prod = _repository.SingleOrDefault(x => x.Id == 1);
+            prod = _repository.SingleOrDefault(x => x.Id == 1, enableTracking:true);
             prod.ShouldBeNull();
         }
     }

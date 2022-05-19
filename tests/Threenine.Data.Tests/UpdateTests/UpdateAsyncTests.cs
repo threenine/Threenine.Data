@@ -17,6 +17,7 @@
 
 using System;
 using System.Threading.Tasks;
+using Shouldly;
 using TestDatabase;
 using Threenine.Data.Tests.TestFixtures;
 using Xunit;
@@ -28,7 +29,7 @@ namespace Threenine.Data.Tests.UpdateTests
     {
         private readonly SqlLiteWith20ProductsTestFixture _fixture;
         private readonly IUnitOfWork _unitOfWork;
-
+        private const string TestProductNameChange = "Test Product Name Change";
         public UpdateAsyncTests(SqlLiteWith20ProductsTestFixture fixture)
         {
             _fixture = fixture;
@@ -40,27 +41,25 @@ namespace Threenine.Data.Tests.UpdateTests
             _unitOfWork?.Dispose();
             _fixture?.Dispose();
         }
-
+        
         [Fact]
-        public async Task ShouldUpdateProductName()
+        public async Task ShouldAddMultipleRepositoryTypes()
         {
-            const string newProductName = "Foo Bar";
+            var repo = _unitOfWork.GetRepositoryAsync<TestProduct>();
 
-            var repo = _unitOfWork.GetRepository<TestProduct>();
+            var prod = await repo.SingleOrDefaultAsync(x => x.Id == 1, enableTracking:true );
+            prod.Name = TestProductNameChange;
 
-            var product = repo.SingleOrDefault(x => x.Id == 1);
-
-            Assert.IsAssignableFrom<TestProduct>(product);
-
-            product.Name = newProductName;
-
-            repo.Update(product);
+            var repo2 = _unitOfWork.GetRepository<TestProduct>();
+            repo2.Update(prod);
 
             await _unitOfWork.CommitAsync();
 
-            var updatedProduct = repo.SingleOrDefault(x => x.Id == 1);
+            var prod2 = await repo.SingleOrDefaultAsync(x => x.Id == 1, enableTracking:true);
 
-            Assert.Equal(updatedProduct.Name, newProductName);
+            prod2.Name.ShouldBeEquivalentTo(TestProductNameChange);
         }
+
+       
     }
 }

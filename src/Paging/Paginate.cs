@@ -29,7 +29,9 @@ namespace Threenine.Data.Paging
 
             if (from > index)
                 throw new ArgumentException($"indexFrom: {from} > pageIndex: {index}, must indexFrom <= pageIndex");
-
+            Size = size;
+            Index = index;
+             From = from;
             if (source is IQueryable<T> queryable)
             {
                 Count = queryable.Count();
@@ -40,15 +42,13 @@ namespace Threenine.Data.Paging
                 Count = enumerable.Length;
                 Items = enumerable.Skip((Index - From) * Size).Take(Size).ToList();
             }
-            Index = index;
-            Size = size;
-            From = from;
-            Pages = (int) (Math.Ceiling(Count / (double) Size)) - 1;
+            
+            Pages = (int) (Math.Ceiling(Count / (double) Size));
         }
 
         internal Paginate()
         {
-            Items = new T[0];
+            Items = Array.Empty<T>();
         }
 
         public int From { get; set; }
@@ -124,19 +124,5 @@ namespace Threenine.Data.Paging
         public bool HasPrevious => Index - From > 0;
 
         public bool HasNext => Index - From + 1 < Pages;
-    }
-
-    public static class Paginate
-    {
-        public static IPaginate<T> Empty<T>()
-        {
-            return new Paginate<T>();
-        }
-
-        public static IPaginate<TResult> From<TResult, TSource>(IPaginate<TSource> source,
-            Func<IEnumerable<TSource>, IEnumerable<TResult>> converter)
-        {
-            return new Paginate<TSource, TResult>(source, converter);
-        }
     }
 }

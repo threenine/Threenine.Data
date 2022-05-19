@@ -34,24 +34,45 @@ namespace Threenine.Data
             _dbContext = context ?? throw new ArgumentException(nameof(context));
             _dbSet = _dbContext.Set<T>();
         }
+        public T SingleOrDefault(Expression<Func<T, bool>> predicate)
+        {
+            return SingleOrDefault(predicate, default);
+        }
 
-        public T SingleOrDefault(Expression<Func<T, bool>> predicate = null,
-            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
-            Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
-            bool enableTracking = true)
+        public T SingleOrDefault(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy)
+        {
+            return SingleOrDefault(predicate, orderBy, default);
+        }
+
+        public T SingleOrDefault(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy, Func<IQueryable<T>, IIncludableQueryable<T, object>> include)
+        {
+            return SingleOrDefault(predicate, orderBy, include, default);
+        }
+
+        public T SingleOrDefault(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy,
+            Func<IQueryable<T>, IIncludableQueryable<T, object>> include, bool enableTracking)
+        {
+           return SingleOrDefault(predicate, orderBy, include, enableTracking, default);
+        }
+
+        public T SingleOrDefault(Expression<Func<T, bool>> predicate ,
+            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy,
+            Func<IQueryable<T>, IIncludableQueryable<T, object>> include , bool enableTracking ,
+            bool ignoreQueryFilters)
         {
             IQueryable<T> query = _dbSet;
+
             if (!enableTracking) query = query.AsNoTracking();
 
             if (include != null) query = include(query);
 
             if (predicate != null) query = query.Where(predicate);
 
-            if (orderBy != null)
-                return orderBy(query).FirstOrDefault();
-            return query.FirstOrDefault();
-        }
+            if (ignoreQueryFilters) query = query.IgnoreQueryFilters();
 
+            return orderBy != null ? orderBy(query).FirstOrDefault() : query.FirstOrDefault();
+        }
+      
         public IPaginate<T> GetList(Expression<Func<T, bool>> predicate = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null, int index = 0,

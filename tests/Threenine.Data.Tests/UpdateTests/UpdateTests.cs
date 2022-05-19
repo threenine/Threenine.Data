@@ -45,23 +45,7 @@ namespace Threenine.Data.Tests.UpdateTests
             _fixture?.Dispose();
         }
 
-        [Fact]
-        public async Task ShouldAddMultipleRepositoryTypes()
-        {
-            var repo = _unitOfWork.GetRepositoryAsync<TestProduct>();
-
-            var prod = await repo.SingleOrDefaultAsync(x => x.Id == 1);
-            prod.Name = TestProductNameChange;
-
-            var repo2 = _unitOfWork.GetRepository<TestProduct>();
-            repo2.Update(prod);
-
-            await _unitOfWork.CommitAsync();
-
-            var prod2 = await repo.SingleOrDefaultAsync(x => x.Id == 1);
-
-            prod2.Name.ShouldBeEquivalentTo(TestProductNameChange);
-        }
+        
 
         [Fact]
         public void ShouldThrowInvalidOperationException()
@@ -85,8 +69,8 @@ namespace Threenine.Data.Tests.UpdateTests
 
             var repo = _unitOfWork.GetRepository<TestProduct>();
 
-            var product1 = repo.SingleOrDefault(x => x.Id == 1);
-            var product2 = repo.SingleOrDefault(x => x.Id == 2);
+            var product1 = repo.SingleOrDefault(x => x.Id == 1 , enableTracking:true);
+            var product2 = repo.SingleOrDefault(x => x.Id == 2, enableTracking:true);
 
             product1.Name = newProduct1Name;
             product2.Name = newProduct2Name;
@@ -109,7 +93,7 @@ namespace Threenine.Data.Tests.UpdateTests
 
             var repo = _unitOfWork.GetRepository<TestProduct>();
 
-            var product = repo.SingleOrDefault(x => x.Id == 1);
+            var product = repo.SingleOrDefault(x => x.Id == 1, enableTracking:true);
 
             product.ShouldBeAssignableTo<TestProduct>();
 
@@ -128,7 +112,7 @@ namespace Threenine.Data.Tests.UpdateTests
         {
             var repo = _unitOfWork.GetRepository<TestProduct>();
 
-            var prod = repo.SingleOrDefault(x => x.Id == 1);
+            var prod = repo.SingleOrDefault(x => x.Id == 1, enableTracking:true);
             prod.Name = TestProductNameChange;
 
             repo.Update(prod);
@@ -138,5 +122,7 @@ namespace Threenine.Data.Tests.UpdateTests
             var prod2 = repo.SingleOrDefault(x => x.Id == 1);
             prod2.Name.ShouldBeEquivalentTo(TestProductNameChange);
         }
+        
+       
     }
 }

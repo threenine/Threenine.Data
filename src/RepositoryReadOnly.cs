@@ -30,12 +30,7 @@ namespace Threenine.Data
         {
         }
 
-        public T SingleOrDefault(Expression<Func<T, bool>> predicate = null,
-            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
-            Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null)
-        {
-            return base.SingleOrDefault(predicate, orderBy, include, false);
-        }
+      
 
         public IPaginate<T> GetList(Expression<Func<T, bool>> predicate = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
