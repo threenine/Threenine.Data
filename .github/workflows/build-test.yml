@@ -3,10 +3,10 @@ name: nuget-build-deploy
 on:
   push:
     branches:
-      - feature/*
+      - master
   pull_request:
     branches:
-      - feature/*
+      - master
 
 jobs:
   build:
