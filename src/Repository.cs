@@ -20,7 +20,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
 
 namespace Threenine.Data
 {
@@ -30,17 +29,10 @@ namespace Threenine.Data
         {
         }
 
-        #region Get Functions
-
-     
-
-        #endregion
-
         public void Dispose()
         {
             _dbContext?.Dispose();
         }
-
 
         public void Delete(T entity)
         {
@@ -79,9 +71,7 @@ namespace Threenine.Data
             if (_dbSet.Any(predicate)) return _dbSet.SingleOrDefault(predicate.Compile());
             _dbSet.Add(entity);
             return entity;
-
         }
-        
 
         #endregion
 

@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+
 namespace Threenine.Data.Paging
 {
     public class Paginate<T> : IPaginate<T>
@@ -70,31 +71,23 @@ namespace Threenine.Data.Paging
             var enumerable = source as TSource[] ?? source.ToArray();
 
             if (from > index) throw new ArgumentException($"From: {from} > Index: {index}, must From <= Index");
-
+            Index = index;
+            Size = size;
+            From = from;
+          
             if (source is IQueryable<TSource> queryable)
             {
-                Index = index;
-                Size = size;
-                From = from;
                 Count = queryable.Count();
-                Pages = (int) Math.Ceiling(Count / (double) Size);
-
                 var items = queryable.Skip((Index - From) * Size).Take(Size).ToArray();
-
                 Items = new List<TResult>(converter(items));
             }
             else
             {
-                Index = index;
-                Size = size;
-                From = from;
                 Count = enumerable.Count();
-                Pages = (int) Math.Ceiling(Count / (double) Size);
-
                 var items = enumerable.Skip((Index - From) * Size).Take(Size).ToArray();
-
                 Items = new List<TResult>(converter(items));
             }
+            Pages = (int) Math.Ceiling(Count / (double) Size);
         }
 
 

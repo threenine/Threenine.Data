@@ -14,7 +14,6 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -121,10 +120,7 @@ namespace Threenine.Data
 
             if (ignoreQueryFilters) query = query.IgnoreQueryFilters();
 
-            if (orderBy != null)
-                return orderBy(query).Select(selector).ToPaginateAsync(index, size, 0, cancellationToken);
-
-            return query.Select(selector).ToPaginateAsync(index, size, 0, cancellationToken);
+            return orderBy != null ? orderBy(query).Select(selector).ToPaginateAsync(index, size, 0, cancellationToken) : query.Select(selector).ToPaginateAsync(index, size, 0, cancellationToken);
         }
 
         #endregion
@@ -136,12 +132,10 @@ namespace Threenine.Data
             return _dbSet.AddAsync(entity, cancellationToken);
         }
 
-
         public virtual Task InsertAsync(params T[] entities)
         {
             return _dbSet.AddRangeAsync(entities);
         }
-
 
         public virtual Task InsertAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default)
         {

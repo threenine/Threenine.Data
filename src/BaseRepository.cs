@@ -34,6 +34,8 @@ namespace Threenine.Data
             _dbContext = context ?? throw new ArgumentException(nameof(context));
             _dbSet = _dbContext.Set<T>();
         }
+        
+        #region SingleOrDefault
         public T SingleOrDefault(Expression<Func<T, bool>> predicate)
         {
             return SingleOrDefault(predicate, default);
@@ -72,6 +74,7 @@ namespace Threenine.Data
 
             return orderBy != null ? orderBy(query).FirstOrDefault() : query.FirstOrDefault();
         }
+      #endregion
       
         public IPaginate<T> GetList(Expression<Func<T, bool>> predicate = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,

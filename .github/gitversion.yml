@@ -1,5 +1,4 @@
 mode: Mainline
-next-version: 3.1
 branches:
   feature:
     tag: beta
