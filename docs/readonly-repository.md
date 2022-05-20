@@ -25,12 +25,12 @@ Use the SingleOrDefault method to get a single matching entity if one exists.
  
  SingleOrDefault returns the default value for the entity, returning a single matching element, or the default value if no element is found.
  
- ```csharp
+ ```c#
    var product = uow.GetRepository<TestProduct>().SingleOrDefault(x => x.Id == 1);
 ```
  `SingleOrDefault` also enables the functionality to Order and Include before making the selection
  
- ```csharp
+ ```c#
   var product = uow.GetRepository<TestProduct>().SingleOrDefault(orderBy: x => x.OrderBy(x => x.Name),
                  include: x => x.Include(x => x.Category));
 ```
@@ -45,13 +45,13 @@ Get list returns a **paginated list** of the items by default.
  
  If you are unsure of the number records you want retrieved and would like the repository to return as many as possible you can simply pass the `size: int.MaxValue` setting
  
- ``` c#
+ ```c#
    var repo = uow.GetRepository<SomeEntity>().GetList(size: int.MaxValue).Items;
 ```
 
 You can also provide a predicate containing the where clause you want to extract records on and supply a size counter for the number of records you want to appear on each page
 
-```csharp
+```c#
   var items = uow.GetRepository<SomeEntity>().GetList(x => x.CategoryId == 1 ).Items
 
 // or 
@@ -78,7 +78,7 @@ var theItems = result.Items
 
 In order to include linked entities in your Paginated List you can simply make use of the `include` parameter. which is a
 
- ```csharp
+ ```c#
   var items = uow.GetRepository<SomeEntity>().GetList(x => x.CategoryId == 1 ).Items
 
 // or 
@@ -91,7 +91,7 @@ var theItems = result.Items
 ### How to order lists
 
 To add ordering to your lists the same can be applied
-```csharp
+```c#
   var items = uow.GetRepository<SomeEntity>().GetList(x => x.CategoryId == 1 ).Items
 
 // or 
@@ -103,3 +103,6 @@ var theItems = result.Items
 
 
 ### Readonly Respository Async
+
+The ReadOnlyAsync Repository has the same features as above only with the benefit of being Asyncronous!
+

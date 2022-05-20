@@ -75,11 +75,31 @@ namespace Threenine.Data
             return await query.FirstOrDefaultAsync();
         }
 
+        public async Task<IPaginate<T>> GetListAsync(Expression<Func<T, bool>> predicate)
+        {
+            return await GetListAsync(predicate, default);
+        }
+
+        public async Task<IPaginate<T>> GetListAsync(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy)
+        {
+            return await GetListAsync(predicate, orderBy, default);
+        }
+
+        public async Task<IPaginate<T>> GetListAsync(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy, Func<IQueryable<T>, IIncludableQueryable<T, object>> include)
+        {
+            return await GetListAsync(predicate, orderBy, include, default);
+        }
+
+        public async Task<IPaginate<T>> GetListAsync(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy, Func<IQueryable<T>, IIncludableQueryable<T, object>> include, int index, int size)
+        {
+            return await GetListAsync(predicate, orderBy, include, index, size, default);
+        }
+
         #endregion
 
         #region GetListAsync
 
-        public Task<IPaginate<T>> GetListAsync(Expression<Func<T, bool>> predicate = null,
+        public async Task<IPaginate<T>> GetListAsync(Expression<Func<T, bool>> predicate = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
             int index = 0,
@@ -95,8 +115,8 @@ namespace Threenine.Data
             if (predicate != null) query = query.Where(predicate);
 
             if (orderBy != null)
-                return orderBy(query).ToPaginateAsync(index, size, 0, cancellationToken);
-            return query.ToPaginateAsync(index, size, 0, cancellationToken);
+                return await orderBy(query).ToPaginateAsync(index, size, 0, cancellationToken);
+            return await query.ToPaginateAsync(index, size, 0, cancellationToken);
         }
 
         public Task<IPaginate<TResult>> GetListAsync<TResult>(Expression<Func<T, TResult>> selector,

@@ -36,7 +36,13 @@ namespace Threenine.Data
             Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
             bool enableTracking = true,
             bool ignoreQueryFilters = false);
-   
+
+        IPaginate<T> GetList(Expression<Func<T, bool>> predicate);
+        
+        IPaginate<T> GetList(Expression<Func<T, bool>> predicate,  Func<IQueryable<T>, IOrderedQueryable<T>> orderBy);
+        
+        IPaginate<T> GetList(Expression<Func<T, bool>> predicate,  Func<IQueryable<T>, IOrderedQueryable<T>> orderBy,  Func<IQueryable<T>, IIncludableQueryable<T, object>> include);
+        IPaginate<T> GetList(Expression<Func<T, bool>> predicate,  Func<IQueryable<T>, IOrderedQueryable<T>> orderBy,  Func<IQueryable<T>, IIncludableQueryable<T, object>> include,  int index, int size);
 
         IPaginate<T> GetList(Expression<Func<T, bool>> predicate = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,

@@ -1,4 +1,3 @@
-# Threenine.Data Documentation
 
 A generic Unit of Work and Repository Pattern for the abstraction of Entity Framework core in .net core projects.
 

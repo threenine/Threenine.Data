@@ -16,6 +16,7 @@
 */
 
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
@@ -74,8 +75,48 @@ namespace Threenine.Data
 
             return orderBy != null ? orderBy(query).FirstOrDefault() : query.FirstOrDefault();
         }
-      #endregion
-      
+
+        public IPaginate<T> GetList(Expression<Func<T, bool>> predicate)
+        {
+            return GetList(predicate, default);
+        }
+
+        public IPaginate<T> GetList(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy)
+        {
+            return GetList(predicate, orderBy, default);
+        }
+
+        public IPaginate<T> GetList(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy, Func<IQueryable<T>, IIncludableQueryable<T, object>> include)
+        {
+            return GetList(predicate, orderBy, include, default);
+        }
+
+        public IPaginate<T> GetList(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy, Func<IQueryable<T>, IIncludableQueryable<T, object>> include, int index, int size)
+        {
+            return GetList(predicate, orderBy, include, index, size, default);
+        }
+
+        #endregion
+
+        public IPaginate<T> GetList(Expression<Func<T, bool>> predicate = null,
+            int size = 20, bool enableTracking = true)
+        {
+            return GetList(predicate, 0, size, enableTracking);
+        }
+
+        public IPaginate<T> GetList(Expression<Func<T, bool>> predicate = null, int index = 0,
+            int size = 20, bool enableTracking = true)
+        {
+            return GetList(predicate, null, index, size, enableTracking);
+        }
+
+        public IPaginate<T> GetList(Expression<Func<T, bool>> predicate = null,
+            Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null, int index = 0,
+            int size = 20, bool enableTracking = true)
+        {
+            return GetList(predicate, null, include, index, size, enableTracking);
+        }
+
         public IPaginate<T> GetList(Expression<Func<T, bool>> predicate = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null, int index = 0,

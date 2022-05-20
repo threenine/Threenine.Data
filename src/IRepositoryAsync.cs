@@ -46,6 +46,11 @@ namespace Threenine.Data
             bool enableTracking = true,
             bool ignoreQueryFilters = false);
 
+        Task<IPaginate<T>> GetListAsync(Expression<Func<T, bool>> predicate);
+        Task<IPaginate<T>> GetListAsync(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy  );
+        Task<IPaginate<T>> GetListAsync(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy, Func<IQueryable<T>, IIncludableQueryable<T, object>> include );
+        Task<IPaginate<T>> GetListAsync(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy, Func<IQueryable<T>, IIncludableQueryable<T, object>> include,  int index,
+            int size );
         Task<IPaginate<T>> GetListAsync(Expression<Func<T, bool>> predicate = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,

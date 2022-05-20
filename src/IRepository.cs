@@ -25,7 +25,6 @@ namespace Threenine.Data
 {
     public interface IRepository<T> : IReadRepository<T>, IDisposable where T : class
     {
-       
 
         T Insert(T entity);
         void Insert(params T[] entities);

@@ -1,7 +1,16 @@
 site_name: Threenine.Data
-
+site_description: A simple lean & clean generic repository pattern for .net core abstraction layer Entity Framework Core.
+repo_url: https://github.com/threenine/Threenine.Data
 nav:
   - Home: 'index.md'
   - Getting Started: 'getting-started.md'
-  - Read Only Repository: 'readonly-repository.md'  
+  - User Guide: 'user-guide.md'
+      - Read Only Repository: 'readonly-repository.md'
+  - About:
+      - Release Notes: 'release-notes.md'
 
+theme:
+  name: mkdocs
+  highlightjs: true
+  hljs_languages:
+    - c#
