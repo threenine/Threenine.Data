@@ -1,34 +1,24 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+  
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.1.5</Version>
+
     <IsPackable>true</IsPackable>
-    <Company>threenine.co.uk</Company>
-      <Authors>Gary Woodfine</Authors>
-      <Owners>threenine.co.uk</Owners>
-      <PackageProjectUrl>https://threenine.github.io/Threenine.Data/</PackageProjectUrl>
-      <PackageIcon>icon.png</PackageIcon>
-      <PackageTags>Unit of Work, Repository Pattern, Repository</PackageTags>
-      <Copyright>Copyright © 2005 - 2022 Three Nine Consulting Limited</Copyright>
-      <Description>A simple generic repository wrapper library for entity framework core</Description>
-       <licenseUrl>https://github.com/threenine/api-template/blob/master/LICENSE</licenseUrl>
-      <NeutralLanguage>en</NeutralLanguage>
-      <RepositoryUrl>https://github.com/threenine/Threenine.Data</RepositoryUrl>
-      <RepositoryType>git</RepositoryType>
-       <Title>Threenine.Data</Title>
-      <PackageVersion>2.0</PackageVersion>
+    <PackageIconUrl>icon.png</PackageIconUrl>
+    
   </PropertyGroup>
-<ItemGroup>
-  <None Include="icon.png" Pack="true" PackagePath="\" />
-</ItemGroup>
+  <ItemGroup>
+    <Content Include="icon.png" Pack="true" PackagePath="\">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.6" />
      <PackageReference Include="Microsoft.EntityFrameworkCore.AutoHistory" Version="5.0.0" />
     <PackageReference Include="System.Linq" Version="4.3.0" />
-    <PackageReference Include="Threenine.Specification" Version="0.1.15" />
+  
   </ItemGroup>
 
 </Project>

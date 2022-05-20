@@ -1,0 +1,22 @@
+<Project>
+    <PropertyGroup>
+        <Company>threenine.co.uk</Company>
+        <Authors>Gary Woodfine</Authors>
+        <Owners>threenine.co.uk</Owners>
+        <PackageProjectUrl>https://threenine.github.io/Threenine.Data/</PackageProjectUrl>
+        <PackageIcon>icon.png</PackageIcon>
+        <PackageTags>Unit of Work, Repository Pattern, Repository</PackageTags>
+        <Copyright>Copyright © 2005 - 2022 Three Nine Consulting Limited</Copyright>
+        <Description>A simple generic repository wrapper library for entity framework core</Description>
+        <licenseUrl>https://github.com/threenine/Threenine.Data/master/LICENSE</licenseUrl>
+        <NeutralLanguage>en</NeutralLanguage>
+        <RepositoryUrl>https://github.com/threenine/Threenine.Data</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <Title>Threenine.Data</Title>
+        <PackageVersion></PackageVersion>
+        <TargetFramework>net6.0</TargetFramework>
+    </PropertyGroup>
+  
+</Project>
+
+

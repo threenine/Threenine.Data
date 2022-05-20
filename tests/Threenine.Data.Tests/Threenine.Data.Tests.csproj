@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
         <IsPackable>false</IsPackable>
         <AssemblyName>Threenine.Data.Tests</AssemblyName>
         <RootNamespace>Threenine.Data.Tests</RootNamespace>
@@ -24,6 +23,10 @@
         <Content Include="xunit.runner.json" CopyToOutputDirectory="PreserveNewest" />
         <ProjectReference Include="..\..\src\Threenine.Data.csproj" />
         <ProjectReference Include="..\Database\TestDatabase.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="icon.png" />
     </ItemGroup>
 
 </Project>
