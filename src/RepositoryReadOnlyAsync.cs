@@ -33,14 +33,7 @@ namespace Threenine.Data
         }
 
        
-        public async Task<IPaginate<T>> GetListAsync(Expression<Func<T, bool>> predicate = null,
-            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
-            Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
-            int index = 0,
-            int size = 20)
-        {
-            return await base.GetListAsync(predicate, orderBy, include, index, size, false);
-        }
+      
 
         public async Task<IPaginate<TResult>> GetListAsync<TResult>(Expression<Func<T, TResult>> selector,
             Expression<Func<T, bool>> predicate = null,

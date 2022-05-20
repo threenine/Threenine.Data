@@ -1,9 +1,22 @@
 mode: Mainline
-next-version: 3.2
 branches:
+  main:
+    tag: ''
+    increment: inherit
+    source-branches:
+      - master
+    is-release-branch: true
   feature:
+    increment: Minor
+    tag: alpha
+  release:
+    increment: Minor
     tag: beta
-  main: {}
+    is-release-branch: false
+  hotfix:
+    increment: Patch
+    tag: beta
 ignore:
-  sha: []
+  sha: [ ]
+
 

@@ -30,15 +30,6 @@ namespace Threenine.Data
         {
         }
 
-      
-
-        public IPaginate<T> GetList(Expression<Func<T, bool>> predicate = null,
-            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
-            Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null, int index = 0, int size = 20)
-        {
-            return base.GetList(predicate, orderBy, include, index, size, false);
-        }
-
         public IPaginate<TResult> GetList<TResult>(Expression<Func<T, TResult>> selector,
             Expression<Func<T, bool>> predicate = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
