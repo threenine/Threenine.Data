@@ -4,7 +4,7 @@ repo_url: https://github.com/threenine/Threenine.Data
 nav:
   - Home: 'index.md'
   - Getting Started: 'getting-started.md'
-  - User Guide: 'user-guide.md'
+  - User Guide:
       - Read Only Repository: 'readonly-repository.md'
   - About:
       - Release Notes: 'release-notes.md'
