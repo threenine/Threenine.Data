@@ -4,6 +4,19 @@
 
 A Generic Unit of Work and Repository pattern implementation framework for Entity Framework Core,  to assist developers to implementing the [Generic Repository Pattern .net core](https://garywoodfine.com/generic-repository-pattern-net-core).
 
+## Installation
+The simplest method to install Threenine.Data into your solution is to make use of Nuget:
+
+```jshelllanguage
+ nuget Install-Package Threenine.Data
+```
+
+or via the Dotnet CLI
+```jshelllanguage
+   dotnet add package Threenine.Data
+```
+Check out the [Nuget package details](https://www.nuget.org/packages/Threenine.Data) for more details.
+
 ### Dependency Injection
 
 ASP.NET Core supports the dependency injection (DI) software design pattern, which is a technique for achieving Inversion of Control (IoC) between classes and their dependencies.
@@ -27,11 +40,11 @@ Dependency injection addresses a few issues in software development
 
 Once you have added the Nuget Package to your project, you can edit your `Startup.cs`  and import `using Threenine.Data.DependencyInjection;`
 
-In the example we are just going to use a Connection String that we have declared in our `appsettings.json` file which we have simply called `SampleDB`. 
+In the example we are just going to use a connection string that we have declared in our `appsettings.json` file which we have simply called `SampleDB`. 
 
-We have also made use of Microsoft SQL Server (MS SQL) for the example, but this can be any Relational Database Management System (RDBMS) of your choice i.e. mySQL, Postgres SQL, oracle etc.
+We make use of any of the database providers supported by Entity Framework Core i.e. mySQL, Postgres SQL, Oracle, MS SQL etc.
 
-We have simply used MS SQL for ease of illustration.
+We have made use of PostgreSQL in the example for ease of illustration. You would need to add your database context as normal, and once done you can make use of the `AddUnitOfWork` which will then configure the Unit of Work to be available via dependency injection throughout your application.
 
 ```c#
 public class Startup
@@ -54,7 +67,7 @@ public class Startup
             services.AddMvc();
         }
 ```
-We can use any of the Entity Framework Core supported database drivers, in the example about we made use of PostgreSql.
+
 Once the Dependency Injection has been configured. You can now simply make use of the Unit of Work to access your 
 repositories via Dependency Injection.
 
@@ -75,6 +88,28 @@ repositories via Dependency Injection.
     }
 
 ```
+
+All functionality can access via thr various types of repositories that are made available. You are to include your Generic Unit of Work and Repository pattern in other Generic methods.
+
+```c#
+  private async Task<SingleResponse<Response>> Create<T>(T entity) where T : class
+        {
+            try
+            {
+                var created = _unitOfWork.GetRepository<T>().Insert(entity);
+                await _unitOfWork.CommitAsync();
+                return new SingleResponse<Response>(_mapper.Map<Response>(created));
+            }
+            catch(DbUpdateException e)
+            {
+                return new SingleResponse<Response>(null, new List<KeyValuePair<string, string[]>>()
+                {
+                    new(ErrorKeyNames.Conflict, new []{ e.InnerException.Message})
+                });
+            }
+        }
+```
+
 
 
 

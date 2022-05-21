@@ -7,18 +7,7 @@ Threenine.Data supports the following platforms:
  - .net 4.5.2+
  - .net Standard 2.1
 
-## Installation
-The simplest method to install Threenine.Data into your solution is to make use of Nuget:
 
-```jshelllanguage
- nuget Install-Package Threenine.Data
-```
-
-or via the Dotnet CLI 
-```jshelllanguage
-   dotnet add package Threenine.Data
-```
-Check out the [Nuget package details](https://www.nuget.org/packages/Threenine.Data) for more details.
 
 ## Free Open Source
 if you want to check out the source code for the library you can visit the [GitHub repository](https://threenine.github.io/Threenine.Data)

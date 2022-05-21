@@ -5,7 +5,7 @@ nav:
   - Home: 'index.md'
   - Getting Started: 'getting-started.md'
   - User Guide: 
-      - Read Only Repository: 'readonly-repository.md'
+      - Features: 'features.md'
   - About: 
       - Release Notes: 'release-notes.md'
 
@@ -14,3 +14,4 @@ theme:
   highlightjs: true
   hljs_languages:
     - c#
+    - jshelllanguage
