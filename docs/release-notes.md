@@ -6,6 +6,12 @@ The current members of the maintenance team
 
  * [@garywoodfine](https://github.com/garywoodfine)
 
+### Version 3.2.1 (24 May 2022)
+#### Feature upgrades
+* Updated the documentation 
+* Fixing the gitversion numbering
+* Preparing for implementing the Specification Pattern
+
 ### Version 3.2.0 (20 May 2022)
 #### Feature upgrades
 * After a long period of no updates two in as many days!
