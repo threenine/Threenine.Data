@@ -21,6 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Shouldly;
 using TestDatabase;
 using Threenine.Data.Tests.TestFixtures;
 using Xunit;
@@ -56,10 +57,13 @@ namespace Threenine.Data.Tests.GetTests
                 include: category => category.Include(x => x.Category),
                 size: 5);
 
-            Assert.Equal(5, results.Items.Count);
-            Assert.Equal(1, results.Pages);
-            Assert.IsAssignableFrom<TestCategory>(results.Items[0].Category);
-            Assert.Equal("Name1", results.Items[0].Category.Name);
+            results.ShouldSatisfyAllConditions(
+                () => results.Items.Count.ShouldBeEquivalentTo(5),
+                () => results.Pages.ShouldBeEquivalentTo(1),
+                () => results.Items[0].Category.ShouldBeOfType<TestCategory>(),
+                () => results.Items[0].Category.Name.ShouldBeEquivalentTo("Name1")
+                );
+          
         }
 
         [Fact]
@@ -70,37 +74,41 @@ namespace Threenine.Data.Tests.GetTests
 
             var results = await repo.GetListAsync(t => t.InStock == true && t.CategoryId == 1,
                 size: 5);
-
-            Assert.Equal(5, results.Items.Count);
-            Assert.Equal(1, results.Pages);
+            
+            results.ShouldSatisfyAllConditions(
+                () => results.Items.Count.ShouldBeEquivalentTo(5),
+                () => results.Pages.ShouldBeEquivalentTo(1)
+                );
+            
         }
 
         [Fact]
         public async Task ShouldGetListOf20TestProducts()
         {
             // Arrange 
-            
             var repo = uow.GetRepositoryAsync<TestProduct>();
 
             // Act
             var testList = await repo.GetListAsync();
 
             //Assert
-            Assert.NotNull(testList);
-            Assert.IsAssignableFrom<IEnumerable<TestProduct>>(testList.Items);
-            Assert.Equal(20, testList.Items.Count);
+            testList.ShouldSatisfyAllConditions(
+                () => testList.ShouldNotBeNull(),
+                () => testList.Items.ShouldBeOfType<List<TestProduct>>(),
+                () => testList.Items.Count.ShouldBeEquivalentTo(20)
+                );
         }
 
         [Fact]
         public async Task ShouldGetSingleValueAsync()
         {
-            
             var repo = uow.GetRepositoryAsync<TestProduct>();
-
             var product = await repo.SingleOrDefaultAsync(x => x.Id == 3);
 
-            Assert.NotNull(product);
-            Assert.IsAssignableFrom<TestProduct>(product);
+            product.ShouldSatisfyAllConditions(
+                () => product.ShouldNotBeNull(),
+                () => product.ShouldBeOfType<TestProduct>()
+                );
         }
     }
 }

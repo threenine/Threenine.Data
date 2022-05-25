@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Shouldly;
 using TestDatabase;
 using Threenine.Data.Tests.TestFixtures;
 using Xunit;
@@ -29,9 +30,11 @@ namespace Threenine.Data.Tests.ReadOnlyRepositoryTests
 
             var results = await repo.GetListAsync(t => t.InStock == true && t.CategoryId == 1,
                 size: 5);
-
-            Assert.Equal(5, results.Items.Count);
-            Assert.Equal(1, results.Pages);
+            
+            results.ShouldSatisfyAllConditions(
+                () => results.Items.Count.ShouldBeEquivalentTo(5),
+                () => results.Pages.ShouldBeEquivalentTo(1)
+                );
         }
 
         [Fact]
@@ -42,7 +45,8 @@ namespace Threenine.Data.Tests.ReadOnlyRepositoryTests
 
             var product = await repo.SingleOrDefaultAsync(x => x.Id == 1);
 
-            Assert.NotNull(product);
+            product.ShouldNotBeNull();
+           
         }
 
         [Fact]

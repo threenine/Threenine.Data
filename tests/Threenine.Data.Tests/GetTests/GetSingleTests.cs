@@ -32,16 +32,17 @@ namespace Threenine.Data.Tests.GetTests
             //Assert
             product.ShouldSatisfyAllConditions(
                 () => product.ShouldNotBeNull(),
-                () => product.Name.ShouldBeEquivalentTo("Name27"),
+                () => product.Name.ShouldBeEquivalentTo("Name1"),
                 () => product.ShouldBeAssignableTo<TestProduct>()
             );
         }
+
         [Fact]
         public void GetSingleOrDefaultWithOrderByTest()
         {
             //Act
-            var product = _unitOfWork.GetRepository<TestProduct>().SingleOrDefault( x => x.Name.Contains("Name"),
-                 x => x.OrderBy(product => product.Name));
+            var product = _unitOfWork.GetRepository<TestProduct>().SingleOrDefault(x => x.Name.Contains("Name"),
+                x => x.OrderBy(product => product.Name));
 
             //Assert
             product.ShouldSatisfyAllConditions(
@@ -59,10 +60,13 @@ namespace Threenine.Data.Tests.GetTests
                 orderBy: x => x.OrderBy(product => product.Name),
                 include: x => x.Include(cat => cat.Category));
             //Assert
-            product.ShouldNotBeNull();
-            product.Name.ShouldBeEquivalentTo("Name1");
-            product.ShouldBeAssignableTo<TestProduct>();
-            product.Category.ShouldBeAssignableTo<TestCategory>();
+
+            product.ShouldSatisfyAllConditions(
+                () => product.ShouldNotBeNull(),
+                () => product.Name.ShouldBeEquivalentTo("Name1"),
+                () => product.ShouldBeAssignableTo<TestProduct>(),
+                () => product.Category.ShouldBeAssignableTo<TestCategory>()
+            );
         }
 
         [Fact]
@@ -71,8 +75,10 @@ namespace Threenine.Data.Tests.GetTests
             //Act
             var product = _unitOfWork.GetRepository<TestProduct>().SingleOrDefault(x => x.Id == 1);
             //Assert
-            product.ShouldNotBeNull();
-            product.Id.ShouldBeEquivalentTo(1);
+            product.ShouldSatisfyAllConditions(
+                () => product.ShouldNotBeNull(),
+                () => product.Id.ShouldBeEquivalentTo(1)
+            );
         }
 
 

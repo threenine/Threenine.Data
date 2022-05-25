@@ -34,14 +34,14 @@ Task("Restore")
     .Description("Restoring the solution dependencies")
     .Does(() =>
     {
-        DotNetCoreRestore();
+        DotNetRestore();
     });
 
  Task("Build")
     .Does(() =>
     {
     
-       var buildSettings =  new DotNetCoreBuildSettings { 
+       var buildSettings =  new DotNetBuildSettings { 
                                                           Configuration = configuration,
                                                           ArgumentCustomization = args => args.Append("--no-restore"),
                                                          };
@@ -50,7 +50,7 @@ Task("Restore")
         foreach(var project in projects)
         {
            Information("Building Project: " + project);
-           DotNetCoreBuild(project.ToString(), buildSettings);
+           DotNetBuild(project.ToString(), buildSettings);
         }
       });
 
@@ -61,9 +61,9 @@ Task("Test")
         foreach(var project in projects)
         {
             Information("Testing project " + project);
-            DotNetCoreTest(
+            DotNetTest(
                 project.ToString(),
-                new DotNetCoreTestSettings()
+                new DotNetTestSettings()
                 {
                     Configuration = configuration
                 });

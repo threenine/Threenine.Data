@@ -53,10 +53,12 @@ namespace Threenine.Data.Tests.GetTests
             //Act
             var productList = _repository.GetList(size: 5);
             //Assert
-            productList.Items.Count.ShouldBeEquivalentTo(5);
-            productList.Pages.ShouldBeEquivalentTo(8);
-            productList.Size.ShouldBeEquivalentTo(5);
-            productList.HasNext.ShouldBeTrue();
+            productList.ShouldSatisfyAllConditions(
+                () => productList.Items.Count.ShouldBeEquivalentTo(5),
+                () => productList.Pages.ShouldBeEquivalentTo(8),
+                () => productList.Size.ShouldBeEquivalentTo(5),
+                () => productList.HasNext.ShouldBeTrue()
+            );
         }
 
         [Fact]
@@ -74,8 +76,10 @@ namespace Threenine.Data.Tests.GetTests
             //Act
             var productList = _repository.GetList(size: 5);
             //Assert
-            productList.Items.Count.ShouldBeEquivalentTo(5);
-            productList.Pages.ShouldBeEquivalentTo(8);
+            productList.ShouldSatisfyAllConditions(
+                () => productList.Items.Count.ShouldBeEquivalentTo(5),
+                () => productList.Pages.ShouldBeEquivalentTo(8)
+            );
         }
 
         [Fact]
@@ -84,10 +88,10 @@ namespace Threenine.Data.Tests.GetTests
             //Act
             var productList = _repository.GetList(x => x.CategoryId == 1);
             //Assert
-            productList.Items.Count.ShouldBeEquivalentTo(5);
-            productList.Pages.ShouldBeEquivalentTo(1);
+            productList.ShouldSatisfyAllConditions(
+                () => productList.Items.Count.ShouldBeEquivalentTo(5),
+                () => productList.Pages.ShouldBeEquivalentTo(1)
+            );
         }
-
-     
     }
 }

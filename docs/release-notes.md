@@ -17,7 +17,7 @@ The current members of the maintenance team
 * After a long period of no updates two in as many days!
 * Implemented override methods on `GetList` and `GetListAsync` for the same reasons as `SingleOrDefault` and `SingleOrDefaultAsync` below
 * Added more Unit test coverage to ensure things work as expected
-* Updated the Documentation again! Hoepfully this will continue to improve and feedback and questions welcome!
+* Updated the Documentation again! Hopefully this will continue to improve and feedback and questions welcome!
 
 
 ### Version 3.1.0 (19 May 2022)

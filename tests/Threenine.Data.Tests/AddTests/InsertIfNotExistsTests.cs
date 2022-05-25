@@ -31,6 +31,7 @@ namespace Threenine.Data.Tests.AddTests
           var newProduct=  repo.InsertNotExists(x => x.CategoryId == 1 && x.Name == "Cool Product", prod);
             uow.Commit();
 
+            
             Assert.NotNull(newProduct);
             Assert.IsAssignableFrom<TestProduct>(newProduct);
             Assert.Equal(21, newProduct.Id);
@@ -53,7 +54,7 @@ namespace Threenine.Data.Tests.AddTests
 
             Assert.NotNull(newProduct);
             Assert.IsAssignableFrom<TestProduct>(newProduct);
-            Assert.Equal(17, newProduct.Id);
+            Assert.Equal(1, newProduct.Id);
         }
         public void Dispose()
         {
