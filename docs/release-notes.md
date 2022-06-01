@@ -5,6 +5,10 @@
 The current members of the maintenance team 
 
  * [@garywoodfine](https://github.com/garywoodfine)
+### Version 3.2.3 (01 June 2022)
+#### Feature upgrades
+* Updated the documentation
+* 
 
 ### Version 3.2.1 (24 May 2022)
 #### Feature upgrades

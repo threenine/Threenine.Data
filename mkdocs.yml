@@ -5,7 +5,7 @@ nav:
   - Home: 'index.md'
   - Getting Started: 'getting-started.md'
   - User Guide: 
-      - Features: 'features.md'
+     - Features: 'features.md'
   - About: 
       - Release Notes: 'release-notes.md'
 

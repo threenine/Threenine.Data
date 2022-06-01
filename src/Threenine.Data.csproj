@@ -5,7 +5,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 
     <IsPackable>true</IsPackable>
-    <PackageIconUrl>icon.png</PackageIconUrl>
+    <PackageIcon>icon.png</PackageIcon>
     
   </PropertyGroup>
   <ItemGroup>

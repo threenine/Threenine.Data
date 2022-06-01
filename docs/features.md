@@ -34,6 +34,15 @@ Use the `SingleOrDefault` method to get a single matching entity if one exists.
 ```c#
    var product = uow.GetRepository<TestProduct>().SingleOrDefault(x => x.Id == 1);
 ```
+*Tracking is disabled by default* when making use of the `SingleOrDefault` select method. This is generally useful in Web API type projects when implement `GET` because the chances of requiring transaction to change data is minimal in such circumstances
+
+If you would like ot use `SingleOrDefault` with tracking enabled then simply pass in the optional parameter `enableTracking: true`
+
+```c#
+   var product = uow.GetRepository<TestProduct>().SingleOrDefault(x => x.Id == 1, enableTracking: true);
+```
+
+
  `SingleOrDefault` also enables the functionality to Order and Include before making the selection
  
 ```c#

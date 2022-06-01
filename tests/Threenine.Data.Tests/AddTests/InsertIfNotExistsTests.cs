@@ -1,5 +1,6 @@
 using System;
 using FizzWare.NBuilder;
+using Shouldly;
 using TestDatabase;
 using Threenine.Data.Tests.TestFixtures;
 using Xunit;
@@ -15,7 +16,7 @@ namespace Threenine.Data.Tests.AddTests
         {
             _fixture = fixture;
         }
-        
+
         [Fact]
         public void ShouldInsertNewProductBecauseNotExist()
         {
@@ -28,15 +29,17 @@ namespace Threenine.Data.Tests.AddTests
             using var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
             var repo = uow.GetRepository<TestProduct>();
 
-          var newProduct=  repo.InsertNotExists(x => x.CategoryId == 1 && x.Name == "Cool Product", prod);
+            var newProduct = repo.InsertNotExists(x => x.CategoryId == 1 && x.Name == "Cool Product", prod);
             uow.Commit();
+            newProduct.ShouldSatisfyAllConditions(
+                () => newProduct.ShouldNotBeNull(),
+                () => newProduct.ShouldBeAssignableTo<TestProduct>(),
+                () => newProduct.Id.ShouldBeEquivalentTo(21)
+            );
 
-            
-            Assert.NotNull(newProduct);
-            Assert.IsAssignableFrom<TestProduct>(newProduct);
-            Assert.Equal(21, newProduct.Id);
+          
         }
-        
+
         [Fact]
         public void ShouldReturnProductBecauseNExist()
         {
@@ -49,13 +52,16 @@ namespace Threenine.Data.Tests.AddTests
             using var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
             var repo = uow.GetRepository<TestProduct>();
 
-            var newProduct =  repo.InsertNotExists(x => x.CategoryId == 1 && x.Name == "Name1", prod);
+            var newProduct = repo.InsertNotExists(x => x.CategoryId == 1 && x.Name == "Name1", prod);
             uow.Commit();
 
-            Assert.NotNull(newProduct);
-            Assert.IsAssignableFrom<TestProduct>(newProduct);
-            Assert.Equal(1, newProduct.Id);
+            newProduct.ShouldSatisfyAllConditions(
+                () => newProduct.ShouldNotBeNull(),
+                () => newProduct.ShouldBeAssignableTo<TestProduct>(),
+                () => newProduct.Id.ShouldBeEquivalentTo(1)
+            );
         }
+
         public void Dispose()
         {
             _fixture?.Dispose();
