@@ -80,7 +80,9 @@ namespace Threenine.Data
 
         public void Update(T entity)
         {
+            _dbContext.Entry(entity).State = EntityState.Modified;
             _dbSet.Update(entity);
+           
         }
 
         public void Update(params T[] entities)
@@ -90,6 +92,7 @@ namespace Threenine.Data
 
         public void Update(IEnumerable<T> entities)
         {
+          
             _dbSet.UpdateRange(entities);
         }
 
