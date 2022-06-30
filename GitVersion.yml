@@ -18,5 +18,3 @@ branches:
     tag: beta
 ignore:
   sha: [ ]
-
-

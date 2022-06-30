@@ -57,7 +57,7 @@ namespace TestDatabase
                     .IsRequired()
                     .ValueGeneratedOnAdd();
 
-                entity.HasIndex(e => e.CategoryId).HasName("testCategory_testCategory_id_foreign");
+                entity.HasIndex(e => e.CategoryId).HasDatabaseName("testCategory_testCategory_id_foreign");
                 entity.Property(e => e.CategoryId).HasColumnName("CategoryId");
 
                 entity.Property(e => e.Name)
