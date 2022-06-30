@@ -1,81 +1,124 @@
-#tool "nuget:?package=JetBrains.dotCover.CommandLineTools&version=2020.1.4"
-var target = Argument("Target", "Default");
-var configuration = Argument("Configuration", "Release");
+#tool "dotnet:?package=GitVersion.Tool&version=5.10.3"
 
-Information($"Running target {target} in configuration {configuration}");
+var target = Argument("target", "Default");
+var configuration = Argument("configuration", "Release");
+string version = String.Empty;
 
-var distDirectory = Directory("./build");
-var packageDirectory = Directory("./package");
-var temporaryFolder = Directory("./temp");
-TaskSetup(setupContext =>
-{
-   if(TeamCity.IsRunningOnTeamCity)
-   {
-      TeamCity.WriteStartBuildBlock(setupContext.Task.Description ?? setupContext.Task.Name);
-   }
-});
-
-TaskTeardown(teardownContext =>
-{
-   if(TeamCity.IsRunningOnTeamCity)
-   {
-      TeamCity.WriteEndProgress(teardownContext.Task.Description ?? teardownContext.Task.Name);
-   }
-});
+//////////////////////////////////////////////////////////////////////
+// TASKS
+//////////////////////////////////////////////////////////////////////
 
 Task("Clean")
-    .Description("Cleaning the solution directory")
+    .Does(() => {
+    DotNetClean("Threenine.Data.sln");
+});
+
+Task("Version")
+  .IsDependentOn("Clean")
     .Does(() =>
-    {
-        CleanDirectory(distDirectory);
+{
+   var result = GitVersion(new GitVersionSettings {
+        UpdateAssemblyInfo = true
     });
+    
+    version = result.NuGetVersionV2;
+    Information($"Nuget Version: { version.ToString() }");
+    Information($"Semantic Version: { result.FullSemVer.ToString() }");
+});
 
 Task("Restore")
     .Description("Restoring the solution dependencies")
-    .Does(() =>
-    {
-        DotNetRestore();
-    });
-
- Task("Build")
-    .Does(() =>
-    {
+    .Does(() => {
     
-       var buildSettings =  new DotNetBuildSettings { 
-                                                          Configuration = configuration,
-                                                          ArgumentCustomization = args => args.Append("--no-restore"),
-                                                         };
-        var projects = GetFiles("./**/*.csproj");
-        
-        foreach(var project in projects)
-        {
-           Information("Building Project: " + project);
-           DotNetBuild(project.ToString(), buildSettings);
-        }
-      });
+    var projects = GetFiles("**/**/*.csproj");
+
+    foreach(var project in projects )
+    {
+      Information($"Restoring { project.ToString()}");
+      DotNetRestore(project.ToString());
+    }
+
+});
+
+Task("Build")
+    .IsDependentOn("Version")
+    .Does(() => {
+     var buildSettings = new DotNetBuildSettings {
+                        Configuration = configuration,
+                       };
+     var projects = GetFiles("**/**/*.csproj");
+     foreach(var project in projects )
+     {
+         Information($"Building {project.ToString()}");
+         DotNetBuild(project.ToString(),buildSettings);
+     }
+});
 
 Task("Test")
-    .Does(() =>
-    {
-        var projects = GetFiles("./tests/**/*.Tests.csproj");
-        foreach(var project in projects)
-        {
-            Information("Testing project " + project);
-            DotNetTest(
-                project.ToString(),
-                new DotNetTestSettings()
-                {
-                    Configuration = configuration
-                });
-        }
-    });
+    .IsDependentOn("Build")
+    .Does(() => {
+
+       var testSettings = new DotNetTestSettings  {
+          Configuration = configuration,
+          NoBuild = true,
+      };
+      
+     var projects = GetFiles("./tests/Unit/*.csproj");
+     foreach(var project in projects )
+     {
+       Information($"Running Tests : { project.ToString()}");
+       DotNetTest(project.ToString(), testSettings );
+     }
+});
+
+Task("Pack")
+ .IsDependentOn("Test")
+ .Does(() => {
  
+   var settings = new DotNetPackSettings
+    {
+        Configuration = configuration,
+        OutputDirectory = "./.artifacts",
+        MSBuildSettings = new DotNetMSBuildSettings()
+                        .WithProperty("PackageVersion", version)
+                        .WithProperty("Copyright", $"© Copyright Threenine.co.uk {DateTime.Now.Year}")
+                        .WithProperty("Version", version)
+    };
+    
+    DotNetPack("Threenine.Data.sln", settings);
+ 
+ });
+ 
+ Task("Publish")
+  .IsDependentOn("Pack")
+  .Does(context => {
+  
+  
+    foreach(var file in GetFiles("./.artifacts/*.nupkg"))
+     {
+       Information("Publishing {0}...", file.GetFilename().FullPath);
+       DotNetNuGetPush(file, new DotNetNuGetPushSettings {
+             ApiKey = context.EnvironmentVariable("NUGET_API_KEY"),
+             Source = "https://api.nuget.org/v3/index.json"
+       });
+      
+   }
+});
+
+
+
+
+//////////////////////////////////////////////////////////////////////
+// EXECUTION
+//////////////////////////////////////////////////////////////////////
+
 Task("Default")
        .IsDependentOn("Clean")
        .IsDependentOn("Restore")
+       .IsDependentOn("Version")
        .IsDependentOn("Build")
-       .IsDependentOn("Test");
-  
-  
-RunTarget(target);
+       .IsDependentOn("Test")
+       .IsDependentOn("Pack")
+       .IsDependentOn("Publish");
 
+RunTarget(target);

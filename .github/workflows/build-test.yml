@@ -1,13 +1,11 @@
 name: nuget-build-deploy
-
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     branches:
-      - master
-
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,38 +13,18 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
         with:
-            dotnet-version: 6.0.x
-      - name: Install GitVersion
-        uses: gittools/actions/gitversion/setup@v0.9.7
-        with:
-          versionSpec: '5.x'
-
+          dotnet-version: 6.0.x
       - name: Check out Code
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-
-      - name: Determine Version
-        id: gitversion
-        uses: gittools/actions/gitversion/execute@v0.9.7
-        with:
-          useConfigFile: true
-          configFilePath: ./.github/gitversion.yml
-
-      - name: Restore dependencies
-        run: dotnet restore
-
-      - name: Build dotnet
-        run: dotnet build Threenine.Data.sln --configuration release /p:Version=${{ steps.gitversion.outputs.AssemblySemVer }} /p:AssemblyVersion=${{ steps.gitversion.outputs.AssemblySemVer }} /p:InformationalVersion=${{ steps.gitversion.outputs.InformationalVersion }} --no-restore
-
-      - name: Run Tests
-        run: dotnet test --configuration Release /p:Version=${{ steps.gitversion.outputs.AssemblySemVer }} --no-build --verbosity normal
-
-      - name: Package nuget
-        run: dotnet pack Threenine.Data.sln --configuration release -o:package /p:PackageVersion=${{ steps.gitversion.outputs.AssemblySemVer }}
-
-      - name: Push generated package to GitHub registry
-        run: dotnet nuget push ./package/*.nupkg  --source "https://nuget.pkg.github.com/threenine/index.json"  --api-key ${{ github.token }}
-        
-      - name: Push generated package to nuget registry
-        run: dotnet nuget push ./package/*.nupkg  --source "https://api.nuget.org/v3/index.json"  -k ${{ secrets.NUGET_API_KEY }}
+      - name: Run cake
+        shell : bash
+        env:
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          dotnet new tool-manifest
+          dotnet tool install Cake.Tool
+          dotnet tool restore
+          dotnet cake
