@@ -37,7 +37,7 @@ Dependency injection addresses a few issues in software development
 - Injection of the service into the constructor of the class where it's used. The framework takes on the responsibility of creating an instance of the dependency and disposing of it when it's no longer needed.
 
 
-### How to use Threenine.Data.DependencyInjection
+## How to use Dependency Injection
 
 Once you have added the Nuget Package to your project, you can edit your `Startup.cs`  and import `using Threenine.Data.DependencyInjection;`
 

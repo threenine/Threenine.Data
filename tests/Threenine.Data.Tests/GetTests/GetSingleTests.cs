@@ -38,6 +38,16 @@ namespace Threenine.Data.Tests.GetTests
         }
 
         [Fact]
+        public void Should_Get_Selector()
+        {
+            var product = _unitOfWork.GetRepository<TestProduct>().SingleOrDefault(x => new { x.Name }, x => x.Id == 1);
+            
+            product.ShouldSatisfyAllConditions(
+                () => product.ShouldNotBeNull()
+                );
+        }
+
+        [Fact]
         public void GetSingleOrDefaultWithOrderByTest()
         {
             //Act

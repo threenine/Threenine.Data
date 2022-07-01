@@ -43,7 +43,7 @@ namespace Threenine.Data.Tests.ReadOnlyRepositoryTests
             using var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
             var repo = uow.GetReadOnlyRepositoryAsync<TestProduct>();
 
-            var product = await repo.SingleOrDefaultAsync(x => x.Id == 1);
+            var product = await repo.SingleOrDefaultAsync(predicate: x => x.Id == 1);
 
             product.ShouldNotBeNull();
            
@@ -64,7 +64,7 @@ namespace Threenine.Data.Tests.ReadOnlyRepositoryTests
             using var uow = new UnitOfWork<TestDbContext>(_fixture.Context);
             var repo = uow.GetReadOnlyRepositoryAsync<TestProduct>();
 
-            var product = await repo.SingleOrDefaultAsync(x => x.Id == 10001);
+            var product = await repo.SingleOrDefaultAsync(predicate: x => x.Id == 10001);
 
             Assert.Null(product);
         }

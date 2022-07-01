@@ -18,6 +18,7 @@
 using System;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Query;
 using Threenine.Data.Paging;
 
@@ -36,6 +37,15 @@ namespace Threenine.Data
             Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
             bool enableTracking = true,
             bool ignoreQueryFilters = false);
+        
+        TResult SingleOrDefault<TResult>(Expression<Func<T, TResult>> selector,
+            Expression<Func<T, bool>> predicate = null,
+            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
+            Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
+            bool disableTracking = true,
+            bool ignoreQueryFilters = false);
+        
+         
 
         IPaginate<T> GetList(Expression<Func<T, bool>> predicate);
         

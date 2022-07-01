@@ -49,6 +49,13 @@ If you would like ot use `SingleOrDefault` with tracking enabled then simply pas
 var product = uow.GetRepository<TestProduct>().SingleOrDefault(orderBy: x => x.OrderBy(x => x.Name), include: x => x.Include(x => x.Category));
 ```
 
+#### Projection 
+The ability to only select the columns you need from the data is provided by the selector 
+
+```c#
+var projection = _unitOfWork.GetRepository<TesProduct>().SingleOrDefault(b => new { Name = b.Name }, predicate: x => x.Title.Contains(term));
+
+```
  
 #### GetList
 

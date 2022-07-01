@@ -5,8 +5,13 @@
 The current members of the maintenance team 
 
  * [@garywoodfine](https://github.com/garywoodfine)
+
+### Version 3.3.1  (02 June 2022)
+#### Feature upgrade
+* Added projection capability to enable only extracting the columns you need from the database.  Initially this is only implemented on `SingleOrDefault` and `SingleOrDefaultAsync` 
+
 ### Version 3.2.3 (01 June 2022)
-#### Feature upgrades
+#### Maintenance update
 * Updated the documentation
 * 
 

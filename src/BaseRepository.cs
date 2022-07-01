@@ -130,7 +130,31 @@ namespace Threenine.Data
 
             return orderBy != null ? orderBy(query).ToPaginate(index, size) : query.ToPaginate(index, size);
         }
+        
+        
+        public TResult SingleOrDefault<TResult>(Expression<Func<T, TResult>> selector,
+            Expression<Func<T, bool>> predicate = null,
+            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
+            Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
+            bool disableTracking = true,
+            bool ignoreQueryFilters = false)
+        {
+            IQueryable<T> query = _dbSet;
 
+            if (disableTracking) query = query.AsNoTracking();
+            
+
+            if (include != null) query = include(query);
+            
+
+            if (predicate != null)  query = query.Where(predicate);
+            
+
+            if (ignoreQueryFilters) query = query.IgnoreQueryFilters();
+            
+            return orderBy != null ? orderBy(query).Select(selector).FirstOrDefault() : query.Select(selector).FirstOrDefault();
+        }
+        
 
         public IPaginate<TResult> GetList<TResult>(Expression<Func<T, TResult>> selector,
             Expression<Func<T, bool>> predicate = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,

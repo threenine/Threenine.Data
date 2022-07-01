@@ -38,6 +38,7 @@ namespace Threenine.Data
 
         #region SingleOrDefault
 
+        
        
         public async Task<T> SingleOrDefaultAsync(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy)
         {
@@ -73,6 +74,25 @@ namespace Threenine.Data
             if (orderBy != null) return await orderBy(query).FirstOrDefaultAsync();
 
             return await query.FirstOrDefaultAsync();
+        }
+        public async Task<TResult> SingleOrDefaultAsync<TResult>(Expression<Func<T, TResult>> selector,
+            Expression<Func<T, bool>> predicate = null,
+            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
+            Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
+            bool disableTracking = true,
+            bool ignoreQueryFilters = false)
+        {
+            IQueryable<T> query = _dbSet;
+
+            if (disableTracking) query = query.AsNoTracking();
+            
+            if (include != null) query = include(query);
+            
+            if (predicate != null) query = query.Where(predicate);
+            
+            if (ignoreQueryFilters) query = query.IgnoreQueryFilters();
+
+            return orderBy != null ? await orderBy(query).Select(selector).FirstOrDefaultAsync() : await query.Select(selector).FirstOrDefaultAsync();
         }
 
         public async Task<IPaginate<T>> GetListAsync(Expression<Func<T, bool>> predicate)
