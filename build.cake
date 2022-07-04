@@ -63,7 +63,7 @@ Task("Test")
           NoBuild = true,
       };
       
-     var projects = GetFiles("./tests/Unit/*.csproj");
+     var projects = GetFiles("./tests/Threenine.Data.Tests/*.csproj");
      foreach(var project in projects )
      {
        Information($"Running Tests : { project.ToString()}");

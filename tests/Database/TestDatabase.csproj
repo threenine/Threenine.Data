@@ -2,10 +2,14 @@
 
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.5" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.5" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.5" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.6">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
   </ItemGroup>
 
 </Project>
