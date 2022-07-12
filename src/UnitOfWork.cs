@@ -66,15 +66,15 @@ namespace Threenine.Data
 
         public TContext Context { get; }
 
-        public int Commit(bool autoHistory = false)
+        public int Commit()
         {
-            if (autoHistory) Context.EnsureAutoHistory();
+           
             return Context.SaveChanges();
         }
 
-        public async Task<int> CommitAsync(bool autoHistory = false)
+        public async Task<int> CommitAsync()
         {
-            if (autoHistory) Context.EnsureAutoHistory();
+           
 
             return await Context.SaveChangesAsync();
         }
