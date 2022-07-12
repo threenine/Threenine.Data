@@ -69,14 +69,14 @@ namespace Threenine.Data
         public int Commit(bool autoHistory = false)
         {
             if (autoHistory) Context.EnsureAutoHistory();
-            return Context.SaveChanges(autoHistory);
+            return Context.SaveChanges();
         }
 
         public async Task<int> CommitAsync(bool autoHistory = false)
         {
             if (autoHistory) Context.EnsureAutoHistory();
 
-            return await Context.SaveChangesAsync(autoHistory);
+            return await Context.SaveChangesAsync();
         }
 
         public void Dispose()
