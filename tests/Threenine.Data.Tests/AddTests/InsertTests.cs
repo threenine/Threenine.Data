@@ -56,9 +56,10 @@ namespace Threenine.Data.Tests.AddTests
             var newProduct = repo.Insert(prod);
             uow.Commit();
 
+            
             Assert.NotNull(newProduct);
             Assert.IsAssignableFrom<TestProduct>(newProduct);
-            Assert.Equal(21, newProduct.Id);
+          
         }
 
         [Fact]

@@ -18,6 +18,7 @@
 using System;
 using System.Threading.Tasks;
 using FizzWare.NBuilder;
+using Shouldly;
 using TestDatabase;
 using Threenine.Data.Tests.TestFixtures;
 using Xunit;
@@ -52,9 +53,11 @@ namespace Threenine.Data.Tests.AddTests
             var newProduct = await repo.InsertAsync(prod);
             await uow.CommitAsync();
 
-            Assert.NotNull(newProduct);
-            Assert.IsAssignableFrom<TestProduct>(newProduct.Entity);
-            Assert.Equal(21, newProduct.Entity.Id);
+            newProduct.ShouldSatisfyAllConditions(
+                () => newProduct.ShouldNotBeNull(),
+                () => newProduct.Entity.ShouldBeOfType<TestProduct>()
+            );
+          
         }
     }
 }

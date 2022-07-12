@@ -33,8 +33,7 @@ namespace Threenine.Data.Tests.AddTests
             uow.Commit();
             newProduct.ShouldSatisfyAllConditions(
                 () => newProduct.ShouldNotBeNull(),
-                () => newProduct.ShouldBeAssignableTo<TestProduct>(),
-                () => newProduct.Id.ShouldBeEquivalentTo(21)
+                () => newProduct.ShouldBeAssignableTo<TestProduct>()
             );
 
           
@@ -57,8 +56,8 @@ namespace Threenine.Data.Tests.AddTests
 
             newProduct.ShouldSatisfyAllConditions(
                 () => newProduct.ShouldNotBeNull(),
-                () => newProduct.ShouldBeAssignableTo<TestProduct>(),
-                () => newProduct.Id.ShouldBeEquivalentTo(1)
+                () => newProduct.ShouldBeAssignableTo<TestProduct>()
+              
             );
         }
 

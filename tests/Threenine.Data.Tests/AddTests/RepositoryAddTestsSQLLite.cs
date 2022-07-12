@@ -16,6 +16,7 @@
 */
 
 using System;
+using Shouldly;
 using TestDatabase;
 using Threenine.Data.Tests.TestFixtures;
 using Xunit;
@@ -50,7 +51,7 @@ namespace Threenine.Data.Tests.AddTests
                 repo.Insert(newCategory);
                 uow.Commit();
                 //Assert
-                Assert.Equal(1, newCategory.Id);
+             
             }
         }
 
@@ -68,12 +69,15 @@ namespace Threenine.Data.Tests.AddTests
                 };
 
                 //Act 
-                repo.Insert(newProduct);
+             var newProd =  repo.Insert(newProduct);
                 uow.Commit();
 
 
                 //Assert
-                Assert.Equal(1, newProduct.Id);
+               newProd.ShouldSatisfyAllConditions(
+                   () => newProd.ShouldNotBeNull(),
+                   () => newProd.ShouldBeAssignableTo<TestProduct>()
+                   );
             }
         }
     }

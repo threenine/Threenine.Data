@@ -15,6 +15,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+using Shouldly;
 using TestDatabase;
 using Threenine.Data.Tests.TestFixtures;
 using Xunit;
@@ -40,11 +41,13 @@ namespace Threenine.Data.Tests.AddTests
             var newProduct = new TestProduct {Name = GlobalTestStrings.TestProductName};
 
             // Act
-            repo.Insert(newProduct);
+         var newProd =   repo.Insert(newProduct);
             uow.Commit();
 
             //Assert
-            Assert.Equal(1, newProduct.Id);
+          newProd.ShouldSatisfyAllConditions(
+              () => newProd.ShouldNotBeNull()
+              );
         }
     }
 }

@@ -37,10 +37,13 @@ namespace TestDatabase
             modelBuilder.Entity<TestCategory>(entity =>
             {
                 entity.ToTable("TestCategory");
+                entity.HasKey(x => x.Id).Metadata.IsPrimaryKey();
+                entity.HasIndex(x => x.Id);
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
                     .HasAnnotation("Sqlite:Autoincrement", true)
                     .IsRequired()
+                    
                     .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.Name)
@@ -51,6 +54,9 @@ namespace TestDatabase
             modelBuilder.Entity<TestProduct>(entity =>
             {
                 entity.ToTable("TestProduct");
+                entity.HasKey(x => x.Id).Metadata.IsPrimaryKey();
+                entity.HasIndex(x => x.Id);
+                
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
                     .HasAnnotation("Sqlite:Autoincrement", true)
