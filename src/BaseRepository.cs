@@ -152,7 +152,7 @@ namespace Threenine.Data
 
             if (ignoreQueryFilters) query = query.IgnoreQueryFilters();
             
-            return orderBy != null ? orderBy(query).Select(selector).FirstOrDefault() : query.Select(selector).FirstOrDefault();
+            return orderBy != null ? orderBy(query).Select(selector).SingleOrDefault() : query.Select(selector).SingleOrDefault();
         }
         
 

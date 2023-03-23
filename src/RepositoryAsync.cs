@@ -71,9 +71,9 @@ namespace Threenine.Data
 
             if (ignoreQueryFilters) query = query.IgnoreQueryFilters();
 
-            if (orderBy != null) return await orderBy(query).FirstOrDefaultAsync();
+            if (orderBy != null) return await orderBy(query).SingleOrDefaultAsync();
 
-            return await query.FirstOrDefaultAsync();
+            return await query.SingleOrDefaultAsync();
         }
         public async Task<TResult> SingleOrDefaultAsync<TResult>(Expression<Func<T, TResult>> selector,
             Expression<Func<T, bool>> predicate = null,
@@ -92,7 +92,7 @@ namespace Threenine.Data
             
             if (ignoreQueryFilters) query = query.IgnoreQueryFilters();
 
-            return orderBy != null ? await orderBy(query).Select(selector).FirstOrDefaultAsync() : await query.Select(selector).FirstOrDefaultAsync();
+            return orderBy != null ? await orderBy(query).Select(selector).SingleOrDefaultAsync() : await query.Select(selector).SingleOrDefaultAsync();
         }
 
         public async Task<IPaginate<T>> GetListAsync(Expression<Func<T, bool>> predicate)
